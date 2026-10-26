@@ -12,10 +12,10 @@ e 9 capturas das telas (JPEG, apesar da extensão `.png` no Drive).
 | 2- Página de cadastro.png | 3 · Como se cadastrar | |
 | 3- Página do Minute.png | 4 · App MINUTE | |
 | 4- Página Pagamentos.png | 5 · Pagamentos | |
-| 6- Página de dicas de gravação.png | 6 · Dicas de gravação | |
-| 5- Página Suporte da Cabeça.png | 7 · Suporte | numeração do Drive invertida com a 6; vale a ordem do Guia |
+| 5- Página Suporte da Cabeça.png | 6 · Suporte | no Guia é a página 7 — **vale a numeração do Drive** (decisão do cliente) |
+| 6- Página de dicas de gravação.png | 7 · Dicas de gravação | no Guia é a página 6 — idem |
 | 7- Página Pagamentos.png | 8 · Celulares compatíveis | **nome do arquivo errado** (conteúdo é compatibilidade) |
-| Página Entenda o Propósito.png | 9 · Propósito | |
+| Página Entenda o Propósito.png | 9 · Propósito | sem número; fica por último, como no Guia |
 
 ## Conteúdo extraído por seção
 
@@ -24,8 +24,8 @@ e 9 capturas das telas (JPEG, apesar da extensão `.png` no Drive).
 3. **Como se cadastrar** — 5 passos numerados, botão "Acessar a Hub – inserir meu link", telefone com formulário "Criar sua conta" (nome, e-mail, código de indicação, nascimento, CPF, forma de pagamento), aviso "Não invente dados nem use e-mails diferentes entre as contas".
 4. **App MINUTE** — "O app onde tudo acontece." · logo "M. MINUTE — Grave. Contribua. Ganhe." · carrossel do telefone com setas · texto sincronizado "Passo 1 de 5 — Grave pelo app".
 5. **Pagamentos** — "Seu trabalho vira saldo." · carteira ilustrativa R$ 186,50 · 3 etapas (vídeo aprovado, saldo na carteira, solicite o saque via Pix) · alerta da chave Pix · blocos "Saldo na carteira da Hub" e "Dias de saque".
-6. **Dicas de gravação** — carrossel com cartão central (imagem + selo ✓/✗ + título + descrição), cartões laterais parcialmente visíveis, seta "Passe para o lado", 4 indicadores.
-7. **Suporte de cabeça** — foto do produto + foto de uso com ângulo de 45° · "Pelo site da Hub (Gratuito)" e "Compre online (Rápido e acessível)" · lista "Links úteis para compra".
+6. **Suporte de cabeça** — foto do produto + foto de uso com ângulo de 45° · "Pelo site da Hub (Gratuito)" e "Compre online (Rápido e acessível)" · lista "Links úteis para compra".
+7. **Dicas de gravação** — carrossel com cartão central (imagem + selo ✓/✗ + título + descrição), cartões laterais parcialmente visíveis, seta "Passe para o lado", 4 indicadores.
 8. **Celulares compatíveis** — iPhone 12 ao 16 (todas as variantes) · Android: Samsung S21–S25, Google Pixel 6–9, outras marcas (Xiaomi, Motorola, OnePlus, Realme, Oppo, Vivo) · aviso "Importante!".
 9. **Propósito** — robô com suporte na cabeça · 3 etapas (Você grava → A IA aprende → O futuro avança) · bloco "Você faz parte disso!".
 
