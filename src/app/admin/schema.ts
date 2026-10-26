@@ -48,6 +48,15 @@ export const groups: Group[] = [
     fields: linkFields.map((l) => ({ kind: "url", path: `links.${l.key}`, label: l.label, hint: l.key })),
   },
   {
+    id: "geral",
+    title: "Identidade do guia",
+    fields: [
+      t("guia.nome", "Nome do guia (no topo do site)"),
+      t("guia.selo", "Selo abaixo do nome"),
+      ta("guia.rodape", "Texto do rodapé (aviso de guia independente)"),
+    ],
+  },
+  {
     id: "nav",
     title: "Menu superior",
     fields: [
@@ -58,6 +67,7 @@ export const groups: Group[] = [
     id: "inicio",
     title: "1 · Início",
     fields: [
+      t("hero.selo", "Selo (acima do título)"),
       t("hero.tituloBranco", "Título — parte branca"),
       t("hero.tituloVerde", "Título — parte verde"),
       ta("hero.texto", "Texto"),

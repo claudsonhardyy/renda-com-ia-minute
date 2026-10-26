@@ -2,23 +2,24 @@ import type { SiteContent } from "@/content/site";
 import { HeroMedia } from "../HeroMedia";
 import { Icon } from "../Icon";
 import { TutorialButton } from "../TutorialButton";
-import { PhoneFrame, Section } from "../ui";
+import { PhoneFrame, Section, Tag } from "../ui";
 
-// Referência: 1- Página Inicial
+// Referência: 1- Página Inicial — título, texto, botões, celular e foto na mesma tela.
 export function Inicio({ c }: { c: SiteContent }) {
   const { hero, links } = c;
   return (
-    <Section id="inicio" className="pt-28 md:pt-32">
-      <div className="grid items-center gap-10 md:grid-cols-[1.05fr_0.8fr_0.95fr] md:gap-6">
+    <Section id="inicio">
+      <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_auto_1fr] lg:gap-10">
         <div>
-          <h1 className="text-5xl leading-[1.02] font-extrabold tracking-tight text-balance lg:text-[4.2rem]">
+          <Tag icon="checkCircle">{hero.selo}</Tag>
+          <h1 className="page-title mt-4">
             {hero.tituloBranco} <span className="text-lime">{hero.tituloVerde}</span>
           </h1>
-          <p className="mt-6 max-w-md text-lg text-white/85 lg:text-xl">{hero.texto}</p>
-          <div className="mt-8 flex max-w-xs flex-col gap-4">
+          <p className="page-sub mt-5 max-w-md text-white/85">{hero.texto}</p>
+          <div className="mt-7 flex max-w-xs flex-col gap-3">
             <a
               href="#como-funciona"
-              className="inline-flex items-center justify-center gap-3 rounded-full bg-lime px-6 py-4 text-lg font-bold text-lime-ink transition hover:brightness-105 active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-3 rounded-full bg-lime px-6 py-3.5 text-lg font-bold text-lime-ink transition hover:brightness-105 active:scale-[0.98]"
             >
               {hero.botaoPrincipal}
               <Icon name="arrowRight" className="size-6" />
@@ -26,22 +27,20 @@ export function Inicio({ c }: { c: SiteContent }) {
             <TutorialButton
               url={links.url_tutorial}
               label={hero.botaoTutorial}
-              className="inline-flex items-center justify-center gap-3 rounded-full border-2 border-lime px-6 py-3.5 text-lg font-bold text-white transition hover:bg-lime/10"
+              className="inline-flex items-center justify-center gap-3 rounded-full border-2 border-lime px-6 py-3 text-lg font-bold text-white transition hover:bg-lime/10"
             />
           </div>
         </div>
 
-        <PhoneFrame className="mx-auto w-[min(70vw,250px)]">
-          <div className="aspect-[202/456]">
-            <HeroMedia media={hero.hero_video_or_image} />
-          </div>
+        <PhoneFrame ratio="202/456" className="mx-auto h-[min(64vh,560px)]">
+          <HeroMedia media={hero.hero_video_or_image} />
         </PhoneFrame>
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={hero.foto.src}
           alt={hero.foto.alt}
-          className="mx-auto w-full max-w-sm rounded-3xl object-cover md:max-w-none [mask-image:linear-gradient(to_right,transparent,black_18%)]"
+          className="mx-auto h-[min(70vh,620px)] w-full max-w-md rounded-3xl object-cover lg:max-w-none"
         />
       </div>
     </Section>

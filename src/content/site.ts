@@ -64,7 +64,16 @@ export const nav: { id: string; label: string }[] = [
   { id: "proposito", label: "Propósito" },
 ];
 
+// Identidade do guia: é um guia independente sobre a Hub e o app MINUTE, não o site de nenhum dos dois.
+export const guia = {
+  nome: "Hub + MINUTE",
+  selo: "Guia independente",
+  rodape:
+    "Guia independente sobre a Hub e o aplicativo MINUTE. Este site não é o site oficial da Hub nem do MINUTE.",
+};
+
 export const hero = {
+  selo: "Guia completo Hub + MINUTE",
   tituloBranco: "Faça seu trabalho",
   tituloVerde: "render ainda mais.",
   texto:
@@ -274,7 +283,8 @@ export const dicas = {
       image: { src: "/media/dica-1.jpg", alt: "Pessoa com suporte de cabeça gravando a pia da cozinha" },
       titulo: "Enquadramento correto",
       descricao: "Mantenha o foco na tarefa, com boa iluminação e o celular bem firme.",
-      status: "correto",
+      // A imagem recortada da referência já traz o selo ✓; trocando a imagem, use "correto".
+      status: null,
     },
     { image: { src: "", alt: "" }, titulo: "", descricao: "", status: "incorreto" },
     { image: { src: "", alt: "" }, titulo: "", descricao: "", status: null },
@@ -358,6 +368,7 @@ export const proposito = {
 };
 
 export const defaultContent = {
+  guia,
   links,
   nav,
   hero,

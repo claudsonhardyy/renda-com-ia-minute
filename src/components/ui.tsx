@@ -1,5 +1,6 @@
 import { Icon } from "./Icon";
 
+// Uma "página" do guia: ocupa a tela inteira (descontada a barra superior) e centraliza o conteúdo.
 export function Section({
   id,
   children,
@@ -12,9 +13,9 @@ export function Section({
   return (
     <section
       id={id}
-      className={`relative mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 md:py-28 lg:px-8 ${className}`}
+      className={`relative flex min-h-dvh w-full snap-start items-center border-t border-white/[0.06] pt-16 first:border-t-0 ${className}`}
     >
-      {children}
+      <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-10 lg:py-6">{children}</div>
     </section>
   );
 }
@@ -40,7 +41,7 @@ export function Heading({
   as?: "h1" | "h2";
 }) {
   return (
-    <As className="mt-5 text-[2.6rem] leading-[1.05] font-extrabold tracking-tight text-balance sm:text-6xl">
+    <As className="page-title mt-4">
       {white}
       {inline ? " " : <br />}
       <span className="text-lime">{green}</span>
@@ -81,20 +82,24 @@ export function ExternalLink({
   );
 }
 
-// Moldura de celular; a tela interna é uma mídia editável (imagem ou vídeo).
+// Moldura de celular dimensionada pela ALTURA (className com h-…), para caber na página.
+// A tela interna é uma mídia editável (imagem ou vídeo).
 export function PhoneFrame({
   children,
+  ratio,
   className = "",
 }: {
   children: React.ReactNode;
+  ratio: string; // proporção da tela interna, ex.: "202/456"
   className?: string;
 }) {
   return (
     <div
-      className={`relative rounded-[2.6rem] border border-white/15 bg-gradient-to-b from-zinc-700 to-zinc-900 p-[7px] shadow-[0_0_70px_-15px_rgb(182_241_126/0.45)] ${className}`}
+      className={`relative shrink-0 rounded-[2.4rem] border border-white/15 bg-gradient-to-b from-zinc-700 to-zinc-900 p-[6px] shadow-[0_0_70px_-15px_rgb(182_241_126/0.45)] ${className}`}
+      style={{ aspectRatio: ratio.replace("/", " / ") }}
     >
-      <div className="relative overflow-hidden rounded-[2.2rem] bg-black">
-        <div className="absolute top-2 left-1/2 z-10 h-5 w-24 -translate-x-1/2 rounded-full bg-black" />
+      <div className="relative h-full overflow-hidden rounded-[2rem] bg-black">
+        <div className="absolute top-2 left-1/2 z-10 h-4 w-20 -translate-x-1/2 rounded-full bg-black" />
         {children}
       </div>
     </div>
@@ -108,5 +113,29 @@ export function NumberBadge({ n, className = "size-12 text-xl" }: { n: number; c
     >
       {n}
     </span>
+  );
+}
+
+// Seta de carrossel em destaque: círculo verde sólido com brilho.
+export function CarouselArrow({
+  direction,
+  label,
+  onClick,
+  className = "",
+}: {
+  direction: "prev" | "next";
+  label: string;
+  onClick: () => void;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={label}
+      className={`grid size-14 shrink-0 place-items-center rounded-full bg-lime text-lime-ink shadow-[0_0_28px_rgb(182_241_126/0.55)] ring-4 ring-lime/20 transition hover:scale-110 hover:shadow-[0_0_40px_rgb(182_241_126/0.8)] active:scale-95 ${className}`}
+    >
+      <Icon name={direction === "prev" ? "chevronLeft" : "chevronRight"} className="size-7" strokeWidth={2.8} />
+    </button>
   );
 }

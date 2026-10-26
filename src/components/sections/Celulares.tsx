@@ -2,44 +2,44 @@ import type { SiteContent } from "@/content/site";
 import { Icon } from "../Icon";
 import { Heading, Section, Tag } from "../ui";
 
-// Referência: 7- Página "Pagamentos" (o conteúdo é a lista de celulares compatíveis)
+// Referência: 7- Página "Pagamentos" (conteúdo: celulares compatíveis) — listas iPhone/Android e aviso na mesma tela.
 export function Celulares({ c }: { c: SiteContent }) {
   const { celulares } = c;
   const { iphone, android, aviso } = celulares;
   return (
     <Section id="celulares-compativeis">
-      <div className="grid items-center gap-8 md:grid-cols-[1.1fr_0.9fr]">
+      <div className="flex items-center justify-between gap-6">
         <div>
           <Tag icon="phone">{celulares.selo}</Tag>
-          <Heading white={celulares.tituloBranco} green={celulares.tituloVerde} />
-          <p className="mt-6 max-w-md text-lg text-white/85">{celulares.texto}</p>
+          <Heading white={celulares.tituloBranco} green={celulares.tituloVerde} inline />
+          <p className="page-sub mt-3 max-w-xl text-white/85">{celulares.texto}</p>
         </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={celulares.imagemDestaque.src}
           alt={celulares.imagemDestaque.alt}
-          className="mx-auto hidden w-full max-w-sm md:block [mask-image:radial-gradient(closest-side,black_75%,transparent)]"
+          className="hidden h-[min(17vh,150px)] shrink-0 md:block [mask-image:radial-gradient(closest-side,black_70%,transparent)]"
         />
       </div>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
-        <article className="card p-6 sm:p-7">
-          <header className="flex items-center gap-5">
-            <span className="icon-box size-20 shrink-0 text-white">
-              <Icon name="apple" className="size-10" />
+      <div className="mt-4 grid gap-4 lg:grid-cols-2">
+        <article className="card p-4">
+          <header className="flex items-center gap-4">
+            <span className="icon-box size-14 shrink-0 text-white">
+              <Icon name="apple" className="size-8" />
             </span>
             <div>
-              <h3 className="text-2xl font-bold">{iphone.titulo}</h3>
-              <p className="mt-1 text-lime">{iphone.subtitulo}</p>
+              <h3 className="text-xl font-bold">{iphone.titulo}</h3>
+              <p className="text-sm text-lime">{iphone.subtitulo}</p>
             </div>
           </header>
-          <div className="mt-6 flex gap-6">
+          <div className="mt-4 flex gap-5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={iphone.imagem.src} alt={iphone.imagem.alt} className="hidden w-28 self-start sm:block" />
-            <ul className="grid flex-1 gap-1.5 sm:pl-6">
+            <img src={iphone.imagem.src} alt={iphone.imagem.alt} className="hidden h-[min(28vh,240px)] self-center sm:block" />
+            <ul className="grid flex-1 grid-cols-2 gap-x-4 gap-y-1 text-sm">
               {iphone.modelos.map((m) => (
-                <li key={m} className="flex items-center gap-3">
-                  <Icon name="checkCircle" className="size-5 shrink-0 text-lime" strokeWidth={2.2} />
+                <li key={m} className="flex items-center gap-2">
+                  <Icon name="checkCircle" className="size-4 shrink-0 text-lime" strokeWidth={2.2} />
                   {m}
                 </li>
               ))}
@@ -47,27 +47,27 @@ export function Celulares({ c }: { c: SiteContent }) {
           </div>
         </article>
 
-        <article className="card p-6 sm:p-7">
-          <header className="flex items-center gap-5">
-            <span className="icon-box size-20 shrink-0 text-lime">
-              <Icon name="android" className="size-11" />
+        <article className="card p-4">
+          <header className="flex items-center gap-4">
+            <span className="icon-box size-14 shrink-0 text-lime">
+              <Icon name="android" className="size-9" />
             </span>
             <div>
-              <h3 className="text-2xl font-bold">{android.titulo}</h3>
-              <p className="mt-1 text-lime">{android.subtitulo}</p>
+              <h3 className="text-xl font-bold">{android.titulo}</h3>
+              <p className="text-sm text-lime">{android.subtitulo}</p>
             </div>
           </header>
-          <div className="mt-6 flex gap-6">
+          <div className="mt-4 flex gap-5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={android.imagem.src} alt={android.imagem.alt} className="hidden w-24 self-start sm:block" />
-            <div className="flex-1 space-y-6">
+            <img src={android.imagem.src} alt={android.imagem.alt} className="hidden h-[min(20vh,170px)] self-center xl:block" />
+            <div className="flex-1 gap-x-5 text-sm sm:columns-2">
               {android.marcas.map((marca) => (
-                <div key={marca.nome}>
-                  <h4 className="flex items-center gap-3 font-bold">
-                    <Icon name="checkCircle" className="size-5 shrink-0 text-lime" strokeWidth={2.2} />
+                <div key={marca.nome} className="mb-3 break-inside-avoid">
+                  <h4 className="flex items-center gap-2 font-bold">
+                    <Icon name="checkCircle" className="size-4 shrink-0 text-lime" strokeWidth={2.2} />
                     {marca.nome}
                   </h4>
-                  <ul className="mt-2 space-y-1 pl-8 text-white/85">
+                  <ul className="mt-1 space-y-0.5 pl-6 text-[13px] text-white/85">
                     {marca.modelos.map((m) => (
                       <li key={m}>{m}</li>
                     ))}
@@ -79,11 +79,11 @@ export function Celulares({ c }: { c: SiteContent }) {
         </article>
       </div>
 
-      <div className="card mt-8 flex items-center gap-6 p-6">
-        <Icon name="alertCircle" className="size-14 shrink-0 text-lime" strokeWidth={1.6} />
-        <div className="border-l border-white/15 pl-6">
-          <h4 className="text-xl font-bold text-lime">{aviso.titulo}</h4>
-          <p className="mt-1 text-white/85">{aviso.texto}</p>
+      <div className="card mt-3 flex items-center gap-5 px-4 py-3">
+        <Icon name="alertCircle" className="size-10 shrink-0 text-lime" strokeWidth={1.6} />
+        <div className="border-l border-white/15 pl-5">
+          <h4 className="text-lg font-bold text-lime">{aviso.titulo}</h4>
+          <p className="text-sm text-white/85">{aviso.texto}</p>
         </div>
       </div>
     </Section>

@@ -4,11 +4,26 @@ import { useEffect, useState } from "react";
 import type { SiteContent } from "@/content/site";
 import { Icon } from "./Icon";
 
-export function Header({ nav }: { nav: SiteContent["nav"] }) {
+// Marca do guia (não é o logo da Hub nem do MINUTE): selo "GUIA" + "Hub + MINUTE".
+function Brand({ guia }: { guia: SiteContent["guia"] }) {
+  return (
+    <a href="#inicio" className="flex items-center gap-2.5" aria-label={`${guia.selo}: ${guia.nome} — início`}>
+      <span className="rounded-md bg-lime px-2 py-1 text-[11px] leading-none font-extrabold tracking-wider text-lime-ink">
+        GUIA
+      </span>
+      <span className="leading-tight">
+        <span className="block text-base font-extrabold tracking-tight">{guia.nome}</span>
+        <span className="block text-[11px] text-white/60">{guia.selo}</span>
+      </span>
+    </a>
+  );
+}
+
+export function Header({ nav, guia }: { nav: SiteContent["nav"]; guia: SiteContent["guia"] }) {
   const [active, setActive] = useState<string>(nav[0]?.id ?? "inicio");
   const [open, setOpen] = useState(false);
 
-  // Destaca na barra a seção visível no momento.
+  // Destaca na barra a página visível no momento.
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -31,24 +46,19 @@ export function Header({ nav }: { nav: SiteContent["nav"] }) {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-bg/80 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <a href="#inicio" className="flex items-center gap-2 font-extrabold tracking-[0.2em]" aria-label="MINUTE — início">
-          <span className="grid size-8 place-items-center rounded-lg bg-black text-base tracking-normal ring-1 ring-white/15">
-            M.
-          </span>
-          <span className="text-sm">MINUTE</span>
-        </a>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-lime/25 bg-[#071510]/95 shadow-[0_8px_30px_-12px_rgb(0_0_0/0.8)] backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
+        <Brand guia={guia} />
 
-        <nav aria-label="Seções" className="hidden lg:block">
-          <ul className="flex items-center gap-1">
+        <nav aria-label="Páginas do guia" className="hidden xl:block">
+          <ul className="flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.04] p-1">
             {nav.map((item) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
                   aria-current={active === item.id ? "true" : undefined}
-                  className={`rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors ${
-                    active === item.id ? "bg-lime/15 text-lime" : "text-muted hover:text-white"
+                  className={`block rounded-full px-3 py-1.5 text-[13px] font-semibold transition-colors ${
+                    active === item.id ? "bg-lime text-lime-ink" : "text-white/90 hover:bg-white/10 hover:text-lime"
                   }`}
                 >
                   {item.label}
@@ -60,27 +70,27 @@ export function Header({ nav }: { nav: SiteContent["nav"] }) {
 
         <button
           type="button"
-          className="grid size-10 place-items-center rounded-lg border border-line text-lime lg:hidden"
+          className="flex items-center gap-2 rounded-full bg-lime px-4 py-2 text-sm font-bold text-lime-ink xl:hidden"
           aria-expanded={open}
           aria-controls="menu-mobile"
-          aria-label={open ? "Fechar menu" : "Abrir menu"}
           onClick={() => setOpen((v) => !v)}
         >
-          <Icon name={open ? "x" : "menu"} className="size-5" />
+          <Icon name={open ? "x" : "menu"} className="size-5" strokeWidth={2.4} />
+          {open ? "Fechar" : "Menu"}
         </button>
       </div>
 
       {open && (
-        <nav id="menu-mobile" aria-label="Seções" className="border-t border-white/5 bg-bg lg:hidden">
-          <ul className="mx-auto grid max-w-6xl grid-cols-2 gap-1 px-4 py-3 sm:grid-cols-3">
+        <nav id="menu-mobile" aria-label="Páginas do guia" className="border-t border-white/10 bg-[#071510] xl:hidden">
+          <ul className="mx-auto grid max-w-7xl grid-cols-2 gap-1.5 px-4 py-3 sm:grid-cols-3 lg:grid-cols-5">
             {nav.map((item) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
                   onClick={() => setOpen(false)}
                   aria-current={active === item.id ? "true" : undefined}
-                  className={`block rounded-lg px-3 py-2.5 text-sm font-medium ${
-                    active === item.id ? "bg-lime/15 text-lime" : "text-muted"
+                  className={`block rounded-lg px-3 py-2.5 text-sm font-semibold ${
+                    active === item.id ? "bg-lime text-lime-ink" : "bg-white/[0.04] text-white/90"
                   }`}
                 >
                   {item.label}

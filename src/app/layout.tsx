@@ -9,9 +9,9 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "MINUTE — Faça seu trabalho render ainda mais",
+  title: "Guia Hub + MINUTE — Faça seu trabalho render ainda mais",
   description:
-    "Guia para se cadastrar na Hub, configurar o app MINUTE, gravar tarefas do dia a dia e receber pagamentos.",
+    "Guia independente: como se cadastrar na Hub, configurar o app MINUTE, gravar tarefas do dia a dia e receber os pagamentos.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

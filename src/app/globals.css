@@ -15,10 +15,29 @@
 
 html {
   scroll-behavior: smooth;
-  /* altura da barra fixa: ao saltar para uma âncora, o título não fica encoberto */
-  scroll-padding-top: 5rem;
   background: var(--color-bg);
   color-scheme: dark;
+}
+
+/* Cada seção é uma "página" de tela cheia. Em telas de computador a rolagem para
+   de página em página; em telas baixas/celular a rolagem é livre (o conteúdo não cabe). */
+@media (min-width: 1024px) and (min-height: 640px) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
+}
+
+/* Tipografia que escala com a altura da tela, para cada página caber inteira. */
+.page-title {
+  font-size: clamp(2.1rem, calc(3.4vh + 1.5vw), 4.1rem);
+  line-height: 1.04;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.page-sub {
+  font-size: clamp(0.98rem, calc(0.9vh + 0.45vw), 1.25rem);
+  line-height: 1.5;
 }
 
 @media (prefers-reduced-motion: reduce) {

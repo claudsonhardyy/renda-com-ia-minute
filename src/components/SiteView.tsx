@@ -16,7 +16,7 @@ import { Suporte } from "./sections/Suporte";
 export function SiteView({ c, showPending }: { c: SiteContent; showPending: boolean }) {
   return (
     <PendingProvider value={showPending}>
-      <Header nav={c.nav} />
+      <Header nav={c.nav} guia={c.guia} />
       <main>
         <Inicio c={c} />
         <ComoFunciona c={c} />
@@ -28,7 +28,9 @@ export function SiteView({ c, showPending }: { c: SiteContent; showPending: bool
         <Celulares c={c} />
         <Proposito c={c} />
       </main>
-      <footer className="border-t border-white/10 py-8 text-center text-sm text-white/50">MINUTE · Guia independente</footer>
+      <footer className="snap-end border-t border-white/10 px-4 py-6 text-center text-sm text-white/55">
+        <strong className="text-white/80">{c.guia.nome}</strong> · {c.guia.rodape}
+      </footer>
     </PendingProvider>
   );
 }
