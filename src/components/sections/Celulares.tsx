@@ -6,26 +6,31 @@ import { ExternalLink, Heading, Section } from "../ui";
 function PlatformCard({
   icon,
   titulo,
+  etiqueta,
   imagem,
   modelos,
 }: {
   icon: string;
   titulo: string;
+  etiqueta: string;
   imagem: Media;
   modelos: string[];
 }) {
   return (
-    <article className="card relative flex items-center gap-6 overflow-hidden p-6 sm:gap-8 sm:p-8">
-      {/* brilho suave atrás do aparelho */}
-      <div className="pointer-events-none absolute -left-10 top-1/2 size-72 -translate-y-1/2 rounded-full bg-lime/15 blur-3xl" />
+    <article className="card relative flex items-center gap-5 overflow-hidden px-5 py-4 sm:gap-7 sm:px-7">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={imagem.src} alt={imagem.alt} className="relative h-[min(calc(100dvh-24rem),340px)] w-auto shrink-0" />
-      <div className="relative">
-        <span className="icon-box size-14">
-          <Icon name={icon} className="size-8" />
-        </span>
-        <h3 className="block-title mt-4">{titulo}</h3>
-        <ul className="mt-3 space-y-2.5">
+      <img src={imagem.src} alt={imagem.alt} className="relative h-[min(calc(100dvh-22rem),360px)] w-auto shrink-0" />
+      <div className="relative min-w-0">
+        {/* Pílula do modelo do cliente: ícone | nome / COMPATÍVEIS */}
+        <div className="inline-flex items-center gap-4 rounded-full border-2 border-lime/80 bg-black/20 py-2.5 pr-6 pl-4 shadow-[0_0_24px_-6px_rgb(166_247_116/0.6)]">
+          <Icon name={icon} className="size-9 shrink-0 text-lime" />
+          <span className="h-9 w-px bg-white/25" />
+          <span className="leading-tight">
+            <span className="block text-2xl font-semibold">{titulo}</span>
+            <span className="block text-xs font-semibold tracking-[0.2em] text-lime uppercase">{etiqueta}</span>
+          </span>
+        </div>
+        <ul className="mt-5 space-y-2.5">
           {modelos.map((m) => (
             <li key={m} className="page-sub flex items-start gap-2.5 !text-white">
               <Icon name="checkCircle" className="mt-1 size-5 shrink-0 text-lime" strokeWidth={2.2} />
@@ -48,8 +53,8 @@ export function Celulares({ c }: { c: SiteContent }) {
       <p className="page-sub mt-2">{celulares.texto}</p>
 
       <div className="mt-[3vh] grid gap-5 lg:grid-cols-2">
-        <PlatformCard icon="apple" titulo={iphone.titulo} imagem={iphone.imagem} modelos={iphone.modelos} />
-        <PlatformCard icon="android" titulo={android.titulo} imagem={android.imagem} modelos={android.modelos} />
+        <PlatformCard icon="apple" {...iphone} />
+        <PlatformCard icon="android" {...android} />
       </div>
 
       <div className="card mt-5 flex flex-wrap items-center justify-between gap-4 px-5 py-4">

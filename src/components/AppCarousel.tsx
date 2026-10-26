@@ -30,9 +30,9 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
         className="flex flex-col items-center gap-4 rounded-3xl outline-offset-8"
         {...regionProps}
       >
-        <div className="flex items-center gap-3 sm:gap-5">
+        <div className="flex items-center gap-3 sm:gap-4">
           <CarouselArrow direction="prev" label="Imagem anterior do aplicativo" onClick={prev} disabled={!many} />
-          <PhoneFrame ratio="302/620" className="h-[min(calc(100dvh-10rem),700px)]">
+          <PhoneFrame ratio="302/620" className="h-[min(calc(100dvh-8.5rem),760px)]">
             {pending ? (
               <div className="grid h-full place-items-center p-6 text-center text-sm text-amber-200">
                 Imagem {index + 1} pendente
@@ -53,7 +53,7 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
               onClick={() => goTo(i)}
               aria-label={`Ir para o passo ${i + 1}`}
               aria-current={i === index ? "true" : undefined}
-              className={`size-3.5 rounded-full border-2 border-lime transition ${i === index ? "scale-110 bg-lime shadow-[0_0_10px_rgb(182_241_126/0.8)]" : "bg-transparent hover:bg-lime/40"}`}
+              className={`h-3 rounded-full transition-all duration-500 ease-out ${i === index ? "w-8 bg-lime shadow-[0_0_10px_rgb(166_247_116/0.8)]" : "w-3 bg-white/30 hover:bg-lime/50"}`}
             />
           ))}
         </div>

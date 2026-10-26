@@ -7,9 +7,11 @@ export function Dicas({ c }: { c: SiteContent }) {
   const { dicas } = c;
   return (
     <Section id="dicas-gravacao">
-      <div className="mb-[3vh] flex flex-wrap items-end justify-between gap-x-10 gap-y-3">
+      {/* Título centralizado, barrinha fina e subtítulo, alinhados ao quadro do carrossel */}
+      <div className="mx-auto mb-[3vh] max-w-3xl text-center">
         <Heading white={dicas.tituloBranco} green={dicas.tituloVerde} inline />
-        <p className="page-sub max-w-md text-white/85">{dicas.texto}</p>
+        <div className="mx-auto mt-[2vh] h-px w-24 bg-lime/70" />
+        <p className="page-sub mt-[1.6vh]">{dicas.texto}</p>
       </div>
       <TipsCarousel items={dicas.itens} hint={dicas.passeParaOLado} />
     </Section>

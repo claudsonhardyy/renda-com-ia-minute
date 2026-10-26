@@ -47,20 +47,35 @@ export function TipsCarousel({ items: all, hint }: { items: TipItem[]; hint: str
       </div>
 
       <div className="card grid min-w-0 flex-1 items-stretch gap-6 p-4 sm:p-5 lg:grid-cols-[1.5fr_1fr] lg:gap-7">
-        <div key={`img-${index}`} className="relative animate-[slide_350ms_ease-out] overflow-hidden rounded-2xl border border-lime/40">
-          {pending ? (
-            <div className="grid aspect-[503/240] max-h-[calc(100dvh-17rem)] w-full place-items-center bg-amber-300/5 p-6 text-center text-amber-200">
-              Imagem da dica {index + 1} pendente
-            </div>
-          ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={item.image.src}
-              alt={item.image.alt}
-              className="block aspect-[503/240] max-h-[calc(100dvh-17rem)] w-full object-cover"
-            />
-          )}
-          <StatusBadge status={item.status} />
+        <div className="flex flex-col gap-3">
+          <div key={`img-${index}`} className="relative animate-[slide_350ms_ease-out] overflow-hidden rounded-2xl border border-lime/40">
+            {pending ? (
+              <div className="grid aspect-[503/240] max-h-[calc(100dvh-19rem)] w-full place-items-center bg-amber-300/5 p-6 text-center text-amber-200">
+                Imagem da dica {index + 1} pendente
+              </div>
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={item.image.src}
+                alt={item.image.alt}
+                className="block aspect-[503/240] max-h-[calc(100dvh-19rem)] w-full object-cover"
+              />
+            )}
+            <StatusBadge status={item.status} />
+          </div>
+          {/* Bolinhas: uma por imagem; a acesa é a dica atual */}
+          <div className="flex justify-center gap-2.5">
+            {items.map((_, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => goTo(i)}
+                aria-label={`Ir para a dica ${i + 1}`}
+                aria-current={i === index ? "true" : undefined}
+                className={`h-3 rounded-full transition-all duration-500 ease-out ${i === index ? "w-8 bg-lime shadow-[0_0_10px_rgb(166_247_116/0.8)]" : "w-3 bg-white/30 hover:bg-lime/50"}`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Painel de texto sincronizado com a imagem atual */}
@@ -86,27 +101,12 @@ export function TipsCarousel({ items: all, hint }: { items: TipItem[]; hint: str
             )}
           </div>
 
-          {/* Bolinhas de posição + dica de navegação */}
-          <div className="mt-4 flex items-center justify-between gap-3">
-            <div className="flex gap-2.5">
-              {items.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => goTo(i)}
-                  aria-label={`Ir para a dica ${i + 1}`}
-                  aria-current={i === index ? "true" : undefined}
-                  className={`size-3.5 rounded-full border-2 border-lime transition ${i === index ? "scale-110 bg-lime shadow-[0_0_10px_rgb(182_241_126/0.8)]" : "bg-transparent hover:bg-lime/40"}`}
-                />
-              ))}
-            </div>
-            {many && (
-              <button type="button" onClick={next} className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/85 hover:text-lime">
-                {hint[0]} <span className="text-lime">{hint[1]}</span>
-                <Icon name="arrowRight" className="size-4 text-lime" />
-              </button>
-            )}
-          </div>
+          {many && (
+            <button type="button" onClick={next} className="mt-4 inline-flex items-center gap-1.5 self-end text-sm font-semibold text-white/85 hover:text-lime">
+              {hint[0]} <span className="text-lime">{hint[1]}</span>
+              <Icon name="arrowRight" className="size-4 text-lime" />
+            </button>
+          )}
         </div>
       </div>
 

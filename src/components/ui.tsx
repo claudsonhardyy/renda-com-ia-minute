@@ -49,8 +49,8 @@ export function Heading({
   );
 }
 
-// Link externo configurável. Se o destino estiver vazio, o botão continua visível
-// (como no desenho), mas desabilitado e com aviso acessível — nunca aponta para "#".
+// Link externo configurável. Se o destino estiver vazio, o botão continua visível e com a
+// mesma aparência (a pedido do cliente), mas sem clique e com aviso acessível — nunca aponta para "#".
 export function ExternalLink({
   href,
   className,
@@ -68,7 +68,7 @@ export function ExternalLink({
         role="link"
         aria-disabled="true"
         title={pendingLabel}
-        className={`${className} cursor-not-allowed opacity-60`}
+        className={`${className} cursor-default`}
       >
         {children}
         <span className="sr-only"> ({pendingLabel})</span>
@@ -95,7 +95,7 @@ export function PhoneFrame({
 }) {
   return (
     <div
-      className={`relative shrink-0 rounded-[2.4rem] border border-white/15 bg-gradient-to-b from-zinc-700 to-zinc-900 p-[6px] shadow-[0_0_70px_-15px_rgb(182_241_126/0.45)] ${className}`}
+      className={`relative shrink-0 rounded-[2.4rem] border border-white/15 bg-gradient-to-b from-zinc-700 to-zinc-900 p-[6px] shadow-[0_0_70px_-15px_rgb(166_247_116/0.45)] ${className}`}
       style={{ aspectRatio: ratio.replace("/", " / ") }}
     >
       <div className="relative h-full overflow-hidden rounded-[2rem] bg-black">
@@ -137,11 +137,11 @@ export function CarouselArrow({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className={`group relative grid size-16 shrink-0 place-items-center rounded-full bg-lime text-lime-ink shadow-[0_0_36px_rgb(182_241_126/0.7)] ring-[6px] ring-lime/25 transition enabled:hover:scale-110 enabled:hover:shadow-[0_0_52px_rgb(182_241_126/0.95)] enabled:active:scale-95 disabled:cursor-not-allowed disabled:opacity-55 disabled:shadow-none ${className}`}
+      className={`group relative grid size-12 shrink-0 place-items-center rounded-full bg-lime text-lime-ink shadow-[0_0_22px_rgb(166_247_116/0.65)] ring-4 ring-lime/20 transition enabled:hover:scale-110 enabled:hover:shadow-[0_0_34px_rgb(166_247_116/0.9)] enabled:active:scale-95 disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none ${className}`}
     >
       {/* anel pulsando para chamar atenção (só quando há para onde passar) */}
-      <span className="absolute inset-0 rounded-full ring-2 ring-lime group-enabled:animate-ping group-disabled:hidden" />
-      <Icon name={direction === "prev" ? "chevronLeft" : "chevronRight"} className="relative size-8" strokeWidth={3} />
+      <span className="absolute inset-0 rounded-full ring-2 ring-lime/70 group-enabled:animate-[ping_2.2s_cubic-bezier(0,0,0.2,1)_infinite] group-disabled:hidden" />
+      <Icon name={direction === "prev" ? "chevronLeft" : "chevronRight"} className="relative size-6" strokeWidth={3} />
     </button>
   );
 }

@@ -19,14 +19,14 @@ export function Inicio({ c }: { c: SiteContent }) {
 
       <div className="relative grid items-center gap-8 lg:grid-cols-[minmax(0,0.92fr)_auto_minmax(0,1.5fr)] lg:gap-8">
         <div>
-          <h1 className="hero-title max-w-[9.5ch]">
+          <h1 className="hero-title !text-[clamp(2.1rem,min(6.6vh,3.6vw),4.4rem)]">
             {hero.tituloBranco} <span className="text-lime">{hero.tituloVerde}</span>
           </h1>
           <p className="page-sub mt-4 max-w-sm">{hero.texto}</p>
           <div className="mt-6 flex max-w-xs flex-col gap-3">
             <a
               href="#como-funciona"
-              className="inline-flex items-center justify-center gap-3 rounded-full bg-lime px-6 py-3.5 text-lg font-bold text-lime-ink shadow-[0_0_28px_-6px_rgb(182_241_126/0.6)] transition hover:brightness-105 active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-3 rounded-full bg-lime px-6 py-3.5 text-lg font-bold text-lime-ink shadow-[0_0_28px_-6px_rgb(166_247_116/0.6)] transition hover:brightness-105 active:scale-[0.98]"
             >
               {hero.botaoPrincipal}
               <Icon name="arrowRight" className="size-6" />

@@ -9,7 +9,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Guia Hub + MINUTE — Faça seu trabalho render ainda mais",
+  title: "Guia Hub + MINUTE — Transforme seu celular em uma ferramenta de renda extra",
   description:
     "Guia independente: como se cadastrar na Hub, configurar o app MINUTE, gravar tarefas do dia a dia e receber os pagamentos.",
 };

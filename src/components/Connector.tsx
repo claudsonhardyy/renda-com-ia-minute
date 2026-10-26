@@ -38,16 +38,16 @@ export function Connector({ fromId, toId }: { fromId: string; toId: string }) {
     <svg ref={svgRef} aria-hidden="true" className="pointer-events-none absolute inset-0 hidden h-full w-full overflow-visible lg:block">
       <defs>
         <marker id={`seta-${toId}`} viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-          <path d="M0 0 L10 5 L0 10 z" fill="#b6f17e" />
+          <path d="M0 0 L10 5 L0 10 z" fill="#a6f774" />
         </marker>
       </defs>
       {path && (
         <>
-          <circle cx={path.x} cy={path.y} r="4" fill="#b6f17e" />
+          <circle cx={path.x} cy={path.y} r="4" fill="#a6f774" />
           <path
             d={path.d}
             fill="none"
-            stroke="#b6f17e"
+            stroke="#a6f774"
             strokeWidth="2"
             strokeDasharray="6 6"
             strokeLinecap="round"

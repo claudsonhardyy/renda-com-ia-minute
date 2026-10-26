@@ -75,8 +75,8 @@ export const guia = {
 
 export const hero = {
   selo: "Guia completo Hub + MINUTE",
-  tituloBranco: "Faça seu trabalho",
-  tituloVerde: "render ainda mais.",
+  tituloBranco: "Transforme seu celular em uma",
+  tituloVerde: "ferramenta de renda extra.",
   texto:
     "Aprenda a se cadastrar, configurar o MINUTE e gravar tarefas do dia a dia com mais segurança.",
   botaoPrincipal: "Ver passo a passo",
@@ -157,8 +157,8 @@ export const cadastro = {
     texto: "Localize o e-mail fornecido pela Hub.",
   },
   passo5: {
-    titulo: "Baixe a MINUTE e cadastre usando exatamente o mesmo e-mail informado pela Hub.",
-    texto: "Depois, adicione os códigos da organização mostrados pela plataforma.",
+    titulo: "Baixe a MINUTE e cadastre usando o login fornecido no site da Hub ou o login que a Hub te fornecer.",
+    texto: "Depois, adicione os códigos das organizações informados pela Hub.",
   },
   aviso: "Não invente dados nem use e-mails diferentes entre as contas.",
   cadastro_phone_image: {
@@ -269,7 +269,7 @@ export const suporte = {
   hub: {
     titulo: "Pelo site da Hub",
     tag: "Gratuito",
-    texto: "Solicite o seu suporte de cabeça diretamente pelo site da Hub.",
+    texto: "Solicite o seu suporte de cabeça gratuitamente pelo site da Hub.",
   },
   online: {
     titulo: "Compre online",
@@ -288,7 +288,8 @@ export const dicas = {
   selo: "Guia Independente",
   tituloBranco: "Dicas de",
   tituloVerde: "gravação.",
-  texto: "Confira orientações simples para gravar seus vídeos com mais qualidade e segurança.",
+  texto:
+    "Confira orientações simples para gravar seus vídeos com mais qualidade e segurança e evitar que seus vídeos sejam rejeitados.",
   passeParaOLado: ["Passe para", "o lado"],
   // gravacao_carousel_items[] — a referência tem 4 indicadores; só o item 1 está legível.
   itens: [
@@ -312,12 +313,14 @@ export const celulares = {
   texto: "Modelos compatíveis:",
   iphone: {
     titulo: "iPhone",
-    imagem: { src: "/media/celular-iphone.png", alt: "iPhone" } as Media,
+    etiqueta: "Compatíveis",
+    imagem: { src: "/media/celular-iphone-hd.png", alt: "iPhone" } as Media,
     modelos: ["iPhone 12 ou mais novo"],
   },
   android: {
     titulo: "Android",
-    imagem: { src: "/media/celular-android.png", alt: "Celular Android" } as Media,
+    etiqueta: "Compatíveis",
+    imagem: { src: "/media/celular-android-hd.png", alt: "Celular Android" } as Media,
     modelos: ["Pixel 6 ou mais novo", "Galaxy S21 ou mais novo (exceto modelos FE)"],
   },
   verificar: {
