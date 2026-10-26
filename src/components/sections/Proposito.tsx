@@ -1,6 +1,6 @@
 import type { SiteContent } from "@/content/site";
 import { Icon } from "../Icon";
-import { Heading, Section, Tag } from "../ui";
+import { Heading, Section } from "../ui";
 
 // Referência: Página Entenda o Propósito — título, 3 etapas, fechamento e imagem na mesma tela (sem CTA).
 export function Proposito({ c }: { c: SiteContent }) {
@@ -9,15 +9,14 @@ export function Proposito({ c }: { c: SiteContent }) {
     <Section id="proposito">
       <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
         <div>
-          <Tag icon="brain">{proposito.selo}</Tag>
           <Heading white={proposito.tituloBranco} green={proposito.tituloVerde} />
-          <p className="page-sub mt-4 max-w-md text-white/85">{proposito.texto}</p>
+          <p className="page-sub mt-3 max-w-md text-white/85">{proposito.texto}</p>
 
-          <h3 className="mt-7 text-2xl font-extrabold">{proposito.comoFuncionaTitulo}</h3>
+          <h3 className="mt-[3vh] text-xl font-extrabold">{proposito.comoFuncionaTitulo}</h3>
           <ol className="mt-4 grid gap-5 sm:grid-cols-3">
             {proposito.etapas.map((etapa, i) => (
               <li key={etapa.titulo} className="relative">
-                <span className="icon-box size-16">
+                <span className="icon-box size-14">
                   <Icon name={etapa.icone} className="size-8" strokeWidth={1.5} />
                 </span>
                 {i < proposito.etapas.length - 1 && (
@@ -29,7 +28,7 @@ export function Proposito({ c }: { c: SiteContent }) {
             ))}
           </ol>
 
-          <div className="card mt-7 flex items-center gap-5 p-5">
+          <div className="card mt-[3vh] flex items-center gap-5 p-4">
             <Icon name="brain" className="size-11 shrink-0 text-lime" strokeWidth={1.5} />
             <div className="border-l border-white/15 pl-5">
               <h4 className="text-xl font-bold text-lime">{proposito.fechamento.titulo}</h4>
@@ -42,7 +41,7 @@ export function Proposito({ c }: { c: SiteContent }) {
         <img
           src={proposito.proposito_hero_image.src}
           alt={proposito.proposito_hero_image.alt}
-          className="mx-auto h-[min(76vh,640px)] w-full max-w-md object-cover object-top [mask-image:linear-gradient(to_bottom,black_80%,transparent)]"
+          className="soft-edges mx-auto h-[min(calc(100dvh-8rem),760px)] w-auto max-w-full object-contain"
         />
       </div>
     </Section>

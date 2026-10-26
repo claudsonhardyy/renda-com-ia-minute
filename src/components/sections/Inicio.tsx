@@ -2,17 +2,16 @@ import type { SiteContent } from "@/content/site";
 import { HeroMedia } from "../HeroMedia";
 import { Icon } from "../Icon";
 import { TutorialButton } from "../TutorialButton";
-import { PhoneFrame, Section, Tag } from "../ui";
+import { PhoneFrame, Section } from "../ui";
 
-// Referência: 1- Página Inicial — título, texto, botões, celular e foto na mesma tela.
+// Referência: 1- Página Inicial — título, texto, botões, celular (em destaque) e foto na mesma tela.
 export function Inicio({ c }: { c: SiteContent }) {
   const { hero, links } = c;
   return (
     <Section id="inicio">
-      <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_auto_1fr] lg:gap-10">
+      <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
         <div>
-          <Tag icon="checkCircle">{hero.selo}</Tag>
-          <h1 className="page-title mt-4">
+          <h1 className="hero-title max-w-[11ch]">
             {hero.tituloBranco} <span className="text-lime">{hero.tituloVerde}</span>
           </h1>
           <p className="page-sub mt-5 max-w-md text-white/85">{hero.texto}</p>
@@ -32,16 +31,18 @@ export function Inicio({ c }: { c: SiteContent }) {
           </div>
         </div>
 
-        <PhoneFrame ratio="202/456" className="mx-auto h-[min(64vh,560px)]">
-          <HeroMedia media={hero.hero_video_or_image} />
-        </PhoneFrame>
-
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={hero.foto.src}
-          alt={hero.foto.alt}
-          className="mx-auto h-[min(70vh,620px)] w-full max-w-md rounded-3xl object-cover lg:max-w-none"
-        />
+        {/* Celular na frente, em destaque; a foto fica atrás, à direita, com bordas esfumadas */}
+        <div className="relative mx-auto flex items-center lg:mx-0">
+          <PhoneFrame ratio="202/456" className="relative z-10 h-[min(calc(100dvh-8rem),720px)]">
+            <HeroMedia media={hero.hero_video_or_image} />
+          </PhoneFrame>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={hero.foto.src}
+            alt={hero.foto.alt}
+            className="soft-frame relative z-0 -ml-10 hidden h-[min(calc(100dvh-11rem),610px)] w-auto object-contain sm:block"
+          />
+        </div>
       </div>
     </Section>
   );

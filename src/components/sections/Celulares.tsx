@@ -1,6 +1,6 @@
 import type { SiteContent } from "@/content/site";
 import { Icon } from "../Icon";
-import { Heading, Section, Tag } from "../ui";
+import { Heading, Section } from "../ui";
 
 // Referência: 7- Página "Pagamentos" (conteúdo: celulares compatíveis) — listas iPhone/Android e aviso na mesma tela.
 export function Celulares({ c }: { c: SiteContent }) {
@@ -8,19 +8,8 @@ export function Celulares({ c }: { c: SiteContent }) {
   const { iphone, android, aviso } = celulares;
   return (
     <Section id="celulares-compativeis">
-      <div className="flex items-center justify-between gap-6">
-        <div>
-          <Tag icon="phone">{celulares.selo}</Tag>
-          <Heading white={celulares.tituloBranco} green={celulares.tituloVerde} inline />
-          <p className="page-sub mt-3 max-w-xl text-white/85">{celulares.texto}</p>
-        </div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={celulares.imagemDestaque.src}
-          alt={celulares.imagemDestaque.alt}
-          className="hidden h-[min(17vh,150px)] shrink-0 md:block [mask-image:radial-gradient(closest-side,black_70%,transparent)]"
-        />
-      </div>
+      <Heading white={celulares.tituloBranco} green={celulares.tituloVerde} inline />
+      <p className="page-sub mt-2 max-w-xl text-white/85">{celulares.texto}</p>
 
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
         <article className="card p-4">
@@ -35,8 +24,8 @@ export function Celulares({ c }: { c: SiteContent }) {
           </header>
           <div className="mt-4 flex gap-5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={iphone.imagem.src} alt={iphone.imagem.alt} className="hidden h-[min(28vh,240px)] self-center sm:block" />
-            <ul className="grid flex-1 grid-cols-2 gap-x-4 gap-y-1 text-sm">
+            <img src={iphone.imagem.src} alt={iphone.imagem.alt} className="hidden h-[min(calc(100dvh-26rem),240px)] self-center sm:block" />
+            <ul className="grid flex-1 grid-cols-2 gap-x-4 gap-y-0.5 text-[13px] leading-snug min-[1400px]:text-sm">
               {iphone.modelos.map((m) => (
                 <li key={m} className="flex items-center gap-2">
                   <Icon name="checkCircle" className="size-4 shrink-0 text-lime" strokeWidth={2.2} />

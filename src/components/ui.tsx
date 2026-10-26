@@ -15,7 +15,7 @@ export function Section({
       id={id}
       className={`relative flex min-h-dvh w-full snap-start items-center border-t border-white/[0.06] pt-16 first:border-t-0 ${className}`}
     >
-      <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-10 lg:py-6">{children}</div>
+      <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-10 lg:py-[2.5vh]">{children}</div>
     </section>
   );
 }

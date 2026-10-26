@@ -67,7 +67,6 @@ export const groups: Group[] = [
     id: "inicio",
     title: "1 · Início",
     fields: [
-      t("hero.selo", "Selo (acima do título)"),
       t("hero.tituloBranco", "Título — parte branca"),
       t("hero.tituloVerde", "Título — parte verde"),
       ta("hero.texto", "Texto"),
@@ -100,7 +99,6 @@ export const groups: Group[] = [
     id: "cadastro",
     title: "3 · Cadastro",
     fields: [
-      t("cadastro.selo", "Selo (acima do título)"),
       t("cadastro.tituloBranco", "Título — parte branca"),
       t("cadastro.tituloVerde", "Título — parte verde"),
       ta("cadastro.subtitulo", "Subtítulo"),
@@ -206,7 +204,8 @@ export const groups: Group[] = [
     id: "dicas",
     title: "7 · Dicas de gravação",
     fields: [
-      ...titulo("dicas"),
+      t("dicas.tituloBranco", "Título — parte branca"),
+      t("dicas.tituloVerde", "Título — parte verde"),
       ta("dicas.texto", "Texto"),
       t("dicas.passeParaOLado.0", "Dica de navegação — linha 1"),
       t("dicas.passeParaOLado.1", "Dica de navegação — linha 2 (verde)"),
@@ -238,16 +237,14 @@ export const groups: Group[] = [
     id: "celulares",
     title: "8 · Celulares compatíveis",
     fields: [
-      ...titulo("celulares"),
+      t("celulares.tituloBranco", "Título — parte branca"),
+      t("celulares.tituloVerde", "Título — parte verde"),
       ta("celulares.texto", "Texto"),
-      media("celulares.imagemDestaque", "Imagem em destaque"),
       t("celulares.iphone.titulo", "iPhone — título"),
       t("celulares.iphone.subtitulo", "iPhone — subtítulo"),
-      media("celulares.iphone.imagem", "iPhone — imagem"),
       { kind: "lines", path: "celulares.iphone.modelos", label: "iPhone — modelos", hint: "Um modelo por linha" },
       t("celulares.android.titulo", "Android — título"),
       t("celulares.android.subtitulo", "Android — subtítulo"),
-      media("celulares.android.imagem", "Android — imagem"),
       {
         kind: "list",
         path: "celulares.android.marcas",
@@ -264,7 +261,8 @@ export const groups: Group[] = [
     id: "proposito",
     title: "9 · Propósito",
     fields: [
-      ...titulo("proposito"),
+      t("proposito.tituloBranco", "Título — parte branca"),
+      t("proposito.tituloVerde", "Título — parte verde"),
       ta("proposito.texto", "Texto"),
       media("proposito.proposito_hero_image", "Imagem principal"),
       t("proposito.comoFuncionaTitulo", "Título “Como funciona?”"),

@@ -32,7 +32,7 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
       >
         <div className="flex items-center gap-3 sm:gap-5">
           {many && <CarouselArrow direction="prev" label="Imagem anterior do aplicativo" onClick={prev} />}
-          <PhoneFrame ratio="240/477" className="h-[min(66vh,560px)]">
+          <PhoneFrame ratio="240/477" className="h-[min(calc(100dvh-10rem),760px)]">
             {pending ? (
               <div className="grid h-full place-items-center p-6 text-center text-sm text-amber-200">
                 Imagem {index + 1} pendente

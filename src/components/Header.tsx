@@ -46,7 +46,7 @@ export function Header({ nav, guia }: { nav: SiteContent["nav"]; guia: SiteConte
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-lime/25 bg-[#071510]/95 shadow-[0_8px_30px_-12px_rgb(0_0_0/0.8)] backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-lime/25 bg-[#0d211a]/95 shadow-[0_8px_30px_-12px_rgb(0_0_0/0.8)] backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
         <Brand guia={guia} />
 
@@ -81,7 +81,7 @@ export function Header({ nav, guia }: { nav: SiteContent["nav"]; guia: SiteConte
       </div>
 
       {open && (
-        <nav id="menu-mobile" aria-label="Páginas do guia" className="border-t border-white/10 bg-[#071510] xl:hidden">
+        <nav id="menu-mobile" aria-label="Páginas do guia" className="border-t border-white/10 bg-[#0d211a] xl:hidden">
           <ul className="mx-auto grid max-w-7xl grid-cols-2 gap-1.5 px-4 py-3 sm:grid-cols-3 lg:grid-cols-5">
             {nav.map((item) => (
               <li key={item.id}>

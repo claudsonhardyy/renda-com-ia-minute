@@ -1,14 +1,15 @@
 @import "tailwindcss";
 
-/* Identidade das referências: fundo verde-petróleo quase preto, cartões com contorno
-   verde fino e brilho sutil. Verde de destaque trocado para #B6F17E (Guia, seção 3.3). */
+/* Identidade das referências: fundo verde-petróleo, cartões com contorno verde fino e
+   brilho sutil. Verde de destaque #B6F17E (Guia, seção 3.3). Tons clareados a pedido do
+   cliente para o visual ficar mais leve. */
 @theme {
   --color-lime: #b6f17e;
   --color-lime-ink: #0d1a0a;
-  --color-bg: #06110e;
-  --color-bg-2: #0a1915;
-  --color-card: #0c1c17;
-  --color-line: rgb(182 241 126 / 0.28);
+  --color-bg: #10261f;
+  --color-bg-2: #153028;
+  --color-card: #17332a;
+  --color-line: rgb(182 241 126 / 0.32);
   --color-muted: #b9c6c0;
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
@@ -29,14 +30,20 @@ html {
 
 /* Tipografia que escala com a altura da tela, para cada página caber inteira. */
 .page-title {
-  font-size: clamp(2.1rem, calc(3.4vh + 1.5vw), 4.1rem);
+  font-size: clamp(1.75rem, min(5.2vh, 3.4vw), 4rem);
   line-height: 1.04;
   font-weight: 800;
   letter-spacing: -0.02em;
   text-wrap: balance;
 }
+.hero-title {
+  font-size: clamp(2.4rem, min(8.6vh, 5vw), 5.4rem);
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
 .page-sub {
-  font-size: clamp(0.98rem, calc(0.9vh + 0.45vw), 1.25rem);
+  font-size: clamp(0.9rem, min(2.2vh, 1.35vw), 1.2rem);
   line-height: 1.5;
 }
 
@@ -54,8 +61,10 @@ html {
 
 body {
   background:
-    radial-gradient(ellipse 80% 50% at 70% 0%, rgb(182 241 126 / 0.06), transparent 60%),
-    var(--color-bg);
+    radial-gradient(ellipse 70% 40% at 80% 0%, rgb(182 241 126 / 0.1), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 0% 100%, rgb(120 220 190 / 0.07), transparent 60%),
+    linear-gradient(180deg, #132c24, var(--color-bg) 30%, #0f241d);
+  background-attachment: fixed;
   color: #fff;
   overflow-x: hidden;
 }
@@ -68,7 +77,7 @@ body {
 
 @layer components {
   .card {
-    background: linear-gradient(180deg, rgb(255 255 255 / 0.025), transparent), var(--color-card);
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.045), rgb(255 255 255 / 0.01)), var(--color-card);
     border: 1px solid var(--color-line);
     border-radius: 1rem;
     box-shadow: 0 0 40px -20px rgb(182 241 126 / 0.35);
@@ -83,6 +92,17 @@ body {
   }
   .glow {
     box-shadow: 0 0 60px -10px rgb(182 241 126 / 0.45);
+  }
+  /* Bordas esfumadas: a imagem se mistura ao fundo, sem recorte brusco. */
+  .soft-edges {
+    mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, black 60%, transparent 100%);
+  }
+  /* Esfumado só nas bordas: a foto aparece inteira e se funde ao fundo. */
+  .soft-frame {
+    mask-image:
+      linear-gradient(to right, transparent, black 16%, black 86%, transparent),
+      linear-gradient(to bottom, transparent, black 9%, black 88%, transparent);
+    mask-composite: intersect;
   }
 }
 
