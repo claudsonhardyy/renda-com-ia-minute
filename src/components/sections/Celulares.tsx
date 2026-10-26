@@ -1,9 +1,10 @@
-import { celulares } from "@/content/site";
+import type { SiteContent } from "@/content/site";
 import { Icon } from "../Icon";
 import { Heading, Section, Tag } from "../ui";
 
 // Referência: 7- Página "Pagamentos" (o conteúdo é a lista de celulares compatíveis)
-export function Celulares() {
+export function Celulares({ c }: { c: SiteContent }) {
+  const { celulares } = c;
   const { iphone, android, aviso } = celulares;
   return (
     <Section id="celulares-compativeis">

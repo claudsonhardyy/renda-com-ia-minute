@@ -1,9 +1,10 @@
-import { dicas } from "@/content/site";
+import type { SiteContent } from "@/content/site";
 import { TipsCarousel } from "../TipsCarousel";
 import { Heading, Section, Tag } from "../ui";
 
 // Referência: 6- Página de dicas de gravação
-export function Dicas() {
+export function Dicas({ c }: { c: SiteContent }) {
+  const { dicas } = c;
   return (
     <Section id="dicas-gravacao">
       <Tag icon="home">{dicas.selo}</Tag>

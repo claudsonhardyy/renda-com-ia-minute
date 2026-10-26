@@ -1,12 +1,12 @@
-import { links, suporte } from "@/content/site";
+import type { SiteContent } from "@/content/site";
 import { Icon } from "../Icon";
-import { ExternalLink, Heading, PendingNote, Section, Tag } from "../ui";
+import { PendingNote, PendingOnly } from "../Pending";
+import { ExternalLink, Heading, Section, Tag } from "../ui";
 
 // Referência: 5- Página Suporte da Cabeça
-export function Suporte() {
+export function Suporte({ c }: { c: SiteContent }) {
+  const { links, suporte } = c;
   const lojas = suporte.lojas.map((l) => ({ ...l, url: links[l.linkKey] }));
-  // Em produção, lojas sem URL somem da lista (Guia, seção 11); em dev aparecem como pendentes.
-  const lojasVisiveis = process.env.NODE_ENV === "production" ? lojas.filter((l) => l.url) : lojas;
 
   return (
     <Section id="suporte">
@@ -77,20 +77,24 @@ export function Suporte() {
           </div>
         </div>
         <ul className="mt-6 space-y-3">
-          {lojasVisiveis.map((loja) => (
-            <li key={loja.linkKey}>
-              <ExternalLink
-                href={loja.url}
-                pendingLabel={`Link da ${loja.rotulo} ainda não configurado`}
-                className="flex items-center gap-4 rounded-full border border-line px-5 py-3 transition hover:border-lime hover:bg-lime/5"
-              >
-                <Icon name="link" className="size-5 text-white/80" />
-                <span className="flex-1">{loja.rotulo}</span>
-                {!loja.url && <span className="text-xs text-amber-200">link pendente</span>}
-                <Icon name="arrowRight" className="size-5" />
-              </ExternalLink>
-            </li>
-          ))}
+          {lojas.map((loja) => {
+            const item = (
+              <li key={loja.linkKey}>
+                <ExternalLink
+                  href={loja.url}
+                  pendingLabel={`Link da ${loja.rotulo} ainda não configurado`}
+                  className="flex items-center gap-4 rounded-full border border-line px-5 py-3 transition hover:border-lime hover:bg-lime/5"
+                >
+                  <Icon name="link" className="size-5 text-white/80" />
+                  <span className="flex-1">{loja.rotulo}</span>
+                  {!loja.url && <span className="text-xs text-amber-200">link pendente</span>}
+                  <Icon name="arrowRight" className="size-5" />
+                </ExternalLink>
+              </li>
+            );
+            // No site público, lojas sem URL ficam ocultas (Guia, seção 11).
+            return loja.url ? item : <PendingOnly key={loja.linkKey}>{item}</PendingOnly>;
+          })}
         </ul>
       </div>
     </Section>

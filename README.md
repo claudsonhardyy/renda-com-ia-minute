@@ -16,9 +16,31 @@ itens de carrossel sem conteúdo) aparece marcado como **Pendente** em amarelo; 
 
 ## Onde editar
 
-Todo o conteúdo editável — textos, links (`url_hub_cadastro`, `url_compra_shopee`…) e mídias —
-está centralizado em [`src/content/site.ts`](src/content/site.ts). Imagens ficam em `public/media/`.
-O painel `/admin` (próxima etapa) vai editar esses mesmos campos sem mexer em código.
+Pelo **painel `/admin`** (login com e-mail e senha): links, textos, menu, imagens/vídeos e itens
+dos carrosséis (adicionar, remover, reordenar). O fluxo é **Salvar rascunho → Pré-visualizar → Publicar**;
+o site público só muda ao publicar. A aba *Links* lista os links pendentes e bloqueia a publicação
+se algum estiver inválido (precisa começar com `https://` ou `http://`).
+
+O conteúdo padrão (valores iniciais) está em [`src/content/site.ts`](src/content/site.ts); o que for
+salvo no painel sobrescreve esses valores campo a campo.
+
+## Configurar o banco (Supabase) — uma vez
+
+1. Crie um projeto no Supabase e rode a migração
+   [`supabase/migrations/20261026000000_painel_conteudo.sql`](supabase/migrations/20261026000000_painel_conteudo.sql)
+   (SQL Editor do painel do Supabase, ou `supabase db push`). Ela cria as tabelas, o bucket `media` e as regras de acesso.
+2. Copie `.env.example` para `.env.local` e preencha com a URL e a chave publicável (Project Settings → API).
+   Na hospedagem (ex.: Vercel), cadastre as mesmas duas variáveis.
+3. Crie a conta de quem vai editar: **Authentication → Users → Add user** (e-mail e senha, marque *Auto confirm*).
+4. Dê permissão de edição a esse e-mail (SQL Editor):
+   ```sql
+   insert into public.admins (email) values ('email-do-editor@exemplo.com');
+   ```
+5. Recomendado: em **Authentication → Sign In / Providers**, desligue *Allow new users to sign up*.
+   (Mesmo sem isso, só e-mails da tabela `admins` conseguem editar.)
+
+Sem as variáveis de ambiente, o site funciona normalmente com o conteúdo padrão e o painel
+mostra como configurar.
 
 ## Estado atual
 
@@ -27,7 +49,8 @@ O painel `/admin` (próxima etapa) vai editar esses mesmos campos sem mexer em c
 - [x] Carrossel do app (imagem + texto sincronizados) e carrossel de dicas (setas, indicadores, teclado, toque)
 - [x] Mídia do celular do hero aceita imagem ou vídeo (play/pause); modal do tutorial (YouTube, Vimeo ou arquivo)
 - [x] Verde `#B6F17E`, responsivo (desktop/tablet/celular), sem rolagem horizontal
-- [ ] Painel `/admin` com login, upload de mídias e validação de links (Supabase)
+- [x] Painel `/admin`: login, edição de links/textos/mídias, carrosséis ordenáveis, validação de links, rascunho → pré-visualização → publicação
+- [ ] Projeto Supabase criado e conectado (migração pronta no repositório)
 - [ ] Conteúdo pendente do cliente — ver [docs/ANALISE.md](docs/ANALISE.md)
 
 As imagens iniciais em `public/media/` foram recortadas das referências; troque pelos arquivos

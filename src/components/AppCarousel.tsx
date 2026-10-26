@@ -2,7 +2,8 @@
 
 import type { AppCarouselItem } from "@/content/site";
 import { Icon } from "./Icon";
-import { PhoneFrame, showPending } from "./ui";
+import { PhoneFrame } from "./ui";
+import { usePending } from "./Pending";
 import { useCarousel } from "./useCarousel";
 
 const arrowClass =
@@ -12,6 +13,7 @@ const arrowClass =
 export function AppCarousel({ items: all }: { items: AppCarouselItem[] }) {
   // Itens sem imagem ainda não foram configurados: em produção ficam de fora;
   // em desenvolvimento aparecem como "pendente" para lembrar o que falta.
+  const showPending = usePending();
   const items = all.filter((it) => it.image.src || showPending);
   const total = all.length;
   const { index, goTo, prev, next, regionProps } = useCarousel(items.length);

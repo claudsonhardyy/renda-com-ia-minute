@@ -1,8 +1,5 @@
 import { Icon } from "./Icon";
 
-// Em desenvolvimento mostramos o que ainda falta configurar; em produção, nunca.
-export const showPending = process.env.NODE_ENV !== "production";
-
 export function Section({
   id,
   children,
@@ -81,15 +78,6 @@ export function ExternalLink({
     <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
       {children}
     </a>
-  );
-}
-
-export function PendingNote({ children }: { children: React.ReactNode }) {
-  if (!showPending) return null;
-  return (
-    <p className="mt-2 rounded-md border border-dashed border-amber-300/60 bg-amber-300/10 px-2 py-1 text-xs text-amber-200">
-      Pendente: {children}
-    </p>
   );
 }
 

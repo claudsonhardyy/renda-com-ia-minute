@@ -1,9 +1,10 @@
-import { appMinute } from "@/content/site";
+import type { SiteContent } from "@/content/site";
 import { AppCarousel } from "../AppCarousel";
 import { Heading, Section, Tag } from "../ui";
 
 // Referência: 3- Página do Minute
-export function AppMinute() {
+export function AppMinute({ c }: { c: SiteContent }) {
+  const { appMinute } = c;
   return (
     <Section id="app-minute">
       <div className="grid items-start gap-10 md:grid-cols-[1.2fr_1fr]">

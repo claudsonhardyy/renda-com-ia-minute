@@ -1,0 +1,273 @@
+// Descrição dos campos do painel: cada grupo corresponde a uma área do site.
+// Caminhos usam ponto ("hero.foto", "dicas.itens") sobre o objeto SiteContent.
+
+export type Field =
+  | { kind: "text" | "textarea" | "url"; path: string; label: string; hint?: string }
+  | { kind: "lines"; path: string; label: string; hint?: string } // string[] — um item por linha
+  | { kind: "media"; path: string; label: string; hint?: string; video?: boolean } // { src, alt, type? }
+  | { kind: "select"; path: string; label: string; options: { value: string; label: string }[] }
+  | {
+      kind: "list";
+      path: string;
+      label: string;
+      itemLabel: string;
+      fields: Field[];
+      // Listas fixas (ex.: os 4 passos) só editam; listas livres permitem adicionar/remover/ordenar.
+      fixed?: boolean;
+      newItem?: unknown;
+    };
+
+export type Group = { id: string; title: string; fields: Field[] };
+
+const t = (path: string, label: string, hint?: string): Field => ({ kind: "text", path, label, hint });
+const ta = (path: string, label: string, hint?: string): Field => ({ kind: "textarea", path, label, hint });
+const media = (path: string, label: string, video = false): Field => ({ kind: "media", path, label, video });
+const titulo = (sec: string): Field[] => [
+  t(`${sec}.selo`, "Selo (acima do título)"),
+  t(`${sec}.tituloBranco`, "Título — parte branca"),
+  t(`${sec}.tituloVerde`, "Título — parte verde"),
+];
+
+export const linkFields: { key: string; label: string }[] = [
+  { key: "url_hub_cadastro", label: "Cadastro na Hub (com o seu código)" },
+  { key: "url_hub_pedido_suporte", label: "Pedir o suporte pela Hub" },
+  { key: "url_compra_shopee", label: "Compra na Shopee" },
+  { key: "url_compra_amazon", label: "Compra na Amazon" },
+  { key: "url_compra_mercado_livre", label: "Compra no Mercado Livre" },
+  { key: "url_compra_site_proprio", label: "Compra em site próprio / outro" },
+  { key: "url_tutorial", label: "Vídeo tutorial (YouTube, Vimeo ou arquivo .mp4)" },
+  { key: "url_app_store_minute", label: "MINUTE na App Store (iPhone)" },
+  { key: "url_google_play_minute", label: "MINUTE no Google Play (Android)" },
+  { key: "url_suporte_contato", label: "Contato / suporte" },
+];
+
+export const groups: Group[] = [
+  {
+    id: "links",
+    title: "Links",
+    fields: linkFields.map((l) => ({ kind: "url", path: `links.${l.key}`, label: l.label, hint: l.key })),
+  },
+  {
+    id: "nav",
+    title: "Menu superior",
+    fields: [
+      { kind: "list", path: "nav", label: "Itens do menu", itemLabel: "Item", fixed: true, fields: [t("label", "Rótulo")] },
+    ],
+  },
+  {
+    id: "inicio",
+    title: "1 · Início",
+    fields: [
+      t("hero.tituloBranco", "Título — parte branca"),
+      t("hero.tituloVerde", "Título — parte verde"),
+      ta("hero.texto", "Texto"),
+      t("hero.botaoPrincipal", "Botão principal"),
+      t("hero.botaoTutorial", "Botão do tutorial"),
+      media("hero.hero_video_or_image", "Mídia dentro do celular (imagem ou vídeo)", true),
+      media("hero.foto", "Fotografia à direita"),
+    ],
+  },
+  {
+    id: "como-funciona",
+    title: "2 · Como funciona",
+    fields: [
+      t("comoFunciona.titulo", "Título"),
+      t("comoFunciona.subtitulo", "Subtítulo"),
+      {
+        kind: "list",
+        path: "comoFunciona.passos",
+        label: "Passos",
+        itemLabel: "Passo",
+        fixed: true,
+        fields: [t("titulo", "Título"), ta("texto", "Texto")],
+      },
+      t("comoFunciona.bloco.tituloForte", "Bloco final — parte em negrito"),
+      t("comoFunciona.bloco.titulo", "Bloco final — resto do título"),
+      ta("comoFunciona.bloco.texto", "Bloco final — texto"),
+    ],
+  },
+  {
+    id: "cadastro",
+    title: "3 · Cadastro",
+    fields: [
+      t("cadastro.selo", "Selo (acima do título)"),
+      t("cadastro.tituloBranco", "Título — parte branca"),
+      t("cadastro.tituloVerde", "Título — parte verde"),
+      ta("cadastro.subtitulo", "Subtítulo"),
+      t("cadastro.passo1.titulo", "Passo 1 — título"),
+      ta("cadastro.passo1.texto", "Passo 1 — texto"),
+      t("cadastro.passo1.botao", "Passo 1 — botão (destino: link “Cadastro na Hub”)"),
+      t("cadastro.passo2.titulo", "Passo 2 — título"),
+      ta("cadastro.passo2.texto", "Passo 2 — texto"),
+      t("cadastro.passo2.campoRotulo", "Passo 2 — rótulo do campo"),
+      t("cadastro.passo2.campoValor", "Passo 2 — valor do campo (seu código)"),
+      t("cadastro.passo3.titulo", "Passo 3 — título"),
+      ta("cadastro.passo3.texto", "Passo 3 — texto"),
+      t("cadastro.passo4.titulo", "Passo 4 — título"),
+      ta("cadastro.passo4.texto", "Passo 4 — texto"),
+      t("cadastro.passo5.titulo", "Passo 5 — título"),
+      ta("cadastro.passo5.texto", "Passo 5 — texto"),
+      ta("cadastro.aviso", "Aviso"),
+      media("cadastro.cadastro_phone_image", "Imagem dentro do celular"),
+    ],
+  },
+  {
+    id: "app",
+    title: "4 · App MINUTE",
+    fields: [
+      ...titulo("appMinute"),
+      ta("appMinute.texto", "Texto"),
+      t("appMinute.slogan", "Slogan"),
+      {
+        kind: "list",
+        path: "appMinute.carrossel",
+        label: "Carrossel do celular",
+        itemLabel: "Tela",
+        newItem: { image: { src: "", alt: "" }, titulo: "", texto: "", destaque: "" },
+        fields: [
+          media("image", "Imagem"),
+          t("titulo", "Título"),
+          ta("texto", "Texto explicativo"),
+          ta("destaque", "Texto do cartão em destaque (opcional)"),
+        ],
+      },
+    ],
+  },
+  {
+    id: "pagamentos",
+    title: "5 · Pagamentos",
+    fields: [
+      ...titulo("pagamentos"),
+      ta("pagamentos.texto", "Texto"),
+      t("pagamentos.carteira.rotulo", "Carteira — rótulo"),
+      t("pagamentos.carteira.valor", "Carteira — valor ilustrativo"),
+      t("pagamentos.carteira.botao", "Carteira — botão ilustrativo"),
+      t("pagamentos.comoFuncionaTitulo", "Título “Como funciona?”"),
+      {
+        kind: "list",
+        path: "pagamentos.etapas",
+        label: "Etapas",
+        itemLabel: "Etapa",
+        fixed: true,
+        fields: [t("titulo", "Título"), ta("texto", "Texto")],
+      },
+      t("pagamentos.alertaPix.titulo", "Alerta Pix — título"),
+      ta("pagamentos.alertaPix.texto", "Alerta Pix — texto"),
+      ta("pagamentos.alertaPix.lateral", "Alerta Pix — texto lateral"),
+      {
+        kind: "list",
+        path: "pagamentos.infos",
+        label: "Blocos informativos",
+        itemLabel: "Bloco",
+        fixed: true,
+        fields: [t("titulo", "Título"), ta("texto", "Texto")],
+      },
+    ],
+  },
+  {
+    id: "suporte",
+    title: "6 · Suporte",
+    fields: [
+      ...titulo("suporte"),
+      ta("suporte.texto", "Texto"),
+      media("suporte.suporte_product_image", "Imagem do produto"),
+      t("suporte.legendaProduto", "Legenda do produto"),
+      media("suporte.suporte_usage_image", "Foto do suporte em uso"),
+      t("suporte.comoConseguirTitulo", "Título “Como conseguir”"),
+      t("suporte.hub.titulo", "Opção Hub — título (destino: link “Pedir o suporte pela Hub”)"),
+      t("suporte.hub.tag", "Opção Hub — etiqueta"),
+      ta("suporte.hub.texto", "Opção Hub — texto"),
+      t("suporte.online.titulo", "Opção online — título"),
+      t("suporte.online.tag", "Opção online — etiqueta"),
+      ta("suporte.online.texto", "Opção online — texto"),
+      t("suporte.linksTitulo", "Links úteis — título"),
+      t("suporte.linksSubtitulo", "Links úteis — subtítulo"),
+      {
+        kind: "list",
+        path: "suporte.lojas",
+        label: "Lojas (a URL de cada uma fica na aba Links)",
+        itemLabel: "Loja",
+        fixed: true,
+        fields: [t("rotulo", "Nome exibido")],
+      },
+    ],
+  },
+  {
+    id: "dicas",
+    title: "7 · Dicas de gravação",
+    fields: [
+      ...titulo("dicas"),
+      ta("dicas.texto", "Texto"),
+      t("dicas.passeParaOLado.0", "Dica de navegação — linha 1"),
+      t("dicas.passeParaOLado.1", "Dica de navegação — linha 2 (verde)"),
+      {
+        kind: "list",
+        path: "dicas.itens",
+        label: "Carrossel de dicas",
+        itemLabel: "Dica",
+        newItem: { image: { src: "", alt: "" }, titulo: "", descricao: "", status: null },
+        fields: [
+          media("image", "Imagem"),
+          t("titulo", "Título"),
+          ta("descricao", "Descrição"),
+          {
+            kind: "select",
+            path: "status",
+            label: "Selo",
+            options: [
+              { value: "", label: "Sem selo" },
+              { value: "correto", label: "✓ Correto" },
+              { value: "incorreto", label: "✗ Incorreto" },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "celulares",
+    title: "8 · Celulares compatíveis",
+    fields: [
+      ...titulo("celulares"),
+      ta("celulares.texto", "Texto"),
+      media("celulares.imagemDestaque", "Imagem em destaque"),
+      t("celulares.iphone.titulo", "iPhone — título"),
+      t("celulares.iphone.subtitulo", "iPhone — subtítulo"),
+      media("celulares.iphone.imagem", "iPhone — imagem"),
+      { kind: "lines", path: "celulares.iphone.modelos", label: "iPhone — modelos", hint: "Um modelo por linha" },
+      t("celulares.android.titulo", "Android — título"),
+      t("celulares.android.subtitulo", "Android — subtítulo"),
+      media("celulares.android.imagem", "Android — imagem"),
+      {
+        kind: "list",
+        path: "celulares.android.marcas",
+        label: "Android — marcas",
+        itemLabel: "Marca",
+        newItem: { nome: "", modelos: [] },
+        fields: [t("nome", "Marca"), { kind: "lines", path: "modelos", label: "Modelos", hint: "Uma linha por grupo de modelos" }],
+      },
+      t("celulares.aviso.titulo", "Aviso — título"),
+      ta("celulares.aviso.texto", "Aviso — texto"),
+    ],
+  },
+  {
+    id: "proposito",
+    title: "9 · Propósito",
+    fields: [
+      ...titulo("proposito"),
+      ta("proposito.texto", "Texto"),
+      media("proposito.proposito_hero_image", "Imagem principal"),
+      t("proposito.comoFuncionaTitulo", "Título “Como funciona?”"),
+      {
+        kind: "list",
+        path: "proposito.etapas",
+        label: "Etapas",
+        itemLabel: "Etapa",
+        fixed: true,
+        fields: [t("titulo", "Título"), ta("texto", "Texto")],
+      },
+      t("proposito.fechamento.titulo", "Bloco final — título"),
+      ta("proposito.fechamento.texto", "Bloco final — texto"),
+    ],
+  },
+];

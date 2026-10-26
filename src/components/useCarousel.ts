@@ -35,5 +35,6 @@ export function useCarousel(count: number) {
     },
   };
 
-  return { index, goTo, prev, next, regionProps };
+  // Se a lista encolher (itens removidos no painel), o índice volta para dentro dos limites.
+  return { index: count ? Math.min(index, count - 1) : 0, goTo, prev, next, regionProps };
 }

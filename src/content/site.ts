@@ -52,7 +52,7 @@ export const links: Links = {
 };
 
 // Ordem das seções = numeração dos arquivos de referência no Drive (ver README).
-export const nav = [
+export const nav: { id: string; label: string }[] = [
   { id: "inicio", label: "Início" },
   { id: "como-funciona", label: "Como funciona" },
   { id: "cadastro-hub", label: "Cadastro" },
@@ -62,7 +62,7 @@ export const nav = [
   { id: "dicas-gravacao", label: "Gravação" },
   { id: "celulares-compativeis", label: "Compatibilidade" },
   { id: "proposito", label: "Propósito" },
-] as const;
+];
 
 export const hero = {
   tituloBranco: "Faça seu trabalho",
@@ -356,3 +356,19 @@ export const proposito = {
     texto: "Cada gravação é um passo para uma IA mais humana, segura e preparada para o futuro.",
   },
 };
+
+export const defaultContent = {
+  links,
+  nav,
+  hero,
+  comoFunciona,
+  cadastro,
+  appMinute,
+  pagamentos,
+  suporte,
+  dicas,
+  celulares,
+  proposito,
+};
+
+export type SiteContent = typeof defaultContent;

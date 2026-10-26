@@ -1,9 +1,10 @@
-import { comoFunciona } from "@/content/site";
+import type { SiteContent } from "@/content/site";
 import { Icon } from "../Icon";
 import { NumberBadge, Section } from "../ui";
 
 // Referência: 1.1- Página inicial (Como funciona)
-export function ComoFunciona() {
+export function ComoFunciona({ c }: { c: SiteContent }) {
+  const { comoFunciona } = c;
   const { bloco } = comoFunciona;
   return (
     <Section id="como-funciona">

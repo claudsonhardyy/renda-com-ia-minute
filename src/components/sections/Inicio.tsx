@@ -1,11 +1,12 @@
-import { hero, links } from "@/content/site";
+import type { SiteContent } from "@/content/site";
 import { HeroMedia } from "../HeroMedia";
 import { Icon } from "../Icon";
 import { TutorialButton } from "../TutorialButton";
 import { PhoneFrame, Section } from "../ui";
 
 // Referência: 1- Página Inicial
-export function Inicio() {
+export function Inicio({ c }: { c: SiteContent }) {
+  const { hero, links } = c;
   return (
     <Section id="inicio" className="pt-28 md:pt-32">
       <div className="grid items-center gap-10 md:grid-cols-[1.05fr_0.8fr_0.95fr] md:gap-6">

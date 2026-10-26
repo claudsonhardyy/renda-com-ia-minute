@@ -1,9 +1,10 @@
-import { proposito } from "@/content/site";
+import type { SiteContent } from "@/content/site";
 import { Icon } from "../Icon";
 import { Heading, Section, Tag } from "../ui";
 
 // Referência: Página Entenda o Propósito (sem CTA, conforme o Guia)
-export function Proposito() {
+export function Proposito({ c }: { c: SiteContent }) {
+  const { proposito } = c;
   return (
     <Section id="proposito">
       <div className="grid items-center gap-8 md:grid-cols-2">

@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { nav } from "@/content/site";
+import type { SiteContent } from "@/content/site";
 import { Icon } from "./Icon";
 
-export function Header() {
-  const [active, setActive] = useState<string>(nav[0].id);
+export function Header({ nav }: { nav: SiteContent["nav"] }) {
+  const [active, setActive] = useState<string>(nav[0]?.id ?? "inicio");
   const [open, setOpen] = useState(false);
 
   // Destaca na barra a seção visível no momento.
@@ -21,7 +21,7 @@ export function Header() {
       if (el) observer.observe(el);
     }
     return () => observer.disconnect();
-  }, []);
+  }, [nav]);
 
   useEffect(() => {
     if (!open) return;

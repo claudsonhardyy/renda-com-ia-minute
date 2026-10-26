@@ -1,9 +1,10 @@
-import { pagamentos } from "@/content/site";
+import type { SiteContent } from "@/content/site";
 import { Icon } from "../Icon";
 import { Heading, NumberBadge, Section, Tag } from "../ui";
 
 // Referência: 4- Página Pagamentos. Página informativa: nada aqui executa operação financeira.
-export function Pagamentos() {
+export function Pagamentos({ c }: { c: SiteContent }) {
+  const { pagamentos } = c;
   const { carteira, alertaPix } = pagamentos;
   return (
     <Section id="pagamentos">

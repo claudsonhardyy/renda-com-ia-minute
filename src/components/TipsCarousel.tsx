@@ -2,7 +2,7 @@
 
 import type { TipItem } from "@/content/site";
 import { Icon } from "./Icon";
-import { showPending } from "./ui";
+import { usePending } from "./Pending";
 import { useCarousel } from "./useCarousel";
 
 function StatusBadge({ status }: { status: TipItem["status"] }) {
@@ -50,6 +50,7 @@ function TipCard({ item, n }: { item: TipItem; n: number }) {
 
 // Carrossel de dicas de gravação: sem reprodução automática; o cartão inteiro muda junto.
 export function TipsCarousel({ items: all, hint }: { items: TipItem[]; hint: string[] }) {
+  const showPending = usePending();
   const items = all.filter((it) => it.image.src || showPending);
   const { index, goTo, prev, next, regionProps } = useCarousel(items.length);
   if (items.length === 0) return null;

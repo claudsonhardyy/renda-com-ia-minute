@@ -1,6 +1,7 @@
-import { cadastro, links } from "@/content/site";
+import type { SiteContent } from "@/content/site";
 import { Icon } from "../Icon";
-import { ExternalLink, Heading, NumberBadge, PendingNote, PhoneFrame, Section, Tag } from "../ui";
+import { PendingNote } from "../Pending";
+import { ExternalLink, Heading, NumberBadge, PhoneFrame, Section, Tag } from "../ui";
 
 function Step({ n, icon, children }: { n: number; icon: string; children: React.ReactNode }) {
   return (
@@ -15,7 +16,8 @@ function Step({ n, icon, children }: { n: number; icon: string; children: React.
 }
 
 // Referência: 2- Página de cadastro
-export function Cadastro() {
+export function Cadastro({ c }: { c: SiteContent }) {
+  const { cadastro, links } = c;
   const { passo1, passo2, passo3, passo4, passo5 } = cadastro;
   return (
     <Section id="cadastro-hub">
