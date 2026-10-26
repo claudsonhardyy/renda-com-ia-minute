@@ -268,4 +268,26 @@ export const groups: Group[] = [
       ta("proposito.fechamento.texto", "Bloco final — texto"),
     ],
   },
+  {
+    id: "duvidas",
+    title: "10 · Dúvidas",
+    fields: [
+      t("duvidas.email", "E-mail do suporte (recebe as dúvidas)", "Ex.: suporte@seudominio.com.br — enquanto vazio, o botão fica sem ação"),
+      t("duvidas.selo", "Selo (acima do título)"),
+      t("duvidas.tituloBranco", "Título — parte branca"),
+      t("duvidas.tituloVerde", "Título — parte verde"),
+      ta("duvidas.texto", "Texto"),
+      t("duvidas.botao", "Texto do botão"),
+      t("duvidas.assunto", "Assunto do e-mail"),
+      {
+        kind: "list",
+        path: "duvidas.passos",
+        label: "Passos",
+        itemLabel: "Passo",
+        fixed: true,
+        fields: [t("titulo", "Título"), ta("texto", "Texto")],
+      },
+      t("duvidas.prazo", "Selo de prazo"),
+    ],
+  },
 ];

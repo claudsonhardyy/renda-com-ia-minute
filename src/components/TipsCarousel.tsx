@@ -4,6 +4,7 @@ import type { TipItem } from "@/content/site";
 import { Icon } from "./Icon";
 import { usePending } from "./Pending";
 import { CarouselArrow } from "./ui";
+import { StepDots } from "./StepDots";
 import { useCarousel } from "./useCarousel";
 
 function StatusBadge({ status }: { status: TipItem["status"] }) {
@@ -63,18 +64,9 @@ export function TipsCarousel({ items: all, hint }: { items: TipItem[]; hint: str
             )}
             <StatusBadge status={item.status} />
           </div>
-          {/* Bolinhas: uma por imagem; a acesa é a dica atual */}
-          <div className="flex justify-center gap-2.5">
-            {items.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => goTo(i)}
-                aria-label={`Ir para a dica ${i + 1}`}
-                aria-current={i === index ? "true" : undefined}
-                className={`h-3 rounded-full transition-all duration-500 ease-out ${i === index ? "w-8 bg-lime shadow-[0_0_10px_rgb(166_247_116/0.8)]" : "w-3 bg-white/30 hover:bg-lime/50"}`}
-              />
-            ))}
+          {/* Bolinhas: uma por imagem; a verde acesa anda até a dica atual */}
+          <div className="flex justify-center">
+            <StepDots count={items.length} index={index} onSelect={goTo} itemLabel="a dica" />
           </div>
         </div>
 

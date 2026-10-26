@@ -1,17 +1,19 @@
 import type { SiteContent } from "@/content/site";
 import { TipsCarousel } from "../TipsCarousel";
-import { Heading, Section } from "../ui";
+import { Section } from "../ui";
 
 // Referência: 6- Página de dicas de gravação — título e carrossel (imagem + texto) na mesma tela.
 export function Dicas({ c }: { c: SiteContent }) {
   const { dicas } = c;
   return (
     <Section id="dicas-gravacao">
-      {/* Título centralizado, barrinha fina e subtítulo, alinhados ao quadro do carrossel */}
-      <div className="mx-auto mb-[3vh] max-w-3xl text-center">
-        <Heading white={dicas.tituloBranco} green={dicas.tituloVerde} inline />
-        <div className="mx-auto mt-[2vh] h-px w-24 bg-lime/70" />
-        <p className="page-sub mt-[1.6vh]">{dicas.texto}</p>
+      {/* Título | barrinha vertical verde | subtítulo, lado a lado e centralizados */}
+      <div className="mb-[3vh] flex flex-col items-center justify-center gap-x-7 gap-y-3 md:flex-row">
+        <h2 className="page-title shrink-0">
+          {dicas.tituloBranco} <span className="text-lime">{dicas.tituloVerde}</span>
+        </h2>
+        <span aria-hidden="true" className="hidden w-[3px] self-stretch rounded-full bg-lime md:block" />
+        <p className="page-sub max-w-md text-center md:text-left">{dicas.texto}</p>
       </div>
       <TipsCarousel items={dicas.itens} hint={dicas.passeParaOLado} />
     </Section>

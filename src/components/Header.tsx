@@ -8,12 +8,12 @@ import { Icon } from "./Icon";
 function Brand({ guia }: { guia: SiteContent["guia"] }) {
   return (
     <a href="#inicio" className="flex items-center gap-2.5" aria-label={`${guia.selo}: ${guia.nome} — início`}>
-      <span className="rounded-md bg-lime px-2 py-1 text-[11px] leading-none font-extrabold tracking-wider text-lime-ink">
+      <span className="rounded-md bg-lime px-2.5 py-1.5 text-xs leading-none font-extrabold tracking-wider text-lime-ink">
         GUIA
       </span>
       <span className="leading-tight">
-        <span className="block text-base font-extrabold tracking-tight">{guia.nome}</span>
-        <span className="block text-[11px] text-white/60">{guia.selo}</span>
+        <span className="block text-lg font-extrabold tracking-tight text-white">{guia.nome}</span>
+        <span className="block text-xs text-white/65">{guia.selo}</span>
       </span>
     </a>
   );
@@ -46,21 +46,19 @@ export function Header({ nav, guia }: { nav: SiteContent["nav"]; guia: SiteConte
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-lime/25 bg-[#041d15]/95 shadow-[0_8px_30px_-12px_rgb(0_0_0/0.8)] backdrop-blur-md">
-      <div className="mx-auto grid h-16 max-w-7xl grid-cols-[1fr_auto] items-center gap-4 px-4 sm:px-6 lg:px-10 xl:grid-cols-[1fr_auto_1fr]">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/12 bg-[#0b3326]/95 shadow-[0_6px_24px_-10px_rgb(0_0_0/0.7)] backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-10">
         <Brand guia={guia} />
 
-        <nav aria-label="Páginas do guia" className="hidden justify-self-center xl:block">
-          <ul className="flex items-center gap-1 rounded-full border border-lime/45 bg-lime/[0.07] p-1.5 shadow-[0_0_26px_-8px_rgb(166_247_116/0.55)]">
+        <nav aria-label="Páginas do guia" className="mx-auto hidden xl:block">
+          <ul className="flex items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.04] p-1">
             {nav.map((item) => (
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
                   aria-current={active === item.id ? "true" : undefined}
-                  className={`block rounded-full px-3.5 py-1.5 text-sm font-semibold transition-colors ${
-                    active === item.id
-                      ? "bg-lime text-lime-ink shadow-[0_0_16px_rgb(166_247_116/0.55)]"
-                      : "text-white hover:bg-lime/15 hover:text-lime"
+                  className={`block rounded-full px-3 py-1.5 text-[13px] font-semibold transition-colors ${
+                    active === item.id ? "bg-lime text-lime-ink" : "text-white/90 hover:bg-white/10 hover:text-lime"
                   }`}
                 >
                   {item.label}
@@ -72,7 +70,7 @@ export function Header({ nav, guia }: { nav: SiteContent["nav"]; guia: SiteConte
 
         <button
           type="button"
-          className="flex items-center gap-2 justify-self-end rounded-full bg-lime px-4 py-2 text-sm font-bold text-lime-ink xl:hidden"
+          className="flex items-center gap-2 rounded-full bg-lime px-4 py-2 text-sm font-bold text-lime-ink xl:hidden"
           aria-expanded={open}
           aria-controls="menu-mobile"
           onClick={() => setOpen((v) => !v)}
@@ -83,7 +81,7 @@ export function Header({ nav, guia }: { nav: SiteContent["nav"]; guia: SiteConte
       </div>
 
       {open && (
-        <nav id="menu-mobile" aria-label="Páginas do guia" className="border-t border-white/10 bg-[#041d15] xl:hidden">
+        <nav id="menu-mobile" aria-label="Páginas do guia" className="border-t border-white/10 bg-[#0b3326] xl:hidden">
           <ul className="mx-auto grid max-w-7xl grid-cols-2 gap-1.5 px-4 py-3 sm:grid-cols-3 lg:grid-cols-5">
             {nav.map((item) => (
               <li key={item.id}>

@@ -116,8 +116,8 @@ export function NumberBadge({ n, className = "size-12 text-xl" }: { n: number; c
   );
 }
 
-// Seta de carrossel em destaque: círculo verde sólido com brilho. Com uma imagem só,
-// fica visível mas desativada (aparência apagada), sem fingir que funciona.
+// Seta de carrossel em destaque: círculo verde sólido com brilho. Com uma imagem só, mantém
+// a mesma cor viva (a pedido do cliente), mas fica desativada e sem o anel pulsando.
 export function CarouselArrow({
   direction,
   label,
@@ -137,7 +137,7 @@ export function CarouselArrow({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className={`group relative grid size-12 shrink-0 place-items-center rounded-full bg-lime text-lime-ink shadow-[0_0_22px_rgb(166_247_116/0.65)] ring-4 ring-lime/20 transition enabled:hover:scale-110 enabled:hover:shadow-[0_0_34px_rgb(166_247_116/0.9)] enabled:active:scale-95 disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none ${className}`}
+      className={`group relative grid size-12 shrink-0 place-items-center rounded-full bg-lime text-lime-ink shadow-[0_0_22px_rgb(166_247_116/0.65)] ring-4 ring-lime/20 transition enabled:hover:scale-110 enabled:hover:shadow-[0_0_34px_rgb(166_247_116/0.9)] enabled:active:scale-95 disabled:cursor-default ${className}`}
     >
       {/* anel pulsando para chamar atenção (só quando há para onde passar) */}
       <span className="absolute inset-0 rounded-full ring-2 ring-lime/70 group-enabled:animate-[ping_2.2s_cubic-bezier(0,0,0.2,1)_infinite] group-disabled:hidden" />

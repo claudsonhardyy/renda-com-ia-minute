@@ -11,6 +11,8 @@ function validate(content: SiteContent): string | null {
   for (const [key, value] of Object.entries(content.links)) {
     if (value && !isHttpUrl(value)) return `O link "${key}" precisa começar com https:// ou http://`;
   }
+  const email = content.duvidas.email.trim();
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "O e-mail do suporte (aba Dúvidas) não parece válido.";
   return null;
 }
 

@@ -63,6 +63,7 @@ export const nav: { id: string; label: string }[] = [
   { id: "dicas-gravacao", label: "Gravação" },
   { id: "celulares-compativeis", label: "Compatibilidade" },
   { id: "proposito", label: "Propósito" },
+  { id: "duvidas", label: "Dúvidas" },
 ];
 
 // Identidade do guia: é um guia independente sobre a Hub e o app MINUTE, não o site de nenhum dos dois.
@@ -350,6 +351,25 @@ export const proposito = {
   },
 };
 
+// Página de dúvidas: o botão abre o e-mail do suporte com nome e dúvida já no corpo da mensagem.
+export const duvidas = {
+  selo: "Suporte",
+  tituloBranco: "Ficou com alguma",
+  tituloVerde: "dúvida?",
+  texto:
+    "Fale com o nosso suporte por e-mail. Conte quem você é e qual é a sua dúvida: respondemos em até 24 horas e ajudamos no que estiver ao nosso alcance.",
+  // E-mail que recebe as dúvidas (vazio até o proprietário criar o endereço)
+  email: "",
+  botao: "Enviar minha dúvida por e-mail",
+  assunto: "Dúvida — Guia Hub + MINUTE",
+  passos: [
+    { icone: "mail", titulo: "Clique no botão", texto: "O seu e-mail abre com a mensagem pronta." },
+    { icone: "user", titulo: "Informe nome e dúvida", texto: "Quanto mais detalhes, mais rápido ajudamos." },
+    { icone: "clock", titulo: "Resposta em até 24h", texto: "O retorno chega no mesmo e-mail." },
+  ],
+  prazo: "Resposta em até 24 horas",
+};
+
 export const defaultContent = {
   guia,
   links,
@@ -363,6 +383,7 @@ export const defaultContent = {
   dicas,
   celulares,
   proposito,
+  duvidas,
 };
 
 export type SiteContent = typeof defaultContent;

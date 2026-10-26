@@ -4,6 +4,7 @@ import type { AppCarouselItem } from "@/content/site";
 import { Icon } from "./Icon";
 import { usePending } from "./Pending";
 import { CarouselArrow, PhoneFrame } from "./ui";
+import { StepDots } from "./StepDots";
 import { useCarousel } from "./useCarousel";
 
 // Carrossel do app MINUTE: ao trocar a imagem do celular, o texto ao lado troca junto
@@ -27,12 +28,12 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
         role="region"
         aria-roledescription="carrossel"
         aria-label="Telas do aplicativo MINUTE"
-        className="flex flex-col items-center gap-4 rounded-3xl outline-offset-8"
+        className="flex flex-col items-center gap-3 rounded-3xl outline-offset-8"
         {...regionProps}
       >
         <div className="flex items-center gap-3 sm:gap-4">
           <CarouselArrow direction="prev" label="Imagem anterior do aplicativo" onClick={prev} disabled={!many} />
-          <PhoneFrame ratio="302/620" className="h-[min(calc(100dvh-8.5rem),760px)]">
+          <PhoneFrame ratio="302/620" className="h-[min(calc(100dvh-8.1rem),820px)]">
             {pending ? (
               <div className="grid h-full place-items-center p-6 text-center text-sm text-amber-200">
                 Imagem {index + 1} pendente
@@ -44,19 +45,8 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
           </PhoneFrame>
           <CarouselArrow direction="next" label="Próxima imagem do aplicativo" onClick={next} disabled={!many} />
         </div>
-        {/* Bolinhas de passo: a preenchida é o passo atual */}
-        <div className="flex justify-center gap-3">
-          {items.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => goTo(i)}
-              aria-label={`Ir para o passo ${i + 1}`}
-              aria-current={i === index ? "true" : undefined}
-              className={`h-3 rounded-full transition-all duration-500 ease-out ${i === index ? "w-8 bg-lime shadow-[0_0_10px_rgb(166_247_116/0.8)]" : "w-3 bg-white/30 hover:bg-lime/50"}`}
-            />
-          ))}
-        </div>
+        {/* Bolinhas de passo: a verde acesa anda até o passo atual */}
+        <StepDots count={items.length} index={index} onSelect={goTo} itemLabel="o passo" />
       </div>
 
       {/* Texto sincronizado com a imagem atual do celular */}

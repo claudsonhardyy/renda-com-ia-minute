@@ -6,6 +6,7 @@ import { Cadastro } from "./sections/Cadastro";
 import { Celulares } from "./sections/Celulares";
 import { ComoFunciona } from "./sections/ComoFunciona";
 import { Dicas } from "./sections/Dicas";
+import { Duvidas } from "./sections/Duvidas";
 import { Inicio } from "./sections/Inicio";
 import { Pagamentos } from "./sections/Pagamentos";
 import { Proposito } from "./sections/Proposito";
@@ -27,6 +28,7 @@ export function SiteView({ c, showPending }: { c: SiteContent; showPending: bool
         <Dicas c={c} />
         <Celulares c={c} />
         <Proposito c={c} />
+        <Duvidas c={c} />
       </main>
       <footer className="snap-end border-t border-white/10 px-4 py-6 text-center text-sm text-white/55">
         <strong className="text-white/80">{c.guia.nome}</strong> · {c.guia.rodape}
