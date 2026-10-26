@@ -1,3 +1,4 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 import { createClient } from "./supabase/server";
 import { supabaseConfigured } from "./supabase/env";
@@ -11,9 +12,14 @@ export async function requireAdmin() {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect("/admin/login");
-  const { data: isAdmin } = await supabase.rpc("is_admin");
-  if (!isAdmin) redirect("/admin/login?erro=sem-permissao");
+  if (!(await isAdmin(supabase))) redirect("/admin/login?erro=sem-permissao");
   return { supabase, user };
 }
 
 export const isHttpUrl = (v: string) => /^https?:\/\/[^\s]+\.[^\s]+$/i.test(v.trim());
+
+// RLS só devolve linhas de public.admins para quem é admin.
+export async function isAdmin(supabase: SupabaseClient) {
+  const { data } = await supabase.from("admins").select("email").limit(1);
+  return Boolean(data?.length);
+}

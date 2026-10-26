@@ -26,9 +26,8 @@ salvo no painel sobrescreve esses valores campo a campo.
 
 ## Configurar o banco (Supabase) — uma vez
 
-1. Crie um projeto no Supabase e rode a migração
-   [`supabase/migrations/20261026000000_painel_conteudo.sql`](supabase/migrations/20261026000000_painel_conteudo.sql)
-   (SQL Editor do painel do Supabase, ou `supabase db push`). Ela cria as tabelas, o bucket `media` e as regras de acesso.
+1. Crie um projeto no Supabase e rode, em ordem, as migrações de [`supabase/migrations/`](supabase/migrations/)
+   (SQL Editor do painel do Supabase, ou `supabase db push`). Elas criam as tabelas, o bucket `media` e as regras de acesso.
 2. Copie `.env.example` para `.env.local` e preencha com a URL e a chave publicável (Project Settings → API).
    Na hospedagem (ex.: Vercel), cadastre as mesmas duas variáveis.
 3. Crie a conta de quem vai editar: **Authentication → Users → Add user** (e-mail e senha, marque *Auto confirm*).
@@ -50,7 +49,9 @@ mostra como configurar.
 - [x] Mídia do celular do hero aceita imagem ou vídeo (play/pause); modal do tutorial (YouTube, Vimeo ou arquivo)
 - [x] Verde `#B6F17E`, responsivo (desktop/tablet/celular), sem rolagem horizontal
 - [x] Painel `/admin`: login, edição de links/textos/mídias, carrosséis ordenáveis, validação de links, rascunho → pré-visualização → publicação
-- [ ] Projeto Supabase criado e conectado (migração pronta no repositório)
+- [x] Projeto Supabase `renda-com-ia-minute` (São Paulo, conta própria "Renda com IA") com as duas migrações aplicadas; Security Advisor sem avisos
+- [ ] Conta de editor criada e liberada na tabela `admins`
+- [ ] Publicação (deploy) do site
 - [ ] Conteúdo pendente do cliente — ver [docs/ANALISE.md](docs/ANALISE.md)
 
 As imagens iniciais em `public/media/` foram recortadas das referências; troque pelos arquivos

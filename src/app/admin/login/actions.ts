@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { isAdmin } from "@/lib/admin";
 import { createClient } from "@/lib/supabase/server";
 
 export type LoginState = { erro?: string };
@@ -14,8 +15,7 @@ export async function signIn(_prev: LoginState, form: FormData): Promise<LoginSt
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) return { erro: "E-mail ou senha incorretos." };
 
-  const { data: isAdmin } = await supabase.rpc("is_admin");
-  if (!isAdmin) {
+  if (!(await isAdmin(supabase))) {
     await supabase.auth.signOut();
     return { erro: "Esta conta não tem permissão para editar o site." };
   }
