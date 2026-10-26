@@ -3,6 +3,36 @@
 Landing page longa (9 seções) que guia pessoas a se cadastrar na Hub, configurar o app **MINUTE**,
 gravar tarefas do dia a dia e receber pagamentos — com painel de edição para links, textos e mídias.
 
+## Rodar localmente
+
+```bash
+npm install
+npm run dev
+```
+
+Abra http://localhost:3000. Em desenvolvimento, o que ainda falta configurar (links vazios,
+itens de carrossel sem conteúdo) aparece marcado como **Pendente** em amarelo; em produção
+(`npm run build && npm start`) esses avisos somem e itens vazios dos carrosséis ficam ocultos.
+
+## Onde editar
+
+Todo o conteúdo editável — textos, links (`url_hub_cadastro`, `url_compra_shopee`…) e mídias —
+está centralizado em [`src/content/site.ts`](src/content/site.ts). Imagens ficam em `public/media/`.
+O painel `/admin` (próxima etapa) vai editar esses mesmos campos sem mexer em código.
+
+## Estado atual
+
+- [x] 9 seções na ordem das referências, navegação por âncoras com seção ativa e menu compacto no celular
+- [x] Botões e links conforme o mapa do Guia (seção 14); links vazios ficam desabilitados, nunca `#`
+- [x] Carrossel do app (imagem + texto sincronizados) e carrossel de dicas (setas, indicadores, teclado, toque)
+- [x] Mídia do celular do hero aceita imagem ou vídeo (play/pause); modal do tutorial (YouTube, Vimeo ou arquivo)
+- [x] Verde `#B6F17E`, responsivo (desktop/tablet/celular), sem rolagem horizontal
+- [ ] Painel `/admin` com login, upload de mídias e validação de links (Supabase)
+- [ ] Conteúdo pendente do cliente — ver [docs/ANALISE.md](docs/ANALISE.md)
+
+As imagens iniciais em `public/media/` foram recortadas das referências; troque pelos arquivos
+originais em alta resolução quando o cliente enviar.
+
 ## Fonte de verdade
 
 - [Guia de Especificação Mestre](docs/Guia_Especificacao_Mestre_Site_MINUTE.pdf) — regras, campos editáveis, mapa de botões e critérios de aceitação.
