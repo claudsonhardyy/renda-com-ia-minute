@@ -137,9 +137,11 @@ export function CarouselArrow({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className={`grid size-14 shrink-0 place-items-center rounded-full bg-lime text-lime-ink shadow-[0_0_28px_rgb(182_241_126/0.55)] ring-4 ring-lime/20 transition enabled:hover:scale-110 enabled:hover:shadow-[0_0_40px_rgb(182_241_126/0.8)] enabled:active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none ${className}`}
+      className={`group relative grid size-16 shrink-0 place-items-center rounded-full bg-lime text-lime-ink shadow-[0_0_36px_rgb(182_241_126/0.7)] ring-[6px] ring-lime/25 transition enabled:hover:scale-110 enabled:hover:shadow-[0_0_52px_rgb(182_241_126/0.95)] enabled:active:scale-95 disabled:cursor-not-allowed disabled:opacity-55 disabled:shadow-none ${className}`}
     >
-      <Icon name={direction === "prev" ? "chevronLeft" : "chevronRight"} className="size-7" strokeWidth={2.8} />
+      {/* anel pulsando para chamar atenção (só quando há para onde passar) */}
+      <span className="absolute inset-0 rounded-full ring-2 ring-lime group-enabled:animate-ping group-disabled:hidden" />
+      <Icon name={direction === "prev" ? "chevronLeft" : "chevronRight"} className="relative size-8" strokeWidth={3} />
     </button>
   );
 }

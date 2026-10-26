@@ -43,7 +43,7 @@ html {
   text-wrap: balance;
 }
 .hero-title {
-  font-size: clamp(2.4rem, min(8.6vh, 5vw), 5.4rem);
+  font-size: clamp(2.4rem, min(9vh, 4.6vw), 5.4rem);
   line-height: 1.02;
   font-weight: 800;
   letter-spacing: -0.025em;
@@ -178,5 +178,23 @@ body {
   .admin-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+/* Transição dos carrosséis: a imagem/texto novo entra deslizando de leve. */
+@keyframes slide {
+  from {
+    opacity: 0;
+    transform: translateX(24px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }

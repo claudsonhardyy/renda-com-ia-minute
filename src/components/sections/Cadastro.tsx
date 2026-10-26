@@ -1,4 +1,5 @@
 import type { SiteContent } from "@/content/site";
+import { Connector } from "../Connector";
 import { Icon } from "../Icon";
 import { PendingNote } from "../Pending";
 import { ExternalLink, Heading, NumberBadge, PhoneFrame, Section } from "../ui";
@@ -19,9 +20,9 @@ export function Cadastro({ c }: { c: SiteContent }) {
   const { passo1, passo2, passo3, passo4, passo5 } = cadastro;
   return (
     <Section id="cadastro-hub">
-      <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto] lg:gap-12">
+      <div className="relative grid items-center gap-8 lg:grid-cols-[1fr_auto] lg:gap-12">
         <div>
-          <Heading white={cadastro.tituloBranco} green={cadastro.tituloVerde} />
+          <Heading white={cadastro.tituloBranco} green={cadastro.tituloVerde} inline />
           <p className="page-sub mt-2">{cadastro.subtitulo}</p>
 
           <ol className="mt-[2vh] grid gap-3 md:grid-cols-[1fr_1.12fr]">
@@ -43,10 +44,14 @@ export function Cadastro({ c }: { c: SiteContent }) {
             <Step n={2} className="glow border-2 border-lime">
               <h3 className="card-title">{passo2.titulo}</h3>
               <p className="card-text mt-1">{passo2.texto}</p>
-              <div className="mt-3 rounded-xl border border-white/25 bg-black/25 px-4 py-2.5">
+              <div id="codigo-passo2" className="mt-2.5 rounded-xl border border-white/25 bg-black/25 px-4 py-2">
                 <p className="text-sm text-white/80">{passo2.campoRotulo}</p>
-                <p className="mt-1 text-lg tracking-wide text-white/90">{passo2.campoValor}</p>
+                <p className="mt-0.5 text-lg tracking-wide text-white/90">{passo2.campoValor}</p>
               </div>
+              <p className="mt-2 flex items-start gap-2 text-[13px] leading-snug text-lime">
+                <Icon name="alertCircle" className="mt-px size-4 shrink-0" />
+                {passo2.alerta}
+              </p>
             </Step>
           </ol>
 
@@ -78,7 +83,13 @@ export function Cadastro({ c }: { c: SiteContent }) {
             alt={cadastro.cadastro_phone_image.alt}
             className="block h-full w-full object-cover object-top"
           />
+          {/* Destaque do campo de código na tela da Hub (posição relativa à imagem da tela) */}
+          <div
+            id="codigo-celular"
+            className="absolute top-[29.4%] left-[4%] h-[13.8%] w-[92%] rounded-xl border-2 border-lime shadow-[0_0_24px_rgb(182_241_126/0.55)]"
+          />
         </PhoneFrame>
+        <Connector fromId="codigo-celular" toId="codigo-passo2" />
       </div>
     </Section>
   );

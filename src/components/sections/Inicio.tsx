@@ -14,12 +14,12 @@ export function Inicio({ c }: { c: SiteContent }) {
       <img
         src={hero.foto.src}
         alt={hero.foto.alt}
-        className="pointer-events-none absolute inset-y-0 right-0 hidden h-full w-[54%] object-cover object-left lg:block [mask-image:linear-gradient(to_right,transparent,black_26%),linear-gradient(to_bottom,black_80%,transparent)] [mask-composite:intersect]"
+        className="pointer-events-none absolute inset-y-0 right-0 hidden h-full w-[55%] object-cover object-left lg:block [mask-image:linear-gradient(to_right,transparent,black_14%),linear-gradient(to_bottom,black_82%,transparent)] [mask-composite:intersect]"
       />
 
-      <div className="relative grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1.05fr)] lg:gap-10">
+      <div className="relative grid items-center gap-8 lg:grid-cols-[minmax(0,0.92fr)_auto_minmax(0,1.5fr)] lg:gap-8">
         <div>
-          <h1 className="hero-title max-w-[10.5ch]">
+          <h1 className="hero-title max-w-[9.5ch]">
             {hero.tituloBranco} <span className="text-lime">{hero.tituloVerde}</span>
           </h1>
           <p className="page-sub mt-4 max-w-sm">{hero.texto}</p>

@@ -16,23 +16,29 @@ export function Pagamentos({ c }: { c: SiteContent }) {
           <p className="page-sub mt-2 max-w-xl text-white/85">{pagamentos.texto}</p>
         </div>
 
-        {/* Ilustração da carteira (não interativa) */}
-        <div aria-hidden="true" className="glow mx-auto w-full max-w-[17rem] rounded-2xl border border-white/10 bg-card p-2 lg:mr-0">
-          <div className="rounded-xl border border-white/10 bg-bg-2 p-3.5">
-            <p className="flex items-center gap-2.5 text-sm text-white/90">
-              <Icon name="wallet" className="size-5 text-lime" />
-              {carteira.rotulo}
-            </p>
-            <p className="mt-2 flex items-center justify-between text-2xl font-extrabold">
-              {carteira.valor}
-              <Icon name="chevronRight" className="size-5 text-white/80" />
-            </p>
-            <p className="mt-2.5 flex items-center justify-center gap-2 rounded-lg bg-lime py-2.5 text-sm font-bold text-lime-ink">
-              <Icon name="wallet" className="size-4" />
-              {carteira.botao}
-            </p>
+        {/* Ilustração da carteira (não interativa), com aviso de valor fictício */}
+        <figure className="mx-auto w-full max-w-[17rem] lg:mr-0">
+          <div aria-hidden="true" className="glow rounded-2xl border border-white/10 bg-card p-2">
+            <div className="rounded-xl border border-white/10 bg-bg-2 p-3.5">
+              <p className="flex items-center gap-2.5 text-sm text-white/90">
+                <Icon name="wallet" className="size-5 text-lime" />
+                {carteira.rotulo}
+              </p>
+              <p className="mt-2 flex items-center justify-between text-2xl font-extrabold">
+                {carteira.valor}
+                <Icon name="chevronRight" className="size-5 text-white/80" />
+              </p>
+              <p className="mt-2.5 flex items-center justify-center gap-2 rounded-lg bg-lime py-2.5 text-sm font-bold text-lime-ink">
+                <Icon name="wallet" className="size-4" />
+                {carteira.botao}
+              </p>
+            </div>
           </div>
-        </div>
+          <figcaption className="mt-2 flex items-center justify-center gap-1.5 text-xs text-white/65 italic">
+            <Icon name="alertCircle" className="size-3.5 text-lime" />
+            {carteira.nota}
+          </figcaption>
+        </figure>
       </div>
 
       <div className="mt-[3vh] border-t border-white/10 pt-[2.5vh]">

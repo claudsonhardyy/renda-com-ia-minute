@@ -3,11 +3,12 @@ import { Icon } from "../Icon";
 import { NumberBadge, Section } from "../ui";
 
 // Referência: 1.1- Página inicial (Como funciona) — os 4 passos e o bloco do app na mesma tela.
+// É uma extensão da página Início: não aparece no menu superior.
 export function ComoFunciona({ c }: { c: SiteContent }) {
   const { comoFunciona } = c;
   const { bloco } = comoFunciona;
   return (
-    <Section id="como-funciona">
+    <Section id="como-funciona" className="!border-t-0">
       <div className="grid items-center gap-8 lg:grid-cols-[0.85fr_1.4fr] lg:gap-14">
         <div>
           <h2 className="page-title">{comoFunciona.titulo}</h2>

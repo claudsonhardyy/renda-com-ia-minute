@@ -44,20 +44,19 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
           </PhoneFrame>
           <CarouselArrow direction="next" label="Próxima imagem do aplicativo" onClick={next} disabled={!many} />
         </div>
-        {many && (
-          <div className="flex justify-center gap-2.5">
-            {items.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => goTo(i)}
-                aria-label={`Ir para o passo ${i + 1}`}
-                aria-current={i === index ? "true" : undefined}
-                className={`h-2.5 rounded-full transition-all ${i === index ? "w-8 bg-lime" : "w-2.5 bg-white/35 hover:bg-white/70"}`}
-              />
-            ))}
-          </div>
-        )}
+        {/* Bolinhas de passo: a preenchida é o passo atual */}
+        <div className="flex justify-center gap-3">
+          {items.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => goTo(i)}
+              aria-label={`Ir para o passo ${i + 1}`}
+              aria-current={i === index ? "true" : undefined}
+              className={`size-3.5 rounded-full border-2 border-lime transition ${i === index ? "scale-110 bg-lime shadow-[0_0_10px_rgb(182_241_126/0.8)]" : "bg-transparent hover:bg-lime/40"}`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Texto sincronizado com a imagem atual do celular */}

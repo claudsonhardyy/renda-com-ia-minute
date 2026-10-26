@@ -38,73 +38,80 @@ export function TipsCarousel({ items: all, hint }: { items: TipItem[]; hint: str
       role="region"
       aria-roledescription="carrossel"
       aria-label="Dicas de gravação"
-      className="card grid items-center gap-6 p-4 outline-offset-8 sm:p-6 lg:grid-cols-[1.45fr_1fr] lg:gap-8"
+      className="flex items-center gap-4 outline-offset-8 lg:gap-6"
       {...regionProps}
     >
-      <div>
-        <div className="relative">
-          <div key={index} className="relative animate-[fade_250ms_ease-out] overflow-hidden rounded-2xl border border-lime/40">
-            {pending ? (
-              <div className="grid aspect-[503/240] max-h-[calc(100dvh-20rem)] w-full place-items-center bg-amber-300/5 p-6 text-center text-amber-200">
-                Imagem da dica {index + 1} pendente
-              </div>
-            ) : (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={item.image.src}
-                alt={item.image.alt}
-                className="block aspect-[503/240] max-h-[calc(100dvh-20rem)] w-full object-cover"
-              />
-            )}
-            <StatusBadge status={item.status} />
-          </div>
-          <CarouselArrow direction="prev" label="Dica anterior" onClick={prev} disabled={!many} className="absolute top-1/2 left-0 -translate-x-1/3 -translate-y-1/2" />
-          <CarouselArrow direction="next" label="Próxima dica" onClick={next} disabled={!many} className="absolute top-1/2 right-0 translate-x-1/3 -translate-y-1/2" />
-        </div>
-        {many && (
-          <div className="mt-4 flex justify-center gap-3">
-            {items.map((_, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => goTo(i)}
-                aria-label={`Ir para a dica ${i + 1}`}
-                aria-current={i === index ? "true" : undefined}
-                className={`h-3 rounded-full transition-all ${i === index ? "w-8 bg-lime" : "w-3 border-2 border-lime/70 hover:bg-lime/40"}`}
-              />
-            ))}
-          </div>
-        )}
+      {/* Setas do lado de fora do quadro, uma de cada lado, sem cobrir a imagem */}
+      <div className="hidden sm:block">
+        <CarouselArrow direction="prev" label="Dica anterior" onClick={prev} disabled={!many} />
       </div>
 
-      {/* Painel de texto sincronizado com a imagem atual */}
-      <div aria-live="polite" aria-atomic="true">
-        <span className="inline-block rounded-lg border border-lime/60 bg-lime/10 px-3 py-1 text-sm font-semibold text-lime">
-          Dica {index + 1} de {items.length}
-        </span>
-        <div key={index} className="animate-[fade_250ms_ease-out]">
+      <div className="card grid min-w-0 flex-1 items-stretch gap-6 p-4 sm:p-5 lg:grid-cols-[1.5fr_1fr] lg:gap-7">
+        <div key={`img-${index}`} className="relative animate-[slide_350ms_ease-out] overflow-hidden rounded-2xl border border-lime/40">
           {pending ? (
-            <p className="mt-4 rounded-md border border-dashed border-amber-300/60 bg-amber-300/10 p-4 text-amber-200">
-              Pendente: título e descrição da dica {index + 1} (painel → 7 · Dicas de gravação).
-            </p>
-          ) : (
-            <div className="mt-4 flex items-start gap-4">
-              <span className="grid size-12 shrink-0 place-items-center rounded-full bg-lime text-lime-ink">
-                <Icon name="camera" className="size-6" strokeWidth={2} />
-              </span>
-              <div>
-                <h3 className="block-title">{item.titulo}</h3>
-                <p className="page-sub mt-2 text-white/85">{item.descricao}</p>
-              </div>
+            <div className="grid aspect-[503/240] max-h-[calc(100dvh-17rem)] w-full place-items-center bg-amber-300/5 p-6 text-center text-amber-200">
+              Imagem da dica {index + 1} pendente
             </div>
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={item.image.src}
+              alt={item.image.alt}
+              className="block aspect-[503/240] max-h-[calc(100dvh-17rem)] w-full object-cover"
+            />
           )}
+          <StatusBadge status={item.status} />
         </div>
-        {many && (
-          <button type="button" onClick={next} className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white/85 hover:text-lime">
-            {hint[0]} <span className="text-lime">{hint[1]}</span>
-            <Icon name="arrowRight" className="size-4 text-lime" />
-          </button>
-        )}
+
+        {/* Painel de texto sincronizado com a imagem atual */}
+        <div className="flex flex-col py-1" aria-live="polite" aria-atomic="true">
+          <span className="self-start rounded-lg border border-lime/60 bg-lime/10 px-3 py-1 text-sm font-semibold text-lime">
+            Dica {index + 1} de {items.length}
+          </span>
+          <div key={`txt-${index}`} className="mt-4 flex-1 animate-[slide_350ms_ease-out]">
+            {pending ? (
+              <p className="rounded-md border border-dashed border-amber-300/60 bg-amber-300/10 p-4 text-amber-200">
+                Pendente: título e descrição da dica {index + 1} (painel → 7 · Dicas de gravação).
+              </p>
+            ) : (
+              <>
+                <div className="flex items-center gap-3">
+                  <span className="grid size-11 shrink-0 place-items-center rounded-full bg-lime text-lime-ink">
+                    <Icon name="camera" className="size-6" strokeWidth={2} />
+                  </span>
+                  <h3 className="block-title">{item.titulo}</h3>
+                </div>
+                <p className="page-sub mt-3">{item.descricao}</p>
+              </>
+            )}
+          </div>
+
+          {/* Bolinhas de posição + dica de navegação */}
+          <div className="mt-4 flex items-center justify-between gap-3">
+            <div className="flex gap-2.5">
+              {items.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => goTo(i)}
+                  aria-label={`Ir para a dica ${i + 1}`}
+                  aria-current={i === index ? "true" : undefined}
+                  className={`size-3.5 rounded-full border-2 border-lime transition ${i === index ? "scale-110 bg-lime shadow-[0_0_10px_rgb(182_241_126/0.8)]" : "bg-transparent hover:bg-lime/40"}`}
+                />
+              ))}
+            </div>
+            {many && (
+              <button type="button" onClick={next} className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/85 hover:text-lime">
+                {hint[0]} <span className="text-lime">{hint[1]}</span>
+                <Icon name="arrowRight" className="size-4 text-lime" />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="hidden sm:block">
+        <CarouselArrow direction="next" label="Próxima dica" onClick={next} disabled={!many} />
       </div>
     </div>
   );

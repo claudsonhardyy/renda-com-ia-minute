@@ -11,6 +11,7 @@ export type Links = {
   url_hub_cadastro: string;
   url_hub_pedido_suporte: string;
   url_compra_online: string;
+  url_hub_celulares: string;
   url_compra_shopee: string;
   url_compra_amazon: string;
   url_compra_mercado_livre: string;
@@ -41,6 +42,7 @@ export const links: Links = {
   url_hub_cadastro: "",
   url_hub_pedido_suporte: "",
   url_compra_online: "",
+  url_hub_celulares: "",
   url_compra_shopee: "",
   url_compra_amazon: "",
   url_compra_mercado_livre: "",
@@ -54,7 +56,6 @@ export const links: Links = {
 // Ordem das seções = numeração dos arquivos de referência no Drive (ver README).
 export const nav: { id: string; label: string }[] = [
   { id: "inicio", label: "Início" },
-  { id: "como-funciona", label: "Como funciona" },
   { id: "cadastro-hub", label: "Cadastro" },
   { id: "app-minute", label: "App MINUTE" },
   { id: "pagamentos", label: "Pagamentos" },
@@ -144,6 +145,8 @@ export const cadastro = {
     texto: "Insira o código da organização no campo indicado.",
     campoRotulo: "Código de indicação",
     campoValor: "[SEU CÓDIGO AQUI]",
+    alerta:
+      "Use exatamente este código para o cadastro ficar correto. Entrou por outro link? Digite-o neste campo.",
   },
   passo3: {
     titulo: "Preencha seus dados reais",
@@ -200,7 +203,12 @@ export const pagamentos = {
   tituloVerde: "vira saldo.",
   texto:
     "Depois que seus vídeos são aprovados, o valor das tarefas fica na sua carteira da Hub e você solicita o saque quando estiver disponível.",
-  carteira: { rotulo: "Minha carteira", valor: "R$ 186,50", botao: "Solicitar saque" },
+  carteira: {
+    rotulo: "Minha carteira",
+    valor: "R$ 1.124,50",
+    botao: "Solicitar saque",
+    nota: "Valor fictício, apenas para demonstração.",
+  },
   comoFuncionaTitulo: "Como funciona?",
   etapas: [
     {
@@ -297,57 +305,24 @@ export const dicas = {
   ] as TipItem[],
 };
 
+// Versão minimalista, com a mesma informação do site da Hub.
 export const celulares = {
-  selo: "Guia Independente",
-  tituloBranco: "Celulares",
-  tituloVerde: "compatíveis.",
-  texto: "Use um celular da lista abaixo para gravar com segurança e sem problemas.",
-  imagemDestaque: { src: "/media/iphone-destaque.jpg", alt: "iPhone visto de trás" } as Media,
+  tituloBranco: "Quais celulares",
+  tituloVerde: "funcionam?",
+  texto: "Modelos compatíveis:",
   iphone: {
     titulo: "iPhone",
-    subtitulo: "Compatível a partir do iPhone 12.",
-    imagem: { src: "/media/iphone-card.jpg", alt: "iPhone" } as Media,
-    modelos: [
-      "iPhone 12", "iPhone 12 mini", "iPhone 12 Pro", "iPhone 12 Pro Max",
-      "iPhone 13", "iPhone 13 mini", "iPhone 13 Pro", "iPhone 13 Pro Max",
-      "iPhone 14", "iPhone 14 Plus", "iPhone 14 Pro", "iPhone 14 Pro Max",
-      "iPhone 15", "iPhone 15 Plus", "iPhone 15 Pro", "iPhone 15 Pro Max",
-      "iPhone 16", "iPhone 16 Plus", "iPhone 16 Pro", "iPhone 16 Pro Max",
-    ],
+    imagem: { src: "/media/celular-iphone.png", alt: "iPhone" } as Media,
+    modelos: ["iPhone 12 ou mais novo"],
   },
   android: {
     titulo: "Android",
-    subtitulo: "Compatível com modelos mais recentes das principais marcas.",
-    imagem: { src: "/media/android-card.jpg", alt: "Celular Android Google Pixel" } as Media,
-    marcas: [
-      {
-        nome: "Samsung",
-        modelos: [
-          "Galaxy S21, S21+, S21 Ultra",
-          "Galaxy S22, S22+, S22 Ultra",
-          "Galaxy S23, S23+, S23 Ultra",
-          "Galaxy S24, S24+, S24 Ultra",
-          "Galaxy S25, S25+, S25 Ultra",
-        ],
-      },
-      { nome: "Google", modelos: ["Pixel 6, Pixel 6a", "Pixel 7, Pixel 7a", "Pixel 8, Pixel 8a", "Pixel 9, Pixel 9a"] },
-      {
-        nome: "Outras marcas",
-        modelos: [
-          "Xiaomi 12, 12 Pro, 12T, 13, 13 Pro, 14, 14 Pro",
-          "Motorola Edge 30, 40, 50",
-          "OnePlus 10, 11, 12, 13, 13R",
-          "Realme GT 2, GT 3, GT 5",
-          "Oppo Find X5, X6, X7",
-          "Vivo X80, X90, X100",
-        ],
-      },
-    ],
+    imagem: { src: "/media/celular-android.png", alt: "Celular Android" } as Media,
+    modelos: ["Pixel 6 ou mais novo", "Galaxy S21 ou mais novo (exceto modelos FE)"],
   },
-  aviso: {
-    titulo: "Importante!",
-    texto:
-      "Verifique se o seu modelo está na lista antes de começar. Celulares não compatíveis podem impedir o envio dos vídeos.",
+  verificar: {
+    texto: "Você pode também verificar se o seu aparelho está disponível pelo site da Hub.",
+    botao: "Verificar no site da Hub",
   },
 };
 
