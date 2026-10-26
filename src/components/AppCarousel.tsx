@@ -20,7 +20,7 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
   const many = items.length > 1;
 
   return (
-    <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto_1fr] lg:gap-10">
+    <div className="grid items-center gap-8 lg:grid-cols-[1.3fr_auto_0.95fr] lg:gap-7">
       {intro}
 
       <div
@@ -31,8 +31,8 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
         {...regionProps}
       >
         <div className="flex items-center gap-3 sm:gap-5">
-          {many && <CarouselArrow direction="prev" label="Imagem anterior do aplicativo" onClick={prev} />}
-          <PhoneFrame ratio="240/477" className="h-[min(calc(100dvh-10rem),760px)]">
+          <CarouselArrow direction="prev" label="Imagem anterior do aplicativo" onClick={prev} disabled={!many} />
+          <PhoneFrame ratio="302/620" className="h-[min(calc(100dvh-10rem),700px)]">
             {pending ? (
               <div className="grid h-full place-items-center p-6 text-center text-sm text-amber-200">
                 Imagem {index + 1} pendente
@@ -42,7 +42,7 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
               <img key={item.image.src} src={item.image.src} alt={item.image.alt} className="h-full w-full animate-[fade_250ms_ease-out] object-cover object-top" />
             )}
           </PhoneFrame>
-          {many && <CarouselArrow direction="next" label="Próxima imagem do aplicativo" onClick={next} />}
+          <CarouselArrow direction="next" label="Próxima imagem do aplicativo" onClick={next} disabled={!many} />
         </div>
         {many && (
           <div className="flex justify-center gap-2.5">
@@ -61,7 +61,7 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
       </div>
 
       {/* Texto sincronizado com a imagem atual do celular */}
-      <div className="lg:border-l lg:border-white/15 lg:pl-10" aria-live="polite">
+      <div className="lg:border-l lg:border-white/15 lg:pl-8" aria-live="polite">
         <span className="inline-block rounded-lg border border-lime/60 bg-lime/10 px-3 py-1 text-sm font-semibold text-lime">
           Passo {index + 1} de {items.length}
         </span>
@@ -72,14 +72,14 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
             </p>
           ) : (
             <>
-              <h3 className="mt-4 text-3xl font-bold">{item.titulo}</h3>
-              <p className="page-sub mt-4 max-w-sm text-white/85">{item.texto}</p>
+              <h3 className="page-title mt-3 !text-[clamp(1.6rem,min(4.6vh,2.6vw),2.6rem)]">{item.titulo}</h3>
+              <p className="page-sub mt-3 max-w-sm">{item.texto}</p>
               {item.destaque && (
-                <div className="card mt-6 flex items-center gap-4 p-4">
+                <div className="card mt-[2.5vh] flex items-center gap-4 p-4">
                   <span className="icon-box size-12 shrink-0">
                     <Icon name="video" />
                   </span>
-                  <p className="text-white/90">{item.destaque}</p>
+                  <p className="card-text text-white/90">{item.destaque}</p>
                 </div>
               )}
             </>

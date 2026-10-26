@@ -18,7 +18,7 @@ export function Celulares({ c }: { c: SiteContent }) {
               <Icon name="apple" className="size-8" />
             </span>
             <div>
-              <h3 className="text-xl font-bold">{iphone.titulo}</h3>
+              <h3 className="card-title">{iphone.titulo}</h3>
               <p className="text-sm text-lime">{iphone.subtitulo}</p>
             </div>
           </header>
@@ -42,7 +42,7 @@ export function Celulares({ c }: { c: SiteContent }) {
               <Icon name="android" className="size-9" />
             </span>
             <div>
-              <h3 className="text-xl font-bold">{android.titulo}</h3>
+              <h3 className="card-title">{android.titulo}</h3>
               <p className="text-sm text-lime">{android.subtitulo}</p>
             </div>
           </header>
@@ -71,8 +71,8 @@ export function Celulares({ c }: { c: SiteContent }) {
       <div className="card mt-3 flex items-center gap-5 px-4 py-3">
         <Icon name="alertCircle" className="size-10 shrink-0 text-lime" strokeWidth={1.6} />
         <div className="border-l border-white/15 pl-5">
-          <h4 className="text-lg font-bold text-lime">{aviso.titulo}</h4>
-          <p className="text-sm text-white/85">{aviso.texto}</p>
+          <h4 className="card-title text-lime">{aviso.titulo}</h4>
+          <p className="card-text">{aviso.texto}</p>
         </div>
       </div>
     </Section>

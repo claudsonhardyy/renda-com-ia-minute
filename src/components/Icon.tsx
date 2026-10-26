@@ -143,6 +143,19 @@ const paths: Record<string, React.ReactNode> = {
     </>
   ),
   menu: <path d="M4 7h16M4 12h16M4 17h16" />,
+  monitor: (
+    <>
+      <rect x="3" y="4" width="18" height="12" rx="2" />
+      <path d="M8 20h8M12 16v4" />
+    </>
+  ),
+  googlePlay: (
+    <path
+      fill="currentColor"
+      stroke="none"
+      d="M4.2 2.6c-.3.3-.4.7-.4 1.2v16.4c0 .5.1.9.4 1.2l9.3-9.4zM14.5 13l2.6 2.6-11 6.3c-.4.2-.8.3-1.1.2zm3.9-3.6 3 1.7c.9.5.9 1.3 0 1.8l-3 1.7-2.8-2.6zM5 2c.3-.1.7 0 1.1.2l11 6.3-2.6 2.6z"
+    />
+  ),
   apple: (
     <path
       fill="currentColor"

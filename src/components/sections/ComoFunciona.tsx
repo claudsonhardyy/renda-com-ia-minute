@@ -20,10 +20,10 @@ export function ComoFunciona({ c }: { c: SiteContent }) {
               <Icon name="phone" className="size-7" strokeWidth={2} />
             </span>
             <span>
-              <span className="block text-lg">
+              <span className="card-title block font-normal">
                 <strong className="font-bold">{bloco.tituloForte}</strong> {bloco.titulo}
               </span>
-              <span className="mt-1 block text-white/80">{bloco.texto}</span>
+              <span className="card-text mt-1 block">{bloco.texto}</span>
             </span>
           </a>
         </div>
@@ -38,8 +38,8 @@ export function ComoFunciona({ c }: { c: SiteContent }) {
                 <NumberBadge n={i + 1} className="size-11 text-lg" />
                 <Icon name={passo.icone} className="hidden size-8 shrink-0 text-white sm:block" strokeWidth={1.5} />
                 <span className="min-w-0 flex-1">
-                  <span className="block text-lg font-bold sm:text-xl">{passo.titulo}</span>
-                  <span className="mt-0.5 block text-sm text-white/80 sm:text-base">{passo.texto}</span>
+                  <span className="card-title block">{passo.titulo}</span>
+                  <span className="card-text mt-0.5 block">{passo.texto}</span>
                 </span>
                 <Icon
                   name="arrowRight"

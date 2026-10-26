@@ -36,7 +36,7 @@ export function Pagamentos({ c }: { c: SiteContent }) {
       </div>
 
       <div className="mt-[3vh] border-t border-white/10 pt-[2.5vh]">
-        <h3 className="text-xl font-extrabold">{pagamentos.comoFuncionaTitulo}</h3>
+        <h3 className="block-title">{pagamentos.comoFuncionaTitulo}</h3>
         <ol className="mt-4 grid gap-5 md:grid-cols-3">
           {pagamentos.etapas.map((etapa, i) => (
             <li key={etapa.titulo} className="relative flex gap-3.5">
@@ -44,11 +44,11 @@ export function Pagamentos({ c }: { c: SiteContent }) {
                 <Icon name={etapa.icone} className="size-6" />
               </span>
               <div>
-                <h4 className="flex items-center gap-2 font-bold">
+                <h4 className="card-title flex items-center gap-2">
                   <NumberBadge n={i + 1} className="size-6 text-xs" />
                   {etapa.titulo}
                 </h4>
-                <p className="mt-1 text-sm text-white/80">{etapa.texto}</p>
+                <p className="card-text mt-1">{etapa.texto}</p>
               </div>
               {i < pagamentos.etapas.length - 1 && (
                 <Icon name="arrowRight" className="absolute top-3 -right-4 hidden size-5 text-lime md:block" />
@@ -62,8 +62,8 @@ export function Pagamentos({ c }: { c: SiteContent }) {
         <div className="flex items-center gap-3.5 rounded-xl border border-lime/60 bg-lime/[0.05] px-4 py-3">
           <Icon name="pix" className="size-8 shrink-0 text-lime" />
           <div>
-            <h4 className="font-bold text-lime">{alertaPix.titulo}</h4>
-            <p className="text-[13px] leading-snug text-white/85">{alertaPix.texto}</p>
+            <h4 className="card-title text-lime">{alertaPix.titulo}</h4>
+            <p className="card-text">{alertaPix.texto}</p>
             <p className="mt-1 flex items-center gap-1.5 text-xs text-white/65">
               <Icon name="shield" className="size-3.5 shrink-0 text-lime" />
               {alertaPix.lateral}
@@ -76,8 +76,8 @@ export function Pagamentos({ c }: { c: SiteContent }) {
               <Icon name={info.icone} className="size-5" />
             </span>
             <div>
-              <h4 className="text-sm font-bold">{info.titulo}</h4>
-              <p className="text-[13px] leading-snug text-white/80">{info.texto}</p>
+              <h4 className="card-title">{info.titulo}</h4>
+              <p className="card-text">{info.texto}</p>
             </div>
           </div>
         ))}

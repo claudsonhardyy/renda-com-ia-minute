@@ -4,21 +4,29 @@ import { Icon } from "../Icon";
 import { TutorialButton } from "../TutorialButton";
 import { PhoneFrame, Section } from "../ui";
 
-// Referência: 1- Página Inicial — título, texto, botões, celular (em destaque) e foto na mesma tela.
+// Modelo do cliente (docs/referencias/v2/1.webp): título e botões à esquerda, celular no centro
+// (a tela recebe o vídeo tutorial) e a colagem de fotos ocupando a lateral direita, esfumada.
 export function Inicio({ c }: { c: SiteContent }) {
   const { hero, links } = c;
   return (
-    <Section id="inicio">
-      <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto]">
+    <Section id="inicio" className="overflow-hidden">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={hero.foto.src}
+        alt={hero.foto.alt}
+        className="pointer-events-none absolute inset-y-0 right-0 hidden h-full w-[54%] object-cover object-left lg:block [mask-image:linear-gradient(to_right,transparent,black_26%),linear-gradient(to_bottom,black_80%,transparent)] [mask-composite:intersect]"
+      />
+
+      <div className="relative grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1.05fr)] lg:gap-10">
         <div>
-          <h1 className="hero-title max-w-[11ch]">
+          <h1 className="hero-title max-w-[10.5ch]">
             {hero.tituloBranco} <span className="text-lime">{hero.tituloVerde}</span>
           </h1>
-          <p className="page-sub mt-5 max-w-md text-white/85">{hero.texto}</p>
-          <div className="mt-7 flex max-w-xs flex-col gap-3">
+          <p className="page-sub mt-4 max-w-sm">{hero.texto}</p>
+          <div className="mt-6 flex max-w-xs flex-col gap-3">
             <a
               href="#como-funciona"
-              className="inline-flex items-center justify-center gap-3 rounded-full bg-lime px-6 py-3.5 text-lg font-bold text-lime-ink transition hover:brightness-105 active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-3 rounded-full bg-lime px-6 py-3.5 text-lg font-bold text-lime-ink shadow-[0_0_28px_-6px_rgb(182_241_126/0.6)] transition hover:brightness-105 active:scale-[0.98]"
             >
               {hero.botaoPrincipal}
               <Icon name="arrowRight" className="size-6" />
@@ -31,18 +39,13 @@ export function Inicio({ c }: { c: SiteContent }) {
           </div>
         </div>
 
-        {/* Celular na frente, em destaque; a foto fica atrás, à direita, com bordas esfumadas */}
-        <div className="relative mx-auto flex items-center lg:mx-0">
-          <PhoneFrame ratio="202/456" className="relative z-10 h-[min(calc(100dvh-8rem),720px)]">
-            <HeroMedia media={hero.hero_video_or_image} />
-          </PhoneFrame>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={hero.foto.src}
-            alt={hero.foto.alt}
-            className="soft-frame relative z-0 -ml-10 hidden h-[min(calc(100dvh-11rem),610px)] w-auto object-contain sm:block"
-          />
-        </div>
+        <PhoneFrame ratio="276/557" className="relative z-10 mx-auto h-[min(calc(100dvh-8.5rem),700px)]">
+          <HeroMedia media={hero.hero_video_or_image} />
+        </PhoneFrame>
+
+        {/* No celular/tablet a colagem aparece abaixo, como imagem normal */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={hero.foto.src} alt="" aria-hidden="true" className="w-full rounded-3xl lg:hidden" />
       </div>
     </Section>
   );

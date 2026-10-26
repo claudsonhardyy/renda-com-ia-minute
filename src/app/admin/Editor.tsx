@@ -147,8 +147,8 @@ export function Editor({
                 "Todos os links estão preenchidos."
               ) : (
                 <>
-                  <strong>{pendentes.length} link(s) pendente(s).</strong> Enquanto vazios, os botões aparecem desabilitados e as
-                  lojas sem link ficam ocultas no site.
+                  <strong>{pendentes.length} link(s) pendente(s).</strong> Enquanto vazios, os botões aparecem no site,
+                  mas apagados e sem clique. Ao preencher, passam a levar ao endereço informado.
                   <ul className="mt-2 list-disc pl-5 text-amber-200/90">
                     {pendentes.map((p) => <li key={p.key}>{p.label}</li>)}
                   </ul>

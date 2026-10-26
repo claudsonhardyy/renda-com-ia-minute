@@ -58,12 +58,8 @@ export function TipsCarousel({ items: all, hint }: { items: TipItem[]; hint: str
             )}
             <StatusBadge status={item.status} />
           </div>
-          {many && (
-            <>
-              <CarouselArrow direction="prev" label="Dica anterior" onClick={prev} className="absolute top-1/2 left-0 -translate-x-1/3 -translate-y-1/2" />
-              <CarouselArrow direction="next" label="Próxima dica" onClick={next} className="absolute top-1/2 right-0 translate-x-1/3 -translate-y-1/2" />
-            </>
-          )}
+          <CarouselArrow direction="prev" label="Dica anterior" onClick={prev} disabled={!many} className="absolute top-1/2 left-0 -translate-x-1/3 -translate-y-1/2" />
+          <CarouselArrow direction="next" label="Próxima dica" onClick={next} disabled={!many} className="absolute top-1/2 right-0 translate-x-1/3 -translate-y-1/2" />
         </div>
         {many && (
           <div className="mt-4 flex justify-center gap-3">
@@ -97,7 +93,7 @@ export function TipsCarousel({ items: all, hint }: { items: TipItem[]; hint: str
                 <Icon name="camera" className="size-6" strokeWidth={2} />
               </span>
               <div>
-                <h3 className="text-2xl font-bold">{item.titulo}</h3>
+                <h3 className="block-title">{item.titulo}</h3>
                 <p className="page-sub mt-2 text-white/85">{item.descricao}</p>
               </div>
             </div>

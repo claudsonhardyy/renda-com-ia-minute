@@ -10,6 +10,7 @@
 export type Links = {
   url_hub_cadastro: string;
   url_hub_pedido_suporte: string;
+  url_compra_online: string;
   url_compra_shopee: string;
   url_compra_amazon: string;
   url_compra_mercado_livre: string;
@@ -36,11 +37,10 @@ export type TipItem = {
   status: "correto" | "incorreto" | null;
 };
 
-export type BuyLink = { rotulo: string; linkKey: keyof Links };
-
 export const links: Links = {
   url_hub_cadastro: "",
   url_hub_pedido_suporte: "",
+  url_compra_online: "",
   url_compra_shopee: "",
   url_compra_amazon: "",
   url_compra_mercado_livre: "",
@@ -81,13 +81,13 @@ export const hero = {
   botaoPrincipal: "Ver passo a passo",
   botaoTutorial: "Assistir ao tutorial",
   hero_video_or_image: {
-    src: "/media/hero-tela-app.jpg",
-    alt: "Tela de tarefas do app MINUTE",
+    src: "/media/hero-tela-tarefas.jpg",
+    alt: "Tela de tarefas do app MINUTE (será trocada pelo vídeo tutorial)",
     type: "image",
   } as Media,
   foto: {
-    src: "/media/hero-foto.jpg",
-    alt: "Pessoa preparando alimentos com o celular preso a um suporte de cabeça",
+    src: "/media/hero-colagem.jpg",
+    alt: "Pessoas trabalhando com o celular preso a um suporte de cabeça: na cozinha, na barbearia, no salão e na obra",
   } as Media,
 };
 
@@ -159,8 +159,8 @@ export const cadastro = {
   },
   aviso: "Não invente dados nem use e-mails diferentes entre as contas.",
   cadastro_phone_image: {
-    src: "/media/cadastro-tela.jpg",
-    alt: "Formulário “Criar sua conta” da Hub com o campo Código de indicação em destaque",
+    src: "/media/cadastro-tela-hub.jpg",
+    alt: "Tela “Crie uma conta” da Hub com o campo para inserir o código de indicação",
   } as Media,
 };
 
@@ -171,16 +171,21 @@ export const appMinute = {
   texto:
     "A MINUTE é o aplicativo que você usa para fazer as gravações. É por lá que suas atividades são analisadas, aprovadas e enviadas para a Hub.",
   slogan: "Grave. Contribua. Ganhe.",
+  // Botões de download (destinos nos links url_app_store_minute e url_google_play_minute)
+  appStore: { chamada: "Baixe aqui na", nome: "App Store" },
+  googlePlay: { chamada: "Baixe aqui na", nome: "Google Play" },
+  aviso:
+    "Os dados de login da MINUTE são fornecidos pela Hub. Confira quais são as informações que a Hub te passou para acessar o aplicativo.",
   // app_minute_carousel_images[] + app_minute_carousel_texts[]
   // A referência indica 5 passos; só o passo 1 está legível. Os demais ficam pendentes.
   carrossel: [
     {
-      image: { src: "/media/app-tela-1.jpg", alt: "Tela inicial do app MINUTE com o botão Nova gravação" },
-      titulo: "Grave pelo app",
+      image: { src: "/media/app-tela-tarefas.jpg", alt: "Tela de tarefas do app MINUTE" },
+      titulo: "Baixe o app",
       texto:
-        "Abra a MINUTE, toque em “Nova gravação” e siga as instruções. É simples, rápido e seguro.",
+        "Após o cadastro, baixe o aplicativo MINUTE na loja de apps do seu celular e faça o login com os mesmos dados cadastrados.",
       destaque:
-        "Use seu celular, siga as orientações e faça a gravação da tarefa conforme o guia.",
+        "O app é sua central de trabalho. É por lá que você faz as gravações e acompanha seu desempenho.",
     },
     { image: { src: "", alt: "" }, titulo: "", texto: "", destaque: "" },
     { image: { src: "", alt: "" }, titulo: "", texto: "", destaque: "" },
@@ -242,33 +247,33 @@ export const suporte = {
   tituloVerde: "mantém seu celular no lugar certo.",
   // "festa" está assim na referência (provável "testa"); aguardando confirmação do cliente.
   texto:
-    "Com ele, o celular fica preso à sua cabeça, na altura da festa, com a câmera virada para fora, captando o que suas mãos estão fazendo.",
-  suporte_product_image: { src: "/media/suporte-produto.jpg", alt: "Suporte de cabeça com celular encaixado" } as Media,
+    "Com ele, o celular fica preso à sua cabeça, na altura da festa, com a câmera virada para baixo, captando o que suas mãos estão fazendo.",
+  suporte_product_image: {
+    src: "/media/suporte-produto-45.jpg",
+    alt: "Suporte de cabeça com celular encaixado e detalhe do ângulo de 45°",
+  } as Media,
   legendaProduto: "Suporte de cabeça (modelo ilustrativo)",
   suporte_usage_image: {
-    src: "/media/suporte-uso.jpg",
-    alt: "Pessoa usando o suporte de cabeça, com indicação de ângulo de 45° da câmera",
+    src: "/media/suporte-sequencia.jpg",
+    alt: "Sequência de fotos mostrando como prender o suporte na cabeça e o ângulo de 45° da câmera",
   } as Media,
   comoConseguirTitulo: "Como conseguir o suporte?",
   hub: {
     titulo: "Pelo site da Hub",
     tag: "Gratuito",
-    texto: "Solicite o seu suporte de cabeça diretamente pelo site da Hub. Ele será enviado para você sem custo.",
+    texto: "Solicite o seu suporte de cabeça diretamente pelo site da Hub.",
   },
   online: {
     titulo: "Compre online",
-    tag: "Rápido e acessível",
-    texto:
-      "Se preferir, você também pode comprar o suporte em sites de e-commerce. É fácil de encontrar e tem um ótimo custo-benefício.",
+    tag: "Mais rápido",
+    texto: "Garanta o seu suporte agora e comece o quanto antes.",
   },
-  linksTitulo: "Links úteis para compra",
-  linksSubtitulo: "Confira algumas opções de sites para adquirir o suporte:",
-  lojas: [
-    { rotulo: "Shopee", linkKey: "url_compra_shopee" },
-    { rotulo: "Amazon", linkKey: "url_compra_amazon" },
-    { rotulo: "Mercado Livre", linkKey: "url_compra_mercado_livre" },
-    { rotulo: "Site próprio", linkKey: "url_compra_site_proprio" },
-  ] as BuyLink[],
+  // **texto** aparece em verde e negrito; quebra de linha vira nova linha
+  dica: {
+    rotulo: "Dica",
+    texto:
+      "Pelo site da Hub ele é **gratuito**, mas pode demorar.\nSe quiser começar antes, a compra online é a melhor opção.",
+  },
 };
 
 export const dicas = {

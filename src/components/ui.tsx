@@ -116,24 +116,28 @@ export function NumberBadge({ n, className = "size-12 text-xl" }: { n: number; c
   );
 }
 
-// Seta de carrossel em destaque: círculo verde sólido com brilho.
+// Seta de carrossel em destaque: círculo verde sólido com brilho. Com uma imagem só,
+// fica visível mas desativada (aparência apagada), sem fingir que funciona.
 export function CarouselArrow({
   direction,
   label,
   onClick,
+  disabled = false,
   className = "",
 }: {
   direction: "prev" | "next";
   label: string;
   onClick: () => void;
+  disabled?: boolean;
   className?: string;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
+      disabled={disabled}
       aria-label={label}
-      className={`grid size-14 shrink-0 place-items-center rounded-full bg-lime text-lime-ink shadow-[0_0_28px_rgb(182_241_126/0.55)] ring-4 ring-lime/20 transition hover:scale-110 hover:shadow-[0_0_40px_rgb(182_241_126/0.8)] active:scale-95 ${className}`}
+      className={`grid size-14 shrink-0 place-items-center rounded-full bg-lime text-lime-ink shadow-[0_0_28px_rgb(182_241_126/0.55)] ring-4 ring-lime/20 transition enabled:hover:scale-110 enabled:hover:shadow-[0_0_40px_rgb(182_241_126/0.8)] enabled:active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none ${className}`}
     >
       <Icon name={direction === "prev" ? "chevronLeft" : "chevronRight"} className="size-7" strokeWidth={2.8} />
     </button>

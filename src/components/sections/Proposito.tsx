@@ -12,7 +12,7 @@ export function Proposito({ c }: { c: SiteContent }) {
           <Heading white={proposito.tituloBranco} green={proposito.tituloVerde} />
           <p className="page-sub mt-3 max-w-md text-white/85">{proposito.texto}</p>
 
-          <h3 className="mt-[3vh] text-xl font-extrabold">{proposito.comoFuncionaTitulo}</h3>
+          <h3 className="block-title mt-[3vh]">{proposito.comoFuncionaTitulo}</h3>
           <ol className="mt-4 grid gap-5 sm:grid-cols-3">
             {proposito.etapas.map((etapa, i) => (
               <li key={etapa.titulo} className="relative">
@@ -22,8 +22,8 @@ export function Proposito({ c }: { c: SiteContent }) {
                 {i < proposito.etapas.length - 1 && (
                   <Icon name="arrowRight" className="absolute top-5 left-20 hidden size-6 text-lime sm:block" />
                 )}
-                <h4 className="mt-3 text-lg font-bold">{etapa.titulo}</h4>
-                <p className="mt-1 text-sm text-white/85">{etapa.texto}</p>
+                <h4 className="card-title mt-3">{etapa.titulo}</h4>
+                <p className="card-text mt-1">{etapa.texto}</p>
               </li>
             ))}
           </ol>
@@ -31,8 +31,8 @@ export function Proposito({ c }: { c: SiteContent }) {
           <div className="card mt-[3vh] flex items-center gap-5 p-4">
             <Icon name="brain" className="size-11 shrink-0 text-lime" strokeWidth={1.5} />
             <div className="border-l border-white/15 pl-5">
-              <h4 className="text-xl font-bold text-lime">{proposito.fechamento.titulo}</h4>
-              <p className="mt-1 text-white/85">{proposito.fechamento.texto}</p>
+              <h4 className="card-title text-lime">{proposito.fechamento.titulo}</h4>
+              <p className="card-text mt-1">{proposito.fechamento.texto}</p>
             </div>
           </div>
         </div>
