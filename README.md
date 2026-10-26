@@ -16,7 +16,7 @@ Guia apenas em Suporte (6) e Dicas de gravação (7), que no Guia aparecem inver
 
 | # | ID | Arquivo no Drive | Referência |
 |---|----|------------------|-----------|
-| 1 | `inicio` | 1.1- Página Inicial | [01-inicio-hero.jpg](docs/referencias/01-inicio-hero.jpg) |
+| 1 | `inicio` | 1- Página Inicial | [01-inicio-hero.jpg](docs/referencias/01-inicio-hero.jpg) |
 | 2 | `como-funciona` | 1.1- Página inicial (Como funciona) | [02-como-funciona.jpg](docs/referencias/02-como-funciona.jpg) |
 | 3 | `cadastro-hub` | 2- Página de cadastro | [03-cadastro-hub.jpg](docs/referencias/03-cadastro-hub.jpg) |
 | 4 | `app-minute` | 3- Página do Minute | [04-app-minute.jpg](docs/referencias/04-app-minute.jpg) |

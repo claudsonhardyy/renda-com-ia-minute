@@ -7,7 +7,7 @@ e 9 capturas das telas (JPEG, apesar da extensão `.png` no Drive).
 
 | Arquivo no Drive | Seção no site | Observação |
 |---|---|---|
-| 1.1- Página Inicial (Como funciona) | 1 · Início / Hero | |
+| 1- Página Inicial | 1 · Início / Hero | |
 | 1.1- Página inicial (Como funciona).png | 2 · Como funciona | mesmo prefixo "1.1" do hero |
 | 2- Página de cadastro.png | 3 · Como se cadastrar | |
 | 3- Página do Minute.png | 4 · App MINUTE | |
@@ -30,6 +30,8 @@ e 9 capturas das telas (JPEG, apesar da extensão `.png` no Drive).
 9. **Propósito** — robô com suporte na cabeça · 3 etapas (Você grava → A IA aprende → O futuro avança) · bloco "Você faz parte disso!".
 
 ## Pendências — conteúdo que o cliente precisa fornecer
+
+Nenhuma delas bloqueia o desenvolvimento: o Guia manda criar campos editáveis vazios no painel e usar as referências como conteúdo inicial, sem inventar nada.
 
 - [ ] **Imagens isoladas** (sem texto): as referências são capturas achatadas. Para fidelidade precisamos dos arquivos originais de: foto do hero, telas do app (carrossel), tela do cadastro, foto do produto/uso do suporte, fotos das dicas de gravação, mockups de celulares, robô.
 - [ ] **Carrossel do app**: o design indica 5 passos, mas só o texto do passo 1 está visível.
