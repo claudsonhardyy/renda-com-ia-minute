@@ -196,6 +196,24 @@ const paths: Record<string, React.ReactNode> = {
       <path d="M12 0.5v1M4 3.5l.8.8M20 3.5l-.8.8" />
     </>
   ),
+  pauseCircle: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M10 9v6M14 9v6" />
+    </>
+  ),
+  volume: (
+    <>
+      <path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z" />
+      <path d="M15.5 9.5a3.5 3.5 0 0 1 0 5M18 7a7 7 0 0 1 0 10" />
+    </>
+  ),
+  volumeOff: (
+    <>
+      <path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z" />
+      <path d="M16 10l4 4M20 10l-4 4" />
+    </>
+  ),
   send: <path d="M21 3 10 14M21 3l-7 18-4-7-7-4z" />,
   monitor: (
     <>

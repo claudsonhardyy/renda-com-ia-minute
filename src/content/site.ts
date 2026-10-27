@@ -100,10 +100,17 @@ export const hero = {
   texto:
     "Aprenda a se cadastrar, configurar o MINUTE e gravar tarefas do dia a dia com mais segurança.",
   botaoPrincipal: "Ver passo a passo",
-  botaoTutorial: "Assistir ao tutorial",
+  // Botão ao lado do título que pausa / retoma os vídeos da tela do celular
+  botaoVideo: { pausar: "Pausar vídeo", assistir: "Assistir ao vídeo" },
+  // Vídeos da tela do celular (pasta “Vídeo página inicial” do Drive), tocados na ordem 1 → 2
+  videos: [
+    { src: "/media/hero-video-1.mp4", alt: "Vídeo 1 do guia Hub + MINUTE", type: "video" },
+    { src: "/media/hero-video-2.mp4", alt: "Vídeo 2 do guia Hub + MINUTE", type: "video" },
+  ] as Media[],
+  // Imagem mostrada na tela do celular se não houver vídeo
   hero_video_or_image: {
     src: "/media/hero-tela-tarefas.jpg",
-    alt: "Tela de tarefas do app MINUTE (será trocada pelo vídeo tutorial)",
+    alt: "Tela de tarefas do app MINUTE",
     type: "image",
   } as Media,
   foto: {
