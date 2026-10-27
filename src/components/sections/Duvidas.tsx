@@ -1,20 +1,18 @@
 import type { SiteContent } from "@/content/site";
+import { EmailButton } from "../EmailButton";
 import { Icon } from "../Icon";
 import { PendingNote } from "../Pending";
 import { Heading, Section, Tag } from "../ui";
 
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
-// Página de dúvidas: à esquerda título, texto e o botão que abre o e-mail do suporte com a
-// mensagem pronta; à direita um cartão simples com o que informar e o prazo de resposta.
+// Página de dúvidas: à esquerda título, texto e o botão que abre um e-mail novo para o suporte
+// (Gmail, Outlook/Hotmail, Yahoo ou o app de e-mail) com destinatário e assunto preenchidos;
+// à direita um cartão simples com o que informar e o prazo de resposta.
 export function Duvidas({ c }: { c: SiteContent }) {
   const { duvidas } = c;
   const email = duvidas.email.trim();
-  const href = isEmail(email)
-    ? `mailto:${email}?subject=${encodeURIComponent(duvidas.assunto)}&body=${encodeURIComponent(
-        "Nome:\n\nDúvida:\n\n(Se quiser, anexe prints da tela.)\n",
-      )}`
-    : "";
+  const valido = isEmail(email);
 
   const botaoClasse =
     "inline-flex items-center gap-2.5 rounded-full bg-lime px-6 py-3.5 text-lg font-bold text-lime-ink shadow-[0_0_28px_-6px_rgb(166_247_116/0.6)] transition hover:brightness-105";
@@ -28,11 +26,8 @@ export function Duvidas({ c }: { c: SiteContent }) {
           <p className="page-sub mt-4 max-w-lg">{duvidas.texto}</p>
 
           <div className="mt-[4vh]">
-            {href ? (
-              <a href={href} className={botaoClasse}>
-                <Icon name="mail" className="size-6" />
-                {duvidas.botao}
-              </a>
+            {valido ? (
+              <EmailButton email={email} assunto={duvidas.assunto} label={duvidas.botao} className={botaoClasse} />
             ) : (
               <span role="link" aria-disabled="true" title="E-mail do suporte ainda não configurado" className={`${botaoClasse} cursor-default`}>
                 <Icon name="mail" className="size-6" />
@@ -40,7 +35,7 @@ export function Duvidas({ c }: { c: SiteContent }) {
                 <span className="sr-only"> (e-mail ainda não configurado)</span>
               </span>
             )}
-            {!href && <PendingNote>e-mail do suporte (painel → 10 · Dúvidas)</PendingNote>}
+            {!valido && <PendingNote>e-mail do suporte (painel → 10 · Dúvidas)</PendingNote>}
           </div>
         </div>
 
