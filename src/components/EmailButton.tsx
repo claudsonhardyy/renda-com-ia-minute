@@ -1,87 +1,43 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Icon } from "./Icon";
 
-// Botão "Enviar minha dúvida por e-mail": não dá para saber qual e-mail a pessoa usa, então o
-// botão abre uma lista curta com os serviços mais comuns. Cada opção abre um e-mail novo já com
-// o destinatário e o assunto preenchidos — a pessoa só escreve a mensagem e envia.
-export function EmailButton({ email, assunto, label, className }: { email: string; assunto: string; label: string; className: string }) {
-  const [open, setOpen] = useState(false);
+// Contato por e-mail: mostra o endereço do suporte com um botão para copiar e uma instrução
+// simples — basta copiar e enviar a dúvida para esse endereço pelo e-mail que a pessoa já usa.
+export function EmailButton({ email, assunto, className }: { email: string; assunto: string; className: string }) {
   const [copiado, setCopiado] = useState(false);
-  const box = useRef<HTMLDivElement>(null);
-  const to = encodeURIComponent(email);
-  const su = encodeURIComponent(assunto);
-
-  const opcoes = [
-    { nome: "Gmail", href: `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${su}` },
-    { nome: "Outlook / Hotmail", href: `https://outlook.live.com/mail/0/deeplink/compose?to=${to}&subject=${su}` },
-    { nome: "Yahoo Mail", href: `https://compose.mail.yahoo.com/?to=${to}&subject=${su}` },
-    { nome: "Outro aplicativo de e-mail", href: `mailto:${email}?subject=${su}` },
-  ];
-
-  // Fecha ao clicar fora ou apertar Esc
-  useEffect(() => {
-    if (!open) return;
-    const onDown = (e: MouseEvent) => !box.current?.contains(e.target as Node) && setOpen(false);
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    document.addEventListener("mousedown", onDown);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("mousedown", onDown);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
 
   async function copiar() {
     try {
       await navigator.clipboard.writeText(email);
-      setCopiado(true);
-      setTimeout(() => setCopiado(false), 2000);
-    } catch {}
+    } catch {
+      // Sem acesso à área de transferência: seleciona o endereço para a pessoa copiar
+      const el = document.getElementById("email-suporte");
+      if (el) window.getSelection()?.selectAllChildren(el);
+    }
+    setCopiado(true);
+    setTimeout(() => setCopiado(false), 2500);
   }
 
   return (
-    <div ref={box} className="relative inline-block">
-      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-haspopup="menu" className={className}>
-        <Icon name="mail" className="size-6" />
-        {label}
-        <Icon name="chevronRight" className={`size-5 transition ${open ? "-rotate-90" : "rotate-90"}`} strokeWidth={2.6} />
-      </button>
-
-      {open && (
-        <div
-          role="menu"
-          className="absolute bottom-full left-0 z-30 mb-3 w-[min(22rem,calc(100vw-2rem))] animate-[fade_200ms_ease-out] overflow-hidden rounded-2xl border border-lime/50 bg-bg-2 shadow-[0_18px_50px_rgb(0_0_0/0.6)]"
-        >
-          <p className="border-b border-white/10 px-4 py-2.5 text-sm text-white/75">Escolha onde está o seu e-mail:</p>
-          {opcoes.map((o) => (
-            <a
-              key={o.nome}
-              role="menuitem"
-              href={o.href}
-              target={o.href.startsWith("mailto:") ? undefined : "_blank"}
-              rel="noopener noreferrer"
-              onClick={() => setOpen(false)}
-              className="flex items-center justify-between gap-3 px-4 py-2.5 font-semibold transition hover:bg-lime/10 hover:text-lime"
-            >
-              {o.nome}
-              <Icon name="arrowRight" className="size-4 text-lime" />
-            </a>
-          ))}
-          <button
-            type="button"
-            role="menuitem"
-            onClick={copiar}
-            className="flex w-full items-center justify-between gap-3 border-t border-white/10 px-4 py-2.5 text-left text-sm text-white/80 transition hover:bg-lime/10"
-          >
-            <span>
-              {copiado ? "Copiado!" : "Copiar o endereço"} <span className="text-lime">{email}</span>
-            </span>
-            <Icon name={copiado ? "check" : "file"} className="size-4 text-lime" />
-          </button>
-        </div>
-      )}
+    <div className="max-w-lg">
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="inline-flex min-w-0 items-center gap-2.5 rounded-full border border-lime/60 bg-lime/10 px-4 py-3 font-semibold">
+          <Icon name="mail" className="size-5 shrink-0 text-lime" />
+          <span id="email-suporte" className="truncate select-all">
+            {email}
+          </span>
+        </span>
+        <button type="button" onClick={copiar} className={className} aria-live="polite">
+          <Icon name={copiado ? "check" : "file"} className="size-5" strokeWidth={2.4} />
+          {copiado ? "Copiado!" : "Copiar endereço"}
+        </button>
+      </div>
+      <p className="mt-3 text-sm leading-relaxed text-white/80">
+        Basta <strong className="text-white">copiar o endereço</strong> e enviar a sua dúvida para ele pelo e-mail que você já usa (Gmail,
+        Hotmail, Outlook…). No assunto, escreva <strong className="text-lime">{assunto}</strong>.
+      </p>
     </div>
   );
 }

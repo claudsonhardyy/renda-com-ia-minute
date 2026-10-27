@@ -31,18 +31,37 @@ export type AppCarouselItem = {
   destaque: string;
 };
 
-// Dica de gravação: uma imagem por dica (já traz número, título, fotos, ícones e textos),
-// feita pelo cliente na proporção do quadro do carrossel.
+// Dica de gravação, montada no padrão do site (número, título, selos, ícones, linha e rodapé
+// sempre do mesmo tamanho), com as fotos recortadas das imagens do cliente. Marcação nos textos:
+// **trecho** = cor da coluna (verde ou vermelho), ++trecho++ = verde, !!trecho!! = vermelho,
+// __trecho__ = branco em negrito; quebra de linha vira nova linha.
+export type TipColumn = {
+  tipo: "correto" | "incorreto";
+  icone: string; // ícone ao lado do texto ("" = ✓ ou ✗ conforme o tipo; "-" = sem ícone)
+  selo?: boolean; // false = foto sem o selo ✓/✗ no canto
+  foco?: "left" | "right"; // lado da foto que fica sempre visível quando o quadro corta as bordas
+  imagens: Media[]; // 1 foto; ou várias em sequência (ex.: os 5 dias da semana)
+  rotulos: string[]; // legenda de cada foto da sequência (ex.: SEG, TER...)
+  titulo: string;
+  texto: string;
+};
+
 export type TipItem = {
-  image: Media;
-  titulo: string; // nome da dica (usado na descrição da imagem para leitores de tela)
+  tituloBranco: string;
+  tituloVerde: string;
+  subtitulo: string; // linha abaixo do título (opcional)
+  lateral: string; // texto à direita do título (opcional)
+  layout: "colunas" | "lado" | "semana"; // fotos com texto embaixo · foto com texto ao lado · sequência
+  colunas: TipColumn[];
+  textoGeral: { icone: string; texto: string }; // texto que vale para as duas fotos (opcional)
+  nota: { tipo: "alerta" | "evitar"; texto: string }; // rodapé
 };
 
 export const links: Links = {
   url_hub_cadastro: "",
   url_hub_pedido_suporte: "",
   url_compra_online: "",
-  url_hub_celulares: "https://ai.hub.xyz/how-it-works",
+  url_hub_celulares: "https://app.hub.xyz",
   url_compra_shopee: "",
   url_compra_amazon: "",
   url_compra_mercado_livre: "",
@@ -328,18 +347,227 @@ export const dicas = {
   tituloVerde: "gravação.",
   texto:
     "Confira orientações simples para gravar seus vídeos com mais qualidade e segurança e evitar que seus vídeos sejam rejeitados.",
-  passeParaOLado: ["Passe para", "o lado"],
-  // gravacao_carousel_items[] — imagens da pasta “Carrossel da página dicas de gravação
-  // atualizada” do Drive, na ordem numerada (1 a 8), em resolução original.
+  // gravacao_carousel_items[] — conteúdo da pasta “Carrossel da página dicas de gravação atualizada”
+  // do Drive, na ordem numerada; as fotos foram recortadas das imagens originais.
   itens: [
-    { image: { src: "/media/dica-1.jpg", alt: "Dica 1: Posicionamento e enquadramento" }, titulo: "Posicionamento e enquadramento" },
-    { image: { src: "/media/dica-2.jpg", alt: "Dica 2: Mantenha as mãos visíveis" }, titulo: "Mantenha as mãos visíveis" },
-    { image: { src: "/media/dica-3.jpg", alt: "Dica 3: Execute a tarefa corretamente" }, titulo: "Execute a tarefa corretamente" },
-    { image: { src: "/media/dica-4.jpg", alt: "Dica 4: Movimentos naturais e contínuos" }, titulo: "Movimentos naturais e contínuos" },
-    { image: { src: "/media/dica-5.jpg", alt: "Dica 5: Evite movimentar o celular" }, titulo: "Evite movimentar o celular" },
-    { image: { src: "/media/dica-6.jpg", alt: "Dica 6: Preserve a privacidade" }, titulo: "Preserve a privacidade" },
-    { image: { src: "/media/dica-7.jpg", alt: "Dica 7: Varie as tarefas e os ambientes" }, titulo: "Varie as tarefas e os ambientes" },
-    { image: { src: "/media/dica-8.jpg", alt: "Dica 8: Garanta uma boa iluminação" }, titulo: "Garanta uma boa iluminação" },
+    {
+      tituloBranco: "Posicionamento e",
+      tituloVerde: "enquadramento",
+      subtitulo: "",
+      lateral: "",
+      layout: "colunas",
+      colunas: [
+        {
+          tipo: "correto",
+          icone: "angle45",
+          imagens: [{ src: "/media/dica-1-1.jpg", alt: "Pessoa com o celular preso na cabeça, inclinado em 45°, cortando um tomate" }],
+          rotulos: [],
+          titulo: "Incline o celular em 45°",
+          texto: "Mantenha o celular na cabeça, com a câmera virada para frente e levemente para baixo.",
+        },
+        {
+          tipo: "correto",
+          icone: "frame",
+          selo: false,
+          foco: "left",
+          imagens: [{ src: "/media/dica-1-2.jpg", alt: "Visão da câmera gravando: mãos cortando um tomate, bem enquadradas" }],
+          rotulos: [],
+          titulo: "Enquadre as mãos e a atividade",
+          texto: "O foco deve ser nas suas mãos e no que está sendo feito.",
+        },
+      ],
+      textoGeral: { icone: "", texto: "" },
+      nota: { tipo: "evitar", texto: "__Evite filmar:__ não grave o teto, as paredes ou os pés." },
+    },
+    {
+      tituloBranco: "Mantenha as",
+      tituloVerde: "mãos visíveis",
+      subtitulo: "",
+      lateral: "",
+      layout: "colunas",
+      colunas: [
+        {
+          tipo: "correto",
+          icone: "",
+          imagens: [{ src: "/media/dica-2-1.jpg", alt: "Duas mãos visíveis cortando pepino na tábua" }],
+          rotulos: [],
+          titulo: "",
+          texto: "",
+        },
+        {
+          tipo: "correto",
+          icone: "",
+          imagens: [{ src: "/media/dica-2-2.jpg", alt: "Duas mãos visíveis lavando um prato na pia" }],
+          rotulos: [],
+          titulo: "",
+          texto: "",
+        },
+      ],
+      textoGeral: { icone: "hands", texto: "__As duas mãos devem permanecer no enquadramento durante__ ++toda a gravação.++" },
+      nota: { tipo: "alerta", texto: "Evite deixar a imagem sem mostrar ++nenhuma das mãos.++" },
+    },
+    {
+      tituloBranco: "Execute a tarefa",
+      tituloVerde: "corretamente",
+      subtitulo: "Exemplo: a tarefa selecionada foi lavar louça.",
+      lateral: "",
+      layout: "colunas",
+      colunas: [
+        {
+          tipo: "correto",
+          icone: "",
+          imagens: [{ src: "/media/dica-3-1.jpg", alt: "Gravação correta: mãos lavando louça na pia" }],
+          rotulos: [],
+          titulo: "",
+          texto: "__Selecionada:__ ++lavar louça.++\n__Gravada:__ ++lavar louça.++",
+        },
+        {
+          tipo: "incorreto",
+          icone: "",
+          imagens: [{ src: "/media/dica-3-2.jpg", alt: "Gravação incorreta: mãos mexendo uma panela no fogão" }],
+          rotulos: [],
+          titulo: "",
+          texto: "__Selecionada:__ ++lavar louça.++\n__Gravada:__ !!cozinhar.!!",
+        },
+      ],
+      textoGeral: { icone: "", texto: "" },
+      nota: { tipo: "alerta", texto: "Grave exatamente a atividade escolhida no aplicativo. Tarefas diferentes podem levar à rejeição do vídeo." },
+    },
+    {
+      tituloBranco: "Movimentos naturais e",
+      tituloVerde: "contínuos",
+      subtitulo: "",
+      lateral: "",
+      layout: "colunas",
+      colunas: [
+        {
+          tipo: "correto",
+          icone: "",
+          imagens: [{ src: "/media/dica-4-1.jpg", alt: "Pessoa pintando a parede com rolo em ritmo natural" }],
+          rotulos: [],
+          titulo: "Execute as ações em **ritmo natural.**",
+          texto: "Mantenha um fluxo contínuo na atividade, sem movimentos muito lentos ou muito rápidos.",
+        },
+        {
+          tipo: "incorreto",
+          icone: "",
+          imagens: [{ src: "/media/dica-4-2.jpg", alt: "Pessoa parada com o rolo de pintura, com símbolo de pausa" }],
+          rotulos: [],
+          titulo: "Evite **pausas prolongadas.**",
+          texto: "Não pare a atividade por muito tempo e não faça movimentos bruscos ou acelerados.",
+        },
+      ],
+      textoGeral: { icone: "", texto: "" },
+      nota: { tipo: "alerta", texto: "Movimentos naturais e contínuos ajudam a garantir um ++vídeo claro, real e útil++ para o treinamento da IA." },
+    },
+    {
+      tituloBranco: "Evite",
+      tituloVerde: "movimentar o celular",
+      subtitulo: "",
+      lateral: "",
+      layout: "colunas",
+      colunas: [
+        {
+          tipo: "correto",
+          icone: "",
+          imagens: [{ src: "/media/dica-5-1.jpg", alt: "Homem furando a parede com o celular estável, imagem nítida" }],
+          rotulos: [],
+          titulo: "Mantenha o celular **estável** durante a gravação.",
+          texto: "Isso garante um vídeo claro, nítido e de boa qualidade.",
+        },
+        {
+          tipo: "incorreto",
+          icone: "",
+          imagens: [{ src: "/media/dica-5-2.jpg", alt: "Imagem tremida e borrada por movimento brusco do celular" }],
+          rotulos: [],
+          titulo: "Não mova **o celular.**",
+          texto: "Movimentos bruscos deixam a imagem tremida e fora de foco.",
+        },
+      ],
+      textoGeral: { icone: "", texto: "" },
+      nota: { tipo: "alerta", texto: "Mantenha o celular estável para garantir um vídeo claro, nítido e de boa qualidade para o treinamento da IA." },
+    },
+    {
+      tituloBranco: "Preserve a",
+      tituloVerde: "privacidade",
+      subtitulo: "",
+      lateral: "Evite expor informações pessoais e mantenha o foco na atividade e nos seus preparos.",
+      layout: "lado",
+      colunas: [
+        {
+          tipo: "correto",
+          icone: "-",
+          imagens: [{ src: "/media/dica-6-1.jpg", alt: "Mãos cortando pepino, sem rostos, documentos ou telas na imagem" }],
+          rotulos: [],
+          titulo: "Evite filmar apenas\n**partes sensíveis.**",
+          texto: "Mantenha o foco na atividade e nas suas mãos, sem mostrar rostos, documentos ou telas.",
+        },
+        {
+          tipo: "incorreto",
+          icone: "-",
+          imagens: [{ src: "/media/dica-6-2.jpg", alt: "Sala com criança e televisão ao fundo, com ícones de proibido para rosto, documento, tela e celular" }],
+          rotulos: [],
+          titulo: "Não exponha\n**informações pessoais.**",
+          texto: "Evite filmar rostos (principalmente de crianças), documentos, dados confidenciais, televisões ou outras telas.",
+        },
+      ],
+      textoGeral: { icone: "", texto: "" },
+      nota: { tipo: "alerta", texto: "Sua privacidade e a de outras pessoas são muito importantes. Grave apenas o que for necessário para a tarefa." },
+    },
+    {
+      tituloBranco: "Varie as",
+      tituloVerde: "tarefas e os ambientes",
+      subtitulo: "",
+      lateral: "",
+      layout: "semana",
+      colunas: [
+        {
+          tipo: "incorreto",
+          icone: "",
+          imagens: [{ src: "/media/dica-7-1.jpg", alt: "Lavando louça na mesma pia — segunda" }, { src: "/media/dica-7-2.jpg", alt: "Lavando louça na mesma pia — terça" }, { src: "/media/dica-7-3.jpg", alt: "Lavando louça na mesma pia — quarta" }, { src: "/media/dica-7-4.jpg", alt: "Lavando louça na mesma pia — quinta" }, { src: "/media/dica-7-5.jpg", alt: "Lavando louça na mesma pia — sexta" }],
+          rotulos: ["SEG", "TER", "QUA", "QUI", "SEX"],
+          titulo: "Mesma tarefa, mesmo lugar, mesmo jeito = **repetição.**",
+          texto: "",
+        },
+        {
+          tipo: "correto",
+          icone: "",
+          imagens: [{ src: "/media/dica-7-6.jpg", alt: "Arrumando a cama — segunda" }, { src: "/media/dica-7-7.jpg", alt: "Regando plantas — terça" }, { src: "/media/dica-7-8.jpg", alt: "Passando pano no chão — quarta" }, { src: "/media/dica-7-9.jpg", alt: "Limpando a mesa — quinta" }, { src: "/media/dica-7-10.jpg", alt: "Dando banho no cachorro — sexta" }],
+          rotulos: ["SEG", "TER", "QUA", "QUI", "SEX"],
+          titulo: "Alterne **atividades**, **ambientes** e formas de **execução.**",
+          texto: "",
+        },
+      ],
+      textoGeral: { icone: "", texto: "" },
+      nota: { tipo: "alerta", texto: "Na parte comercial, pode ser a mesma tarefa, mas com ++objetos, técnicas++ e ++abordagens diferentes.++" },
+    },
+    {
+      tituloBranco: "Garanta uma",
+      tituloVerde: "boa iluminação",
+      subtitulo: "",
+      lateral: "",
+      layout: "lado",
+      colunas: [
+        {
+          tipo: "correto",
+          icone: "lightbulb",
+          imagens: [{ src: "/media/dica-8-1.jpg", alt: "Banho em cachorro em ambiente bem iluminado" }],
+          rotulos: [],
+          titulo: "Faça **assim.**",
+          texto: "Grave em locais ++bem iluminados,++ de preferência durante o dia. Assim, o vídeo fica claro, nítido e com boa qualidade.",
+        },
+        {
+          tipo: "incorreto",
+          icone: "lightbulb",
+          imagens: [{ src: "/media/dica-8-2.jpg", alt: "A mesma cena em ambiente escuro, com pouca luz" }],
+          rotulos: [],
+          titulo: "Evite **assim.**",
+          texto: "Evite ambientes !!escuros, sombras e pouca luz.!! Isso pode comprometer a qualidade do vídeo e levar à rejeição.",
+        },
+      ],
+      textoGeral: { icone: "", texto: "" },
+      nota: { tipo: "alerta", texto: "++Dica:++ grave de dia e mantenha o ambiente ++bem iluminado.++" },
+    },
   ] as TipItem[],
 };
 

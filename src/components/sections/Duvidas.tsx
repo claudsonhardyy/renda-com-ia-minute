@@ -6,14 +6,16 @@ import { Heading, Section, Tag } from "../ui";
 
 const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
-// Página de dúvidas: à esquerda título, texto e o botão que abre um e-mail novo para o suporte
-// (Gmail, Outlook/Hotmail, Yahoo ou o app de e-mail) com destinatário e assunto preenchidos;
+// Página de dúvidas: à esquerda título, texto e o endereço do suporte com o botão de copiar
+// e a instrução de envio;
 // à direita um cartão simples com o que informar e o prazo de resposta.
 export function Duvidas({ c }: { c: SiteContent }) {
   const { duvidas } = c;
   const email = duvidas.email.trim();
   const valido = isEmail(email);
 
+  const botaoCopiar =
+    "inline-flex items-center gap-2 rounded-full bg-lime px-5 py-3 font-bold text-lime-ink shadow-[0_0_28px_-6px_rgb(166_247_116/0.6)] transition hover:brightness-105";
   const botaoClasse =
     "inline-flex items-center gap-2.5 rounded-full bg-lime px-6 py-3.5 text-lg font-bold text-lime-ink shadow-[0_0_28px_-6px_rgb(166_247_116/0.6)] transition hover:brightness-105";
 
@@ -27,7 +29,7 @@ export function Duvidas({ c }: { c: SiteContent }) {
 
           <div className="mt-[4vh]">
             {valido ? (
-              <EmailButton email={email} assunto={duvidas.assunto} label={duvidas.botao} className={botaoClasse} />
+              <EmailButton email={email} assunto={duvidas.assunto} className={botaoCopiar} />
             ) : (
               <span role="link" aria-disabled="true" title="E-mail do suporte ainda não configurado" className={`${botaoClasse} cursor-default`}>
                 <Icon name="mail" className="size-6" />
