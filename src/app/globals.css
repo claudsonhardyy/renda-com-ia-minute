@@ -11,6 +11,8 @@
   --color-card: #0d3427;
   --color-line: rgb(166 247 116 / 0.32);
   --color-muted: #b9c6c0;
+  /* Vermelho de destaque só para os ícones de aviso (!) e o selo "Dica" */
+  --color-alert: #ff4b4b;
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -21,7 +23,11 @@ html {
 }
 
 /* Cada seção é uma "página" de tela cheia. Em telas de computador a rolagem para
-   de página em página; em telas baixas/celular a rolagem é livre (o conteúdo não cabe). */
+   de página em página; no celular/tablet (onde a página pode ser mais alta que a tela) a
+   rolagem encaixa no início de cada página só quando chega perto, sem prender o conteúdo. */
+html {
+  scroll-snap-type: y proximity;
+}
 @media (min-width: 1024px) and (min-height: 640px) {
   html {
     scroll-snap-type: y mandatory;

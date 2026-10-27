@@ -47,7 +47,7 @@ export function AppMinute({ c }: { c: SiteContent }) {
               <StoreButton href={links.url_google_play_minute} icon="googlePlay" {...appMinute.googlePlay} />
             </div>
             <p className="card mt-3 flex items-center gap-3 rounded-xl px-4 py-3">
-              <Icon name="alertCircle" className="size-6 shrink-0 text-lime" />
+              <Icon name="alertCircle" className="size-6 shrink-0 text-alert" strokeWidth={2.2} />
               <span className="card-text text-white/85">{appMinute.aviso}</span>
             </p>
           </div>

@@ -17,16 +17,16 @@ function PlatformCard({
   modelos: string[];
 }) {
   return (
-    <article className="card relative flex items-center gap-5 overflow-hidden px-5 py-4 sm:gap-7 sm:px-7">
+    <article className="card relative flex flex-col items-center gap-5 overflow-hidden px-5 py-4 sm:flex-row sm:gap-7 sm:px-7">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={imagem.src} alt={imagem.alt} className="relative h-[min(calc(100dvh-22rem),360px)] w-auto shrink-0" />
+      <img src={imagem.src} alt={imagem.alt} className="relative h-[min(calc(100dvh-22rem),360px,70vw)] w-auto shrink-0" />
       <div className="relative min-w-0">
         {/* Pílula do modelo do cliente: ícone | nome / COMPATÍVEIS */}
         <div className="inline-flex items-center gap-4 rounded-full border-2 border-lime/80 bg-black/20 py-2.5 pr-6 pl-4 shadow-[0_0_24px_-6px_rgb(166_247_116/0.6)]">
           <Icon name={icon} className="size-9 shrink-0 text-lime" />
           <span className="h-9 w-px bg-white/25" />
           <span className="leading-tight">
-            <span className="block text-2xl font-semibold">{titulo}</span>
+            <span className="block text-xl font-semibold sm:text-2xl">{titulo}</span>
             <span className="block text-xs font-semibold tracking-[0.2em] text-lime uppercase">{etiqueta}</span>
           </span>
         </div>
@@ -59,7 +59,7 @@ export function Celulares({ c }: { c: SiteContent }) {
 
       <div className="card mt-5 flex flex-wrap items-center justify-between gap-4 px-5 py-4">
         <p className="flex items-center gap-3">
-          <Icon name="alertCircle" className="size-7 shrink-0 text-lime" />
+          <Icon name="alertCircle" className="size-7 shrink-0 text-alert" strokeWidth={2.2} />
           <span className="card-text text-white/90">{verificar.texto}</span>
         </p>
         <ExternalLink

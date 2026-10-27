@@ -47,8 +47,8 @@ export const links: Links = {
   url_compra_amazon: "",
   url_compra_mercado_livre: "",
   url_compra_site_proprio: "",
-  url_app_store_minute: "",
-  url_google_play_minute: "",
+  url_app_store_minute: "https://apps.apple.com/br/app/minute-data/id6760918280",
+  url_google_play_minute: "https://play.google.com/store/apps/details?id=com.bakerdata.minute",
   url_tutorial: "",
   url_suporte_contato: "",
 };
@@ -180,21 +180,58 @@ export const appMinute = {
   googlePlay: { chamada: "Baixe aqui na", nome: "Google Play" },
   aviso:
     "Os dados de login da MINUTE são fornecidos pela Hub. Confira quais são as informações que a Hub te passou para acessar o aplicativo.",
-  // app_minute_carousel_images[] + app_minute_carousel_texts[]
-  // A referência indica 5 passos; só o passo 1 está legível. Os demais ficam pendentes.
+  // app_minute_carousel_images[] + app_minute_carousel_texts[] — telas e textos da pasta
+  // “Carrossel página Minute” do Drive, na ordem numerada (1 a 7).
   carrossel: [
     {
-      image: { src: "/media/app-tela-tarefas.jpg", alt: "Tela de tarefas do app MINUTE" },
+      image: { src: "/media/app-passo-1.jpg", alt: "Página do app Minute Data na App Store" },
       titulo: "Baixe o app",
       texto:
-        "Após o cadastro, baixe o aplicativo MINUTE na loja de apps do seu celular e faça o login com os mesmos dados cadastrados.",
-      destaque:
-        "O app é sua central de trabalho. É por lá que você faz as gravações e acompanha seu desempenho.",
+        "Após o cadastro, baixe o aplicativo Minute na loja de apps do seu celular e faça o login.",
+      destaque: "",
     },
-    { image: { src: "", alt: "" }, titulo: "", texto: "", destaque: "" },
-    { image: { src: "", alt: "" }, titulo: "", texto: "", destaque: "" },
-    { image: { src: "", alt: "" }, titulo: "", texto: "", destaque: "" },
-    { image: { src: "", alt: "" }, titulo: "", texto: "", destaque: "" },
+    {
+      image: { src: "/media/app-passo-2.jpg", alt: "Tela de login do app MINUTE com os campos de e-mail e senha" },
+      titulo: "Faça login no Minute",
+      texto:
+        "Use o login e a senha gerados pela Hub (acesse a aba “Como funciona” para encontrá-los). Esse e-mail é obrigatório para vincular os vídeos à sua conta e garantir o envio correto.",
+      destaque: "",
+    },
+    {
+      image: { src: "/media/app-passo-3.jpg", alt: "Tela de configurações do app com o ícone do menu destacado na barra inferior" },
+      titulo: "Acesse o menu",
+      texto:
+        "No aplicativo Minute, toque no ícone do menu (as três linhas), localizado na barra inferior da tela, para acessar as opções.",
+      destaque: "",
+    },
+    {
+      image: { src: "/media/app-passo-4.jpg", alt: "Tela de configurações com a opção Organização destacada" },
+      titulo: "Escolha sua organização",
+      texto:
+        "Acesse a opção “Organização” para alternar entre o modo residencial e o comercial, de acordo com o tipo de atividade que deseja realizar.",
+      destaque: "",
+    },
+    {
+      image: { src: "/media/app-passo-5.jpg", alt: "Opções Hub - Residential e Hub - Commercial para trocar de organização" },
+      titulo: "Selecione o tipo de organização",
+      texto:
+        "Escolha o Hub - Residential para tarefas domésticas ou o Hub - Commercial para tarefas profissionais. Grave sempre no ambiente correspondente, sem misturar as categorias.",
+      destaque: "",
+    },
+    {
+      image: { src: "/media/app-passo-6.jpg", alt: "Lista de tarefas disponíveis no app MINUTE" },
+      titulo: "Escolha da Tarefa",
+      texto:
+        "Leia as instruções de cada tarefa e escolha aquela que corresponde à atividade que será gravada, garantindo que a gravação siga as especificações exigidas.",
+      destaque: "",
+    },
+    {
+      image: { src: "/media/app-passo-7.jpg", alt: "Tela de gravação do app com o botão vermelho para começar" },
+      titulo: "Como Iniciar a Gravação",
+      texto:
+        "Posicione o celular conforme indicado, toque em Play e comece a gravar. Cada vídeo tem duração de 30 minutos, e o aplicativo avisará quando o tempo limite for atingido.",
+      destaque: "",
+    },
   ] as AppCarouselItem[],
 };
 
@@ -292,18 +329,57 @@ export const dicas = {
   texto:
     "Confira orientações simples para gravar seus vídeos com mais qualidade e segurança e evitar que seus vídeos sejam rejeitados.",
   passeParaOLado: ["Passe para", "o lado"],
-  // gravacao_carousel_items[] — a referência tem 4 indicadores; só o item 1 está legível.
+  // gravacao_carousel_items[] — imagens da pasta “Carrossel página dicas de gravação”
+  // do Drive, na ordem numerada. Cada imagem já traz título, textos e ícones da dica.
   itens: [
     {
-      image: { src: "/media/dica-1.jpg", alt: "Pessoa com suporte de cabeça gravando a pia da cozinha" },
-      titulo: "Enquadramento correto",
-      descricao: "Mantenha o foco na tarefa, com boa iluminação e o celular bem firme.",
-      // A imagem recortada da referência já traz o selo ✓; trocando a imagem, use "correto".
+      image: { src: "/media/dica-1.jpg", alt: "Dica 1: Posicionamento e enquadramento" },
+      titulo: "Posicionamento e enquadramento",
+      descricao: "Celular na cabeça, inclinado em 45°, com as mãos e a atividade no centro da imagem.",
       status: null,
     },
-    { image: { src: "", alt: "" }, titulo: "", descricao: "", status: "incorreto" },
-    { image: { src: "", alt: "" }, titulo: "", descricao: "", status: null },
-    { image: { src: "", alt: "" }, titulo: "", descricao: "", status: null },
+    {
+      image: { src: "/media/dica-2.jpg", alt: "Dica 2: Mantenha as mãos visíveis" },
+      titulo: "Mantenha as mãos visíveis",
+      descricao: "As duas mãos devem aparecer durante toda a gravação.",
+      status: null,
+    },
+    {
+      image: { src: "/media/dica-3.jpg", alt: "Dica 3: Execute a tarefa corretamente" },
+      titulo: "Execute a tarefa corretamente",
+      descricao: "Grave exatamente a atividade escolhida no aplicativo.",
+      status: null,
+    },
+    {
+      image: { src: "/media/dica-4.jpg", alt: "Dica 4: Movimentos naturais e contínuos" },
+      titulo: "Movimentos naturais e contínuos",
+      descricao: "Ritmo natural, sem pausas longas nem movimentos bruscos.",
+      status: null,
+    },
+    {
+      image: { src: "/media/dica-5.jpg", alt: "Dica 5: Evite movimentar o celular" },
+      titulo: "Evite movimentar o celular",
+      descricao: "Celular estável deixa o vídeo claro e nítido.",
+      status: null,
+    },
+    {
+      image: { src: "/media/dica-6.jpg", alt: "Dica 6: Preserve a privacidade" },
+      titulo: "Preserve a privacidade",
+      descricao: "Nada de rostos, documentos, telas ou dados pessoais.",
+      status: null,
+    },
+    {
+      image: { src: "/media/dica-7.jpg", alt: "Dica 7: Varie as tarefas e os ambientes" },
+      titulo: "Varie as tarefas e os ambientes",
+      descricao: "Alterne atividades, ambientes e formas de execução.",
+      status: null,
+    },
+    {
+      image: { src: "/media/dica-8.jpg", alt: "Dica 8: Garanta uma boa iluminação" },
+      titulo: "Garanta uma boa iluminação",
+      descricao: "Grave de dia, em locais bem iluminados.",
+      status: null,
+    },
   ] as TipItem[],
 };
 
@@ -362,10 +438,12 @@ export const duvidas = {
   email: "",
   botao: "Enviar minha dúvida por e-mail",
   assunto: "Dúvida — Guia Hub + MINUTE",
+  // Cartão ao lado do botão: o que a pessoa deve escrever no e-mail
+  cartaoTitulo: "No seu e-mail, informe:",
   passos: [
-    { icone: "mail", titulo: "Clique no botão", texto: "O seu e-mail abre com a mensagem pronta." },
-    { icone: "user", titulo: "Informe nome e dúvida", texto: "Quanto mais detalhes, mais rápido ajudamos." },
-    { icone: "clock", titulo: "Resposta em até 24h", texto: "O retorno chega no mesmo e-mail." },
+    { icone: "user", titulo: "Seu nome", texto: "Para sabermos com quem estamos falando." },
+    { icone: "message", titulo: "Sua dúvida bem explicada", texto: "Conte o que aconteceu e em qual etapa você está." },
+    { icone: "image", titulo: "Prints da tela (opcional)", texto: "Se quiser, anexe prints para mostrar o que está vendo." },
   ],
   prazo: "Resposta em até 24 horas",
 };

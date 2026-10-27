@@ -22,8 +22,9 @@ function StatusBadge({ status }: { status: TipItem["status"] }) {
   );
 }
 
-// Carrossel de dicas de gravação: imagem com setas dos dois lados e, ao lado, um painel de texto
-// que troca junto com a imagem (título e descrição de cada dica, editáveis no painel).
+// Carrossel de dicas de gravação: cada imagem já traz o título, os textos e os ícones da dica
+// (idênticas às enviadas pelo cliente). À esquerda, a lista numerada das dicas acompanha a
+// imagem atual e também serve de atalho; à direita, a imagem grande com setas dos dois lados.
 // Sem reprodução automática, para dar tempo de ler.
 export function TipsCarousel({ items: all, hint }: { items: TipItem[]; hint: string[] }) {
   const showPending = usePending();
@@ -39,71 +40,96 @@ export function TipsCarousel({ items: all, hint }: { items: TipItem[]; hint: str
       role="region"
       aria-roledescription="carrossel"
       aria-label="Dicas de gravação"
-      className="flex items-center gap-4 outline-offset-8 lg:gap-6"
+      className="grid items-center gap-6 outline-offset-8 lg:grid-cols-[19.5rem_auto] lg:justify-center lg:gap-8"
       {...regionProps}
     >
-      {/* Setas do lado de fora do quadro, uma de cada lado, sem cobrir a imagem */}
-      <div className="hidden sm:block">
-        <CarouselArrow direction="prev" label="Dica anterior" onClick={prev} disabled={!many} />
+      {/* Lista das dicas (computador): a atual fica destacada, com o resumo logo abaixo */}
+      <div className="hidden flex-col lg:flex" aria-live="polite">
+        <span className="self-start rounded-lg border border-lime/60 bg-lime/10 px-3 py-1 text-sm font-semibold text-lime">
+          Dica {index + 1} de {items.length}
+        </span>
+        <ol className="mt-[1.6vh] flex flex-col gap-[0.5vh]">
+          {items.map((it, i) => {
+            const active = i === index;
+            return (
+              <li key={i}>
+                <button
+                  type="button"
+                  onClick={() => goTo(i)}
+                  aria-current={active ? "step" : undefined}
+                  className={`flex w-full items-start gap-3 rounded-xl px-3 py-[0.55vh] text-left transition ${
+                    active ? "bg-lime/10 ring-1 ring-lime/50" : "hover:bg-white/5"
+                  }`}
+                >
+                  <span
+                    className={`grid size-6 shrink-0 place-items-center rounded-full text-xs font-extrabold ${
+                      active ? "bg-lime text-lime-ink" : "border border-lime/50 text-lime"
+                    }`}
+                  >
+                    {i + 1}
+                  </span>
+                  <span className="min-w-0 pt-[3px]">
+                    <span className={`block text-[15px] leading-tight ${active ? "font-bold text-white" : "font-medium text-white/70"}`}>
+                      {it.titulo || `Dica ${i + 1} (pendente)`}
+                    </span>
+                    {active && it.descricao && (
+                      <span className="mt-1 block animate-[fade_250ms_ease-out] text-[13px] leading-snug text-white/75 [@media(max-height:680px)]:hidden">{it.descricao}</span>
+                    )}
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ol>
       </div>
 
-      <div className="card grid min-w-0 flex-1 items-stretch gap-6 p-4 sm:p-5 lg:grid-cols-[1.5fr_1fr] lg:gap-7">
-        <div className="flex flex-col gap-3">
-          <div key={`img-${index}`} className="relative animate-[slide_350ms_ease-out] overflow-hidden rounded-2xl border border-lime/40">
+      <div className="flex flex-col items-center gap-3">
+        <div className="flex w-full items-center gap-3 lg:w-auto lg:gap-4">
+          <div className="hidden sm:block">
+            <CarouselArrow direction="prev" label="Dica anterior" onClick={prev} disabled={!many} />
+          </div>
+          {/* Quadro de proporção fixa: as imagens têm proporções quase iguais e ficam inteiras, sem corte */}
+          <div className="relative aspect-[1.6] w-full min-w-0 lg:h-[min(calc(100dvh-14.5rem),28rem)] lg:w-auto">
             {pending ? (
-              <div className="grid aspect-[503/240] max-h-[calc(100dvh-19rem)] w-full place-items-center bg-amber-300/5 p-6 text-center text-amber-200">
-                Imagem da dica {index + 1} pendente
+              <div className="grid h-full w-full place-items-center rounded-2xl border border-dashed border-amber-300/60 bg-amber-300/5 p-6 text-center text-amber-200">
+                Imagem da dica {index + 1} pendente (painel → 7 · Dicas de gravação)
               </div>
             ) : (
               // eslint-disable-next-line @next/next/no-img-element
               <img
+                key={`img-${index}`}
                 src={item.image.src}
-                alt={item.image.alt}
-                className="block aspect-[503/240] max-h-[calc(100dvh-19rem)] w-full object-cover"
+                alt={item.image.alt || item.titulo}
+                className="h-full w-full animate-[slide_350ms_ease-out] object-contain drop-shadow-[0_0_30px_rgb(166_247_116/0.12)]"
               />
             )}
             <StatusBadge status={item.status} />
           </div>
-          {/* Bolinhas: uma por imagem; a verde acesa anda até a dica atual */}
-          <div className="flex justify-center">
-            <StepDots count={items.length} index={index} onSelect={goTo} itemLabel="a dica" />
+          <div className="hidden sm:block">
+            <CarouselArrow direction="next" label="Próxima dica" onClick={next} disabled={!many} />
           </div>
         </div>
 
-        {/* Painel de texto sincronizado com a imagem atual */}
-        <div className="flex flex-col py-1" aria-live="polite" aria-atomic="true">
-          <span className="self-start rounded-lg border border-lime/60 bg-lime/10 px-3 py-1 text-sm font-semibold text-lime">
-            Dica {index + 1} de {items.length}
-          </span>
-          <div key={`txt-${index}`} className="mt-4 flex-1 animate-[slide_350ms_ease-out]">
-            {pending ? (
-              <p className="rounded-md border border-dashed border-amber-300/60 bg-amber-300/10 p-4 text-amber-200">
-                Pendente: título e descrição da dica {index + 1} (painel → 7 · Dicas de gravação).
-              </p>
-            ) : (
-              <>
-                <div className="flex items-center gap-3">
-                  <span className="grid size-11 shrink-0 place-items-center rounded-full bg-lime text-lime-ink">
-                    <Icon name="camera" className="size-6" strokeWidth={2} />
-                  </span>
-                  <h3 className="block-title">{item.titulo}</h3>
-                </div>
-                <p className="page-sub mt-3">{item.descricao}</p>
-              </>
-            )}
+        {/* Bolinhas (uma por imagem; a verde acesa anda até a dica atual) + setas no celular */}
+        <div className="flex w-full items-center justify-center gap-4">
+          <div className="sm:hidden">
+            <CarouselArrow direction="prev" label="Dica anterior" onClick={prev} disabled={!many} />
           </div>
-
+          <StepDots count={items.length} index={index} onSelect={goTo} itemLabel="a dica" />
+          <div className="sm:hidden">
+            <CarouselArrow direction="next" label="Próxima dica" onClick={next} disabled={!many} />
+          </div>
           {many && (
-            <button type="button" onClick={next} className="mt-4 inline-flex items-center gap-1.5 self-end text-sm font-semibold text-white/85 hover:text-lime">
+            <button
+              type="button"
+              onClick={next}
+              className="ml-4 hidden items-center gap-1.5 text-sm font-semibold text-white/85 hover:text-lime sm:inline-flex"
+            >
               {hint[0]} <span className="text-lime">{hint[1]}</span>
               <Icon name="arrowRight" className="size-4 text-lime" />
             </button>
           )}
         </div>
-      </div>
-
-      <div className="hidden sm:block">
-        <CarouselArrow direction="next" label="Próxima dica" onClick={next} disabled={!many} />
       </div>
     </div>
   );

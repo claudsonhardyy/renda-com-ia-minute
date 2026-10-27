@@ -49,7 +49,7 @@ export function Cadastro({ c }: { c: SiteContent }) {
                 <p className="text-base font-semibold tracking-wide text-white">{passo2.campoValor}</p>
               </div>
               <p className="mt-1.5 flex items-start gap-1.5 text-xs leading-snug text-lime">
-                <Icon name="alertCircle" className="mt-px size-4 shrink-0" />
+                <Icon name="alertCircle" className="mt-px size-4 shrink-0 text-alert" strokeWidth={2.2} />
                 {passo2.alerta}
               </p>
             </Step>
@@ -71,7 +71,7 @@ export function Cadastro({ c }: { c: SiteContent }) {
           </ol>
 
           <p className="card mt-2.5 flex items-center gap-2.5 rounded-xl px-3.5 py-2 text-sm font-semibold">
-            <Icon name="alert" className="size-5 shrink-0 text-lime" />
+            <Icon name="alert" className="size-5 shrink-0 text-alert" strokeWidth={2.2} />
             {cadastro.aviso}
           </p>
         </div>

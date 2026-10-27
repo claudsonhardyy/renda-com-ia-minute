@@ -58,9 +58,9 @@ export function Suporte({ c }: { c: SiteContent }) {
           </div>
 
           <div className="card mt-3 flex items-center gap-4 px-4 py-3">
-            <Icon name="alertCircle" className="size-9 shrink-0 text-lime" />
+            <Icon name="alertCircle" className="size-9 shrink-0 text-alert" strokeWidth={2.2} />
             <span className="h-9 w-px bg-white/20" />
-            <span className="rounded-full bg-lime px-3 py-0.5 text-sm font-bold text-lime-ink">{suporte.dica.rotulo}</span>
+            <span className="rounded-full bg-alert px-3 py-0.5 text-sm font-bold text-white">{suporte.dica.rotulo}</span>
             <span className="h-9 w-px bg-white/20" />
             <p className="card-text text-white/90">
               <RichText text={suporte.dica.texto} />

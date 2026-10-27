@@ -35,7 +35,7 @@ export function Pagamentos({ c }: { c: SiteContent }) {
             </div>
           </div>
           <figcaption className="mt-2 flex items-center justify-center gap-1.5 text-xs text-white/65 italic">
-            <Icon name="alertCircle" className="size-3.5 text-lime" />
+            <Icon name="alertCircle" className="size-3.5 text-alert" strokeWidth={2.2} />
             {carteira.nota}
           </figcaption>
         </figure>
