@@ -162,7 +162,6 @@ const paths: Record<string, React.ReactNode> = {
       <path d="M21 16l-5-5-9 9" />
     </>
   ),
-  expand: <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />,
   send: <path d="M21 3 10 14M21 3l-7 18-4-7-7-4z" />,
   monitor: (
     <>

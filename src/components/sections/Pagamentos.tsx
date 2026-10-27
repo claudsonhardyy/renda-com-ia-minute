@@ -43,7 +43,7 @@ export function Pagamentos({ c }: { c: SiteContent }) {
 
       <div className="mt-[3vh] border-t border-white/10 pt-[2.5vh]">
         <h3 className="block-title">{pagamentos.comoFuncionaTitulo}</h3>
-        <ol className="mt-[1.5vh] grid gap-5 md:grid-cols-3">
+        <ol className="mt-4 grid gap-5 md:grid-cols-3">
           {pagamentos.etapas.map((etapa, i) => (
             <li key={etapa.titulo} className="relative flex gap-3.5">
               <span className="icon-box size-12 shrink-0">
@@ -65,7 +65,7 @@ export function Pagamentos({ c }: { c: SiteContent }) {
       </div>
 
       <div className="mt-[3vh] grid gap-3 lg:grid-cols-[1.4fr_1fr_1fr]">
-        <div className="flex items-center gap-3.5 rounded-xl border border-lime/60 bg-lime/[0.05] px-4 py-[1.4vh]">
+        <div className="flex items-center gap-3.5 rounded-xl border border-lime/60 bg-lime/[0.05] px-4 py-3">
           <Icon name="pix" className="size-8 shrink-0 text-lime" />
           <div>
             <h4 className="card-title text-lime">{alertaPix.titulo}</h4>
@@ -77,7 +77,7 @@ export function Pagamentos({ c }: { c: SiteContent }) {
           </div>
         </div>
         {pagamentos.infos.map((info) => (
-          <div key={info.titulo} className="card flex items-center gap-3 rounded-xl px-4 py-[1.4vh]">
+          <div key={info.titulo} className="card flex items-center gap-3 rounded-xl px-4 py-3">
             <span className="grid size-9 shrink-0 place-items-center rounded-full border border-lime/50 text-lime">
               <Icon name={info.icone} className="size-5" />
             </span>

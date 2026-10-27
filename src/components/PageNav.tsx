@@ -52,16 +52,16 @@ export function PageNav({ nav }: { nav: { id: string; label: string }[] }) {
   const atEnd = current === sections.length - 1;
 
   const arrow =
-    "grid place-items-center rounded-full border border-lime/60 bg-bg/80 text-lime transition hover:bg-lime hover:text-lime-ink disabled:pointer-events-none disabled:opacity-0";
+    "grid place-items-center rounded-full border border-lime/60 bg-bg/80 text-lime backdrop-blur transition hover:bg-lime hover:text-lime-ink disabled:pointer-events-none disabled:opacity-0";
 
   return (
     <>
       {/* Computador */}
-      <nav aria-label="Páginas" className="fixed top-1/2 right-3 z-40 hidden -translate-y-1/2 flex-col items-center gap-2 lg:flex xl:right-5">
-        <button type="button" onClick={() => goTo(current - 1)} disabled={atTop} aria-label="Página anterior" className={`${arrow} size-[26px]`}>
-          <Icon name="chevronRight" className="size-3.5 -rotate-90" strokeWidth={2.4} />
+      <nav aria-label="Páginas" className="fixed top-1/2 right-3 z-40 hidden -translate-y-1/2 flex-col items-center gap-2.5 lg:flex xl:right-5">
+        <button type="button" onClick={() => goTo(current - 1)} disabled={atTop} aria-label="Página anterior" className={`${arrow} size-8`}>
+          <Icon name="chevronRight" className="size-4 -rotate-90" strokeWidth={2.4} />
         </button>
-        <ul className="flex flex-col items-center gap-1.5 py-1">
+        <ul className="flex flex-col items-center gap-2 py-1">
           {nav.map((n, i) => {
             const active = i === activeNav;
             return (
@@ -72,18 +72,18 @@ export function PageNav({ nav }: { nav: { id: string; label: string }[] }) {
                   aria-label={n.label}
                   aria-current={active ? "page" : undefined}
                   className={`rounded-full transition-all duration-300 ${
-                    active ? "h-5 w-2 bg-lime" : "size-2 border-[1.5px] border-lime/55 hover:bg-lime/40"
+                    active ? "h-6 w-2.5 bg-lime shadow-[0_0_10px_rgb(166_247_116/0.8)]" : "size-2.5 border-2 border-lime/55 hover:bg-lime/40"
                   }`}
                 />
-                <span className="pointer-events-none absolute top-1/2 right-5 -translate-y-1/2 rounded-md bg-bg-2 px-2 py-1 text-xs font-semibold whitespace-nowrap opacity-0 ring-1 ring-lime/30 transition group-hover:opacity-100">
+                <span className="pointer-events-none absolute top-1/2 right-6 -translate-y-1/2 rounded-md bg-bg-2 px-2 py-1 text-xs font-semibold whitespace-nowrap opacity-0 ring-1 ring-lime/30 transition group-hover:opacity-100">
                   {n.label}
                 </span>
               </li>
             );
           })}
         </ul>
-        <button type="button" onClick={() => goTo(current + 1)} disabled={atEnd} aria-label="Próxima página" className={`${arrow} size-[26px]`}>
-          <Icon name="chevronRight" className="size-3.5 rotate-90" strokeWidth={2.4} />
+        <button type="button" onClick={() => goTo(current + 1)} disabled={atEnd} aria-label="Próxima página" className={`${arrow} size-8`}>
+          <Icon name="chevronRight" className="size-4 rotate-90" strokeWidth={2.4} />
         </button>
       </nav>
 
