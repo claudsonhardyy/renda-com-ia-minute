@@ -16,4 +16,5 @@ export function setAt<T>(obj: T, path: string, value: unknown): T {
   return { ...container, [head]: next } as T;
 }
 
-export const join = (base: string, path: string) => (base ? `${base}.${path}` : path);
+// path vazio = o próprio item da lista (ex.: lista de fotos, em que cada item já é a mídia)
+export const join = (base: string, path: string) => (base && path ? `${base}.${path}` : base || path);

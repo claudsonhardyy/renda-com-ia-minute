@@ -57,13 +57,13 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
         role="region"
         aria-roledescription="carrossel"
         aria-label="Telas do aplicativo MINUTE"
-        className="flex flex-col items-center gap-3 rounded-3xl outline-offset-8"
+        className="flex flex-col items-center gap-2 rounded-3xl outline-offset-8"
         {...regionProps}
       >
         <div className="flex items-center gap-3 sm:gap-4">
           <CarouselArrow direction="prev" label="Imagem anterior do aplicativo" onClick={prev} disabled={!many} />
           {/* Proporção = tela do app (≈0,48) + barra de status no topo: a imagem encaixa sem cortes */}
-          <PhoneFrame ratio="300/655" className="h-[min(calc(100dvh-8.1rem),820px,125vw)]">
+          <PhoneFrame ratio="300/655" className="h-[min(calc(100dvh-6.5rem),900px,125vw)]">
             <div className="@container flex h-full flex-col">
               <StatusBar />
               <div className="relative min-h-0 flex-1">

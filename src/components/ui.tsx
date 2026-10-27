@@ -5,17 +5,20 @@ export function Section({
   id,
   children,
   className = "",
+  tight = false,
 }: {
   id: string;
   children: React.ReactNode;
   className?: string;
+  // tight: menos respiro em cima/embaixo no computador, para o conteúdo usar mais altura
+  tight?: boolean;
 }) {
   return (
     <section
       id={id}
       className={`relative flex min-h-dvh w-full snap-start items-center border-t border-white/[0.06] pt-16 first:border-t-0 ${className}`}
     >
-      <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:pr-14 lg:pl-10 lg:py-[2.5vh]">{children}</div>
+      <div className={`mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-10 ${tight ? "lg:py-[1vh]" : "lg:py-[2.5vh]"}`}>{children}</div>
     </section>
   );
 }
@@ -137,11 +140,11 @@ export function CarouselArrow({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className={`group relative grid size-12 shrink-0 place-items-center rounded-full bg-lime text-lime-ink shadow-[0_0_22px_rgb(166_247_116/0.65)] ring-4 ring-lime/20 transition enabled:hover:scale-110 enabled:hover:shadow-[0_0_34px_rgb(166_247_116/0.9)] enabled:active:scale-95 disabled:cursor-default ${className}`}
+      className={`group relative grid size-[38px] shrink-0 place-items-center rounded-full bg-lime text-lime-ink shadow-[0_0_16px_rgb(166_247_116/0.5)] ring-[3px] ring-lime/20 transition enabled:hover:scale-110 enabled:hover:shadow-[0_0_26px_rgb(166_247_116/0.8)] enabled:active:scale-95 disabled:cursor-default ${className}`}
     >
-      {/* anel pulsando para chamar atenção (só quando há para onde passar) */}
-      <span className="absolute inset-0 rounded-full ring-2 ring-lime/70 group-enabled:animate-[ping_2.2s_cubic-bezier(0,0,0.2,1)_infinite] group-disabled:hidden" />
-      <Icon name={direction === "prev" ? "chevronLeft" : "chevronRight"} className="relative size-6" strokeWidth={3} />
+      {/* anel pulsando devagar e suave para chamar atenção (só quando há para onde passar) */}
+      <span className="absolute inset-0 rounded-full ring-2 ring-lime/50 group-enabled:animate-[pulso-suave_3.2s_ease-out_infinite] group-disabled:hidden" />
+      <Icon name={direction === "prev" ? "chevronLeft" : "chevronRight"} className="relative size-5" strokeWidth={3} />
     </button>
   );
 }

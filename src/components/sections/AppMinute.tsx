@@ -25,7 +25,7 @@ function StoreButton({ href, icon, chamada, nome }: { href: string; icon: string
 export function AppMinute({ c }: { c: SiteContent }) {
   const { appMinute, links } = c;
   return (
-    <Section id="app-minute">
+    <Section id="app-minute" tight>
       <AppCarousel
         items={appMinute.carrossel}
         intro={

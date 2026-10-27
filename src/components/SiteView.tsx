@@ -1,6 +1,5 @@
 import type { SiteContent } from "@/content/site";
 import { Header } from "./Header";
-import { PageNav } from "./PageNav";
 import { PendingProvider } from "./Pending";
 import { AppMinute } from "./sections/AppMinute";
 import { Cadastro } from "./sections/Cadastro";
@@ -31,7 +30,6 @@ export function SiteView({ c, showPending }: { c: SiteContent; showPending: bool
         <Proposito c={c} />
         <Duvidas c={c} />
       </main>
-      <PageNav nav={c.nav} />
       <footer className="snap-end border-t border-white/10 px-4 py-6 text-center text-sm text-white/55">
         <strong className="text-white/80">{c.guia.nome}</strong> · {c.guia.rodape}
       </footer>
