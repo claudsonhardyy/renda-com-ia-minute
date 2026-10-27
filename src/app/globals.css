@@ -28,6 +28,14 @@ html {
 html {
   scroll-snap-type: y proximity;
 }
+/* No site, a navegação entre páginas fica nas bolinhas da direita: a barra de rolagem
+   nativa do navegador é escondida (a rolagem continua funcionando normalmente). */
+html:has(main > #inicio) {
+  scrollbar-width: none;
+}
+html:has(main > #inicio)::-webkit-scrollbar {
+  display: none;
+}
 @media (min-width: 1024px) and (min-height: 640px) {
   html {
     scroll-snap-type: y mandatory;

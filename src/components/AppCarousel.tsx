@@ -1,7 +1,9 @@
 "use client";
 
 import type { AppCarouselItem } from "@/content/site";
+import { useState } from "react";
 import { Icon } from "./Icon";
+import { Lightbox } from "./Lightbox";
 import { usePending } from "./Pending";
 import { CarouselArrow, PhoneFrame } from "./ui";
 import { StepDots } from "./StepDots";
@@ -44,6 +46,7 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
   const showPending = usePending();
   const items = all.filter((it) => it.image.src || showPending);
   const { index, goTo, prev, next, regionProps } = useCarousel(items.length);
+  const [zoom, setZoom] = useState(false);
   if (items.length === 0) return <>{intro}</>;
   const item = items[index];
   const pending = !item.image.src;
@@ -63,7 +66,7 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
         <div className="flex items-center gap-3 sm:gap-4">
           <CarouselArrow direction="prev" label="Imagem anterior do aplicativo" onClick={prev} disabled={!many} />
           {/* Proporção = tela do app (≈0,48) + barra de status no topo: a imagem encaixa sem cortes */}
-          <PhoneFrame ratio="300/655" className="h-[min(calc(100dvh-8.1rem),820px,125vw)]">
+          <PhoneFrame ratio="300/655" className="h-[min(calc(100dvh-4rem-5vh-6px),900px,125vw)]">
             <div className="@container flex h-full flex-col">
               <StatusBar />
               <div className="relative min-h-0 flex-1">
@@ -72,21 +75,29 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
                     Imagem {index + 1} pendente
                   </div>
                 ) : (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    key={item.image.src}
-                    src={item.image.src}
-                    alt={item.image.alt}
-                    className="absolute inset-0 h-full w-full animate-[fade_250ms_ease-out] object-cover object-top"
-                  />
+                  // Clique na tela abre a imagem em tela cheia, para ler melhor
+                  <button type="button" onClick={() => setZoom(true)} aria-label="Ampliar a tela do aplicativo" className="group absolute inset-0 cursor-zoom-in">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      key={item.image.src}
+                      src={item.image.src}
+                      alt={item.image.alt}
+                      className="h-full w-full animate-[fade_250ms_ease-out] object-cover object-top"
+                    />
+                    <span className="absolute right-2 bottom-2 grid size-8 place-items-center rounded-full bg-lime text-lime-ink opacity-90 shadow-lg transition group-hover:scale-110">
+                      <Icon name="expand" className="size-4" strokeWidth={2.4} />
+                    </span>
+                  </button>
                 )}
               </div>
             </div>
           </PhoneFrame>
           <CarouselArrow direction="next" label="Próxima imagem do aplicativo" onClick={next} disabled={!many} />
         </div>
-        {/* Bolinhas de passo: a verde acesa anda até o passo atual */}
-        <StepDots count={items.length} index={index} onSelect={goTo} itemLabel="o passo" />
+        {/* Bolinhas de passo (celular/tablet); no computador ficam ao lado do texto */}
+        <div className="lg:hidden">
+          <StepDots count={items.length} index={index} onSelect={goTo} itemLabel="o passo" />
+        </div>
       </div>
 
       {/* Texto sincronizado com a imagem atual do celular */}
@@ -94,6 +105,10 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
         <span className="inline-block rounded-lg border border-lime/60 bg-lime/10 px-3 py-1 text-sm font-semibold text-lime">
           Passo {index + 1} de {items.length}
         </span>
+        {/* Bolinhas de passo: a verde acesa anda até o passo atual */}
+        <div className="mt-3 hidden lg:block">
+          <StepDots count={items.length} index={index} onSelect={goTo} itemLabel="o passo" />
+        </div>
         <div key={index} className="animate-[fade_250ms_ease-out]">
           {pending ? (
             <p className="mt-5 rounded-md border border-dashed border-amber-300/60 bg-amber-300/10 p-4 text-amber-200">
@@ -115,6 +130,18 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
           )}
         </div>
       </div>
+
+      {zoom && !pending && (
+        <Lightbox
+          src={item.image.src}
+          alt={item.image.alt}
+          label={`Passo ${index + 1}: ${item.titulo}`}
+          onClose={() => setZoom(false)}
+          onPrev={prev}
+          onNext={next}
+          many={many}
+        />
+      )}
     </div>
   );
 }
