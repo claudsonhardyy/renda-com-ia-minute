@@ -175,11 +175,20 @@ const paths: Record<string, React.ReactNode> = {
     </>
   ),
   frame: <path d="M4 9V5a1 1 0 0 1 1-1h4M15 4h4a1 1 0 0 1 1 1v4M20 15v4a1 1 0 0 1-1 1h-4M9 20H5a1 1 0 0 1-1-1v-4" />,
+  // duas mãozinhas abertas lado a lado (a da direita é o espelho da esquerda)
   hands: (
-    <>
-      <path d="M7.5 21c-2-1-3.5-3-3.5-6V9.5a1.2 1.2 0 0 1 2.4 0V13M6.4 12V5.5a1.2 1.2 0 0 1 2.4 0V12M8.8 11V4.2a1.2 1.2 0 0 1 2.4 0V12M11.2 11.5V5.5a1.2 1.2 0 0 1 2.4 0V15" />
-      <path d="M13.6 15c1.2-1.6 2.6-1.8 3.3-1.1" />
-    </>
+    <g fill="currentColor" stroke="none">
+      {[undefined, "translate(24 0) scale(-1 1)"].map((t, i) => (
+        <g key={i} transform={t}>
+          <rect x="2.4" y="6" width="1.7" height="7" rx="0.85" />
+          <rect x="4.5" y="3.6" width="1.7" height="9" rx="0.85" />
+          <rect x="6.6" y="3.2" width="1.7" height="9" rx="0.85" />
+          <rect x="8.7" y="4.6" width="1.7" height="8" rx="0.85" />
+          <rect x="2.4" y="10" width="8" height="8.6" rx="3" />
+          <rect x="10" y="10.2" width="1.7" height="5.2" rx="0.85" transform="rotate(32 10.85 12.8)" />
+        </g>
+      ))}
+    </g>
   ),
   lightbulb: (
     <>

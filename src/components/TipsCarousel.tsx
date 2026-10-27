@@ -39,7 +39,7 @@ function TipText({ text, tone = "correto" }: { text: string; tone?: Tone }) {
 function TextIcon({ tone, icon }: { tone: Tone; icon?: string }) {
   return (
     <span className={`grid size-10 shrink-0 place-items-center rounded-full border-2 ${toneBorder(tone)} ${toneText(tone)}`}>
-      <Icon name={icon || (tone === "correto" ? "check" : "x")} className="size-5" strokeWidth={2.4} />
+      <Icon name={icon || (tone === "correto" ? "check" : "x")} className={icon === "hands" ? "size-[26px]" : "size-5"} strokeWidth={2.4} />
     </span>
   );
 }
