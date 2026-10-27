@@ -3,6 +3,7 @@
 import type { AppCarouselItem } from "@/content/site";
 import { Icon } from "./Icon";
 import { usePending } from "./Pending";
+import { PhoneScreen } from "./PhoneScreen";
 import { CarouselArrow, PhoneFrame } from "./ui";
 import { StepDots } from "./StepDots";
 import { useCarousel } from "./useCarousel";
@@ -57,33 +58,30 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
         role="region"
         aria-roledescription="carrossel"
         aria-label="Telas do aplicativo MINUTE"
-        className="flex flex-col items-center gap-2 rounded-3xl outline-offset-8"
+        className="flex flex-col items-center gap-2 rounded-3xl px-[42px] outline-offset-8"
         {...regionProps}
       >
-        <div className="flex items-center gap-3 sm:gap-4">
-          <CarouselArrow direction="prev" label="Imagem anterior do aplicativo" onClick={prev} disabled={!many} />
-          {/* Proporção = tela do app (≈0,48) + barra de status no topo: a imagem encaixa sem cortes */}
-          <PhoneFrame ratio="300/655" className="h-[min(calc(100dvh-6.5rem),900px,125vw)]">
+        {/* Setas encostadas nas laterais do celular, sobrepondo levemente a borda */}
+        <div className="relative">
+          <div className="absolute top-1/2 -left-[46px] z-10 -translate-y-1/2">
+            <CarouselArrow direction="prev" label="Imagem anterior do aplicativo" onClick={prev} disabled={!many} />
+          </div>
+          {/* Celular mais largo (≈256×440 numa tela de 1280×548): a tela ocupa a largura toda e rola por dentro */}
+          <PhoneFrame ratio="256/440" className="h-[min(calc(100dvh-6.5rem),900px,150vw)]">
             <div className="@container flex h-full flex-col">
               <StatusBar />
-              <div className="relative min-h-0 flex-1">
-                {pending ? (
-                  <div className="grid h-full place-items-center p-6 text-center text-sm text-amber-200">
-                    Imagem {index + 1} pendente
-                  </div>
-                ) : (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    key={item.image.src}
-                    src={item.image.src}
-                    alt={item.image.alt}
-                    className="absolute inset-0 h-full w-full animate-[fade_250ms_ease-out] object-cover object-top"
-                  />
-                )}
-              </div>
+              {pending ? (
+                <div className="grid min-h-0 flex-1 place-items-center p-6 text-center text-sm text-amber-200">
+                  Imagem {index + 1} pendente
+                </div>
+              ) : (
+                <PhoneScreen src={item.image.src} alt={item.image.alt} />
+              )}
             </div>
           </PhoneFrame>
-          <CarouselArrow direction="next" label="Próxima imagem do aplicativo" onClick={next} disabled={!many} />
+          <div className="absolute top-1/2 -right-[46px] z-10 -translate-y-1/2">
+            <CarouselArrow direction="next" label="Próxima imagem do aplicativo" onClick={next} disabled={!many} />
+          </div>
         </div>
         {/* Bolinhas de passo: a verde acesa anda até o passo atual */}
         <StepDots count={items.length} index={index} onSelect={goTo} itemLabel="o passo" />
