@@ -1,29 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
-import { Icon } from "./Icon";
 
 const ZOOM = 2.6; // aumento da lupa
 const LENS = 180; // diâmetro da lupa, em px
 
-// Tela do celular: a imagem ocupa a largura toda da tela (letras maiores) e, quando é mais
-// comprida que a tela, rola dentro do celular como num aparelho de verdade (roda do mouse ou
-// dedo). Ao passar o mouse, uma lupa mostra o trecho ampliado em alta resolução para leitura.
+// Tela do celular: a imagem aparece inteira (sem cortes nem distorção), centralizada na tela.
+// Ao passar o mouse, uma lupa mostra o trecho ampliado em alta resolução para leitura.
 export function PhoneScreen({ src, alt }: { src: string; alt: string }) {
-  const scroller = useRef<HTMLDivElement>(null);
-  const [more, setMore] = useState(false); // ainda há conteúdo abaixo
   const [lens, setLens] = useState<{ x: number; y: number; bg: string; pos: string } | null>(null);
-
-  const update = () => {
-    const el = scroller.current;
-    if (el) setMore(el.scrollTop + el.clientHeight < el.scrollHeight - 4);
-  };
-
-  // Ao trocar de passo, a tela volta para o topo
-  useEffect(() => {
-    if (scroller.current) scroller.current.scrollTop = 0;
-  }, [src]);
 
   function onMove(e: React.MouseEvent<HTMLImageElement>) {
     const r = e.currentTarget.getBoundingClientRect();
@@ -40,32 +26,16 @@ export function PhoneScreen({ src, alt }: { src: string; alt: string }) {
   }
 
   return (
-    <div className="relative min-h-0 flex-1">
-      <div
-        ref={scroller}
-        onScroll={update}
-        className="h-full overflow-y-auto overscroll-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          key={src}
-          src={src}
-          alt={alt}
-          onLoad={update}
-          onMouseMove={onMove}
-          onMouseLeave={() => setLens(null)}
-          className="block h-auto w-full animate-[fade_250ms_ease-out] cursor-zoom-in"
-        />
-      </div>
-
-      {more && (
-        <span className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center bg-gradient-to-t from-black/85 to-transparent pt-8 pb-2">
-          <span className="flex items-center gap-1 rounded-full bg-lime px-2.5 py-1 text-[11px] font-bold text-lime-ink shadow-lg">
-            Role a tela
-            <Icon name="chevronRight" className="size-3.5 rotate-90" strokeWidth={3} />
-          </span>
-        </span>
-      )}
+    <div className="relative flex min-h-0 flex-1 items-center justify-center bg-black">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        key={src}
+        src={src}
+        alt={alt}
+        onMouseMove={onMove}
+        onMouseLeave={() => setLens(null)}
+        className="block h-auto max-h-full w-auto max-w-full animate-[fade_250ms_ease-out] cursor-zoom-in"
+      />
 
       {lens &&
         createPortal(

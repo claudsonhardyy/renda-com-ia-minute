@@ -66,8 +66,8 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
           <div className="absolute top-1/2 -left-[46px] z-10 -translate-y-1/2">
             <CarouselArrow direction="prev" label="Imagem anterior do aplicativo" onClick={prev} disabled={!many} />
           </div>
-          {/* Celular mais largo (≈256×440 numa tela de 1280×548): a tela ocupa a largura toda e rola por dentro */}
-          <PhoneFrame ratio="256/440" className="h-[min(calc(100dvh-6.5rem),900px,150vw)]">
+          {/* Celular no formato 887×1774 (1:2), do maior tamanho que cabe na página; a tela aparece inteira */}
+          <PhoneFrame ratio="887/1774" className="h-[min(calc(100dvh-6.5rem),900px,150vw)]">
             <div className="@container flex h-full flex-col">
               <StatusBar />
               {pending ? (
