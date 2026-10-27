@@ -19,7 +19,7 @@ function PlatformCard({
   return (
     <article className="card relative flex flex-col items-center gap-5 overflow-hidden px-5 py-4 sm:flex-row sm:gap-7 sm:px-7">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={imagem.src} alt={imagem.alt} className="relative h-[min(calc(100dvh-22rem),360px,70vw)] w-auto shrink-0" />
+      <img src={imagem.src} alt={imagem.alt} className="relative h-[min(calc(100dvh-22rem),360px,70vw)] w-auto shrink-0 max-lg:h-44" />
       <div className="relative min-w-0">
         {/* Pílula do modelo do cliente: ícone | nome / COMPATÍVEIS */}
         <div className="inline-flex items-center gap-4 rounded-full border-2 border-lime/80 bg-black/20 py-2.5 pr-6 pl-4 shadow-[0_0_24px_-6px_rgb(166_247_116/0.6)]">

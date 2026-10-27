@@ -150,7 +150,8 @@ function MediaEditor({
       const { error } = await supabase.storage.from(MEDIA_BUCKET).upload(objectPath, file, { contentType: file.type });
       if (error) throw error;
       const { data } = supabase.storage.from(MEDIA_BUCKET).getPublicUrl(objectPath);
-      onChange({ ...media, src: data.publicUrl, type: file.type.startsWith("video/") ? "video" : "image" });
+      // Imagem nova: a versão de celular antiga deixa de valer (a nova é usada em todas as telas)
+      onChange({ ...media, src: data.publicUrl, srcMobile: undefined, type: file.type.startsWith("video/") ? "video" : "image" });
     } catch (e) {
       setErro(`Falha no envio: ${e instanceof Error ? e.message : String(e)}`);
     } finally {

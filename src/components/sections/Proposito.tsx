@@ -41,7 +41,7 @@ export function Proposito({ c }: { c: SiteContent }) {
         <img
           src={proposito.proposito_hero_image.src}
           alt={proposito.proposito_hero_image.alt}
-          className="soft-edges mx-auto h-[min(calc(100dvh-8rem),760px)] w-auto max-w-full object-contain"
+          className="soft-edges mx-auto h-[min(calc(100dvh-8rem),760px)] w-auto max-w-full object-contain max-lg:h-auto max-lg:w-full max-lg:max-w-sm"
         />
       </div>
     </Section>

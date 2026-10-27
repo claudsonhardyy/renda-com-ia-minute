@@ -44,6 +44,17 @@ function TextIcon({ tone, icon }: { tone: Tone; icon?: string }) {
   );
 }
 
+// Imagem com a versão de celular (srcMobile), quando houver, em telas menores que 1024 px.
+function Pic({ m, className }: { m: { src: string; alt: string; srcMobile?: string }; className: string }) {
+  return (
+    <picture className="contents">
+      {m.srcMobile && <source media="(max-width: 1023px)" srcSet={m.srcMobile} />}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={m.src} alt={m.alt} className={className} />
+    </picture>
+  );
+}
+
 // Foto com contorno e selo ✓/✗ no canto (selo do mesmo tamanho em todas as fotos).
 // natural: a foto mantém a proporção original (largura acompanha a altura), sem cortes.
 function Photo({ col, i = 0, natural = false, className = "" }: { col: TipColumn; i?: number; natural?: boolean; className?: string }) {
@@ -52,8 +63,14 @@ function Photo({ col, i = 0, natural = false, className = "" }: { col: TipColumn
   return (
     <div className={`relative overflow-hidden rounded-xl border-2 ${toneBorder(col.tipo)} ${className}`}>
       {foto?.src ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={foto.src} alt={foto.alt} className={natural ? "block h-auto w-full sm:h-full sm:w-auto sm:max-w-full sm:object-cover" : `block h-full w-full object-cover ${col.foco === "left" ? "object-left" : col.foco === "right" ? "object-right" : ""}`} />
+        <Pic
+          m={foto}
+          className={
+            natural
+              ? "block h-auto w-full sm:h-full sm:w-auto sm:max-w-full sm:object-cover"
+              : `block h-auto w-full lg:h-full lg:object-cover ${col.foco === "left" ? "object-left" : col.foco === "right" ? "object-right" : ""}`
+          }
+        />
       ) : (
         <div className="grid h-full min-h-24 place-items-center text-sm text-amber-200">foto pendente</div>
       )}
@@ -94,16 +111,18 @@ function LayoutColunas({ item }: { item: TipItem }) {
   const temTexto = item.colunas.some((c) => c.titulo || c.texto);
   return (
     <div className="grid min-h-0 flex-1 grid-cols-1 gap-x-6 gap-y-[1.4vh] sm:grid-cols-2 lg:grid-rows-[minmax(0,1fr)_auto]">
-      {a && <Photo col={a} className="aspect-[2/1] sm:row-start-1 lg:aspect-auto" />}
-      {b && <Photo col={b} className="aspect-[2/1] sm:row-start-1 lg:aspect-auto" />}
+      {/* No celular (uma coluna) a ordem é foto 1 → texto 1 → foto 2 → texto 2; a partir de 640 px,
+          fotos lado a lado em cima e os textos embaixo de cada uma */}
+      {a && <Photo col={a} className="max-sm:order-1 sm:row-start-1" />}
+      {b && <Photo col={b} className="max-sm:order-3 max-sm:mt-2 sm:row-start-1" />}
       {temTexto ? (
         <>
-          {a && <div className="sm:row-start-2"><ColumnText col={a} /></div>}
-          {b && <div className="sm:row-start-2 sm:border-l sm:border-white/15 sm:pl-6"><ColumnText col={b} /></div>}
+          {a && <div className="max-sm:order-2 sm:row-start-2"><ColumnText col={a} /></div>}
+          {b && <div className="max-sm:order-4 sm:row-start-2 sm:border-l sm:border-white/15 sm:pl-6"><ColumnText col={b} /></div>}
         </>
       ) : (
         item.textoGeral.texto && (
-          <div className="flex items-center justify-center gap-3 sm:col-span-2 sm:row-start-2">
+          <div className="flex items-center justify-center gap-3 max-sm:order-5 sm:col-span-2 sm:row-start-2">
             {item.textoGeral.icone && <TextIcon tone="correto" icon={item.textoGeral.icone} />}
             <p className={`${TITULO} font-semibold`}>
               <TipText text={item.textoGeral.texto} />
@@ -152,8 +171,10 @@ function LayoutSemana({ item }: { item: TipItem }) {
           <div className="grid h-full min-h-0 w-full flex-1 grid-cols-5 gap-2">
             {col.imagens.map((img, k) => (
               <figure key={k} className="flex h-full min-h-0 flex-col items-center gap-1">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img.src} alt={img.alt} className={`aspect-[4/3] w-full rounded-lg border object-cover sm:aspect-auto sm:min-h-0 sm:flex-1 ${col.tipo === "correto" ? "border-lime/60" : "border-alert/70"}`} />
+                <Pic
+                  m={img}
+                  className={`aspect-[4/5] w-full rounded-lg border object-cover sm:aspect-auto sm:min-h-0 sm:flex-1 ${col.tipo === "correto" ? "border-lime/60" : "border-alert/70"}`}
+                />
                 {col.rotulos[k] && <figcaption className="text-xs font-bold tracking-wide text-white">{col.rotulos[k]}</figcaption>}
               </figure>
             ))}
@@ -171,13 +192,16 @@ function LayoutSemana({ item }: { item: TipItem }) {
 function TipSlide({ item, n }: { item: TipItem; n: number }) {
   return (
     <article className="card flex w-full min-w-0 flex-col gap-[1.6vh] p-3 sm:px-5 sm:py-[1.8vh] lg:h-full lg:min-h-0">
-      <header className="flex shrink-0 flex-wrap items-center gap-x-4 gap-y-1">
-        <span className="grid size-10 shrink-0 place-items-center rounded-full bg-lime text-xl font-extrabold text-lime-ink">{n}</span>
-        <div className="min-w-0">
-          <h3 className="text-[clamp(1.25rem,3.6vh,1.85rem)] leading-tight font-extrabold tracking-tight">
-            {item.tituloBranco} <span className="text-lime">{item.tituloVerde}</span>
-          </h3>
-          {item.subtitulo && <p className={`${TEXTO} text-white/80`}>{item.subtitulo}</p>}
+      <header className="flex shrink-0 flex-wrap items-center gap-x-4 gap-y-2">
+        {/* número + título sempre na mesma linha (no celular o título quebra ao lado do número) */}
+        <div className="flex min-w-0 items-center gap-3 lg:gap-4">
+          <span className="grid size-10 shrink-0 place-items-center rounded-full bg-lime text-xl font-extrabold text-lime-ink">{n}</span>
+          <div className="min-w-0">
+            <h3 className="text-xl leading-tight font-extrabold tracking-tight lg:text-[clamp(1.25rem,3.6vh,1.85rem)]">
+              {item.tituloBranco} <span className="text-lime">{item.tituloVerde}</span>
+            </h3>
+            {item.subtitulo && <p className={`${TEXTO} text-white/80`}>{item.subtitulo}</p>}
+          </div>
         </div>
         {item.lateral && <p className={`${TEXTO} max-w-md border-l border-white/20 pl-4 text-white/80 sm:ml-2`}>{item.lateral}</p>}
       </header>

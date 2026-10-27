@@ -22,7 +22,12 @@ export type Links = {
   url_suporte_contato: string;
 };
 
-export type Media = { src: string; alt: string; type?: "image" | "video" };
+export type Media = {
+  src: string;
+  alt: string;
+  type?: "image" | "video";
+  srcMobile?: string; // versão para celular (opcional), usada em telas menores que 1024 px
+};
 
 export type AppCarouselItem = {
   image: Media;
@@ -367,7 +372,7 @@ export const dicas = {
         {
           tipo: "correto",
           icone: "angle45",
-          imagens: [{ src: "/media/dica-1-1.jpg", alt: "Pessoa com o celular preso na cabeça, inclinado em 45°, cortando um tomate" }],
+          imagens: [{ src: "/media/dica-1-1.jpg", srcMobile: "/media/dica-m-1-1.jpg", alt: "Pessoa com o celular preso na cabeça, inclinado em 45°, cortando um tomate" }],
           rotulos: [],
           titulo: "Incline o celular em 45°",
           texto: "Mantenha o celular na cabeça, com a câmera virada para frente e levemente para baixo.",
@@ -377,7 +382,7 @@ export const dicas = {
           icone: "frame",
           selo: false,
           foco: "left",
-          imagens: [{ src: "/media/dica-1-2.jpg", alt: "Visão da câmera gravando: mãos cortando um tomate, bem enquadradas" }],
+          imagens: [{ src: "/media/dica-1-2.jpg", srcMobile: "/media/dica-m-1-2.jpg", alt: "Visão da câmera gravando: mãos cortando um tomate, bem enquadradas" }],
           rotulos: [],
           titulo: "Enquadre as mãos e a atividade",
           texto: "O foco deve ser nas suas mãos e no que está sendo feito.",
@@ -396,7 +401,7 @@ export const dicas = {
         {
           tipo: "correto",
           icone: "",
-          imagens: [{ src: "/media/dica-2-1.jpg", alt: "Duas mãos visíveis cortando pepino na tábua" }],
+          imagens: [{ src: "/media/dica-2-1.jpg", srcMobile: "/media/dica-m-2-1.jpg", alt: "Duas mãos visíveis cortando pepino na tábua" }],
           rotulos: [],
           titulo: "",
           texto: "",
@@ -404,7 +409,7 @@ export const dicas = {
         {
           tipo: "correto",
           icone: "",
-          imagens: [{ src: "/media/dica-2-2.jpg", alt: "Duas mãos visíveis lavando um prato na pia" }],
+          imagens: [{ src: "/media/dica-2-2.jpg", srcMobile: "/media/dica-m-2-2.jpg", alt: "Duas mãos visíveis lavando um prato na pia" }],
           rotulos: [],
           titulo: "",
           texto: "",
@@ -423,7 +428,7 @@ export const dicas = {
         {
           tipo: "correto",
           icone: "",
-          imagens: [{ src: "/media/dica-3-1.jpg", alt: "Gravação correta: mãos lavando louça na pia" }],
+          imagens: [{ src: "/media/dica-3-1.jpg", srcMobile: "/media/dica-m-3-1.jpg", alt: "Gravação correta: mãos lavando louça na pia" }],
           rotulos: [],
           titulo: "",
           texto: "__Selecionada:__ ++lavar louça.++\n__Gravada:__ ++lavar louça.++",
@@ -431,7 +436,7 @@ export const dicas = {
         {
           tipo: "incorreto",
           icone: "",
-          imagens: [{ src: "/media/dica-3-2.jpg", alt: "Gravação incorreta: mãos mexendo uma panela no fogão" }],
+          imagens: [{ src: "/media/dica-3-2.jpg", srcMobile: "/media/dica-m-3-2.jpg", alt: "Gravação incorreta: mãos mexendo uma panela no fogão" }],
           rotulos: [],
           titulo: "",
           texto: "__Selecionada:__ ++lavar louça.++\n__Gravada:__ !!cozinhar.!!",
@@ -450,7 +455,7 @@ export const dicas = {
         {
           tipo: "correto",
           icone: "",
-          imagens: [{ src: "/media/dica-4-1.jpg", alt: "Pessoa pintando a parede com rolo em ritmo natural" }],
+          imagens: [{ src: "/media/dica-4-1.jpg", srcMobile: "/media/dica-m-4-1.jpg", alt: "Pessoa pintando a parede com rolo em ritmo natural" }],
           rotulos: [],
           titulo: "Execute as ações em **ritmo natural.**",
           texto: "Mantenha um fluxo contínuo na atividade, sem movimentos muito lentos ou muito rápidos.",
@@ -458,7 +463,7 @@ export const dicas = {
         {
           tipo: "incorreto",
           icone: "",
-          imagens: [{ src: "/media/dica-4-2.jpg", alt: "Pessoa parada com o rolo de pintura, com símbolo de pausa" }],
+          imagens: [{ src: "/media/dica-4-2.jpg", srcMobile: "/media/dica-m-4-2.jpg", alt: "Pessoa parada com o rolo de pintura, com símbolo de pausa" }],
           rotulos: [],
           titulo: "Evite **pausas prolongadas.**",
           texto: "Não pare a atividade por muito tempo e não faça movimentos bruscos ou acelerados.",
@@ -477,7 +482,7 @@ export const dicas = {
         {
           tipo: "correto",
           icone: "",
-          imagens: [{ src: "/media/dica-5-1.jpg", alt: "Homem furando a parede com o celular estável, imagem nítida" }],
+          imagens: [{ src: "/media/dica-5-1.jpg", srcMobile: "/media/dica-m-5-1.jpg", alt: "Homem furando a parede com o celular estável, imagem nítida" }],
           rotulos: [],
           titulo: "Mantenha o celular **estável** durante a gravação.",
           texto: "Isso garante um vídeo claro, nítido e de boa qualidade.",
@@ -485,7 +490,7 @@ export const dicas = {
         {
           tipo: "incorreto",
           icone: "",
-          imagens: [{ src: "/media/dica-5-2.jpg", alt: "Imagem tremida e borrada por movimento brusco do celular" }],
+          imagens: [{ src: "/media/dica-5-2.jpg", srcMobile: "/media/dica-m-5-2.jpg", alt: "Imagem tremida e borrada por movimento brusco do celular" }],
           rotulos: [],
           titulo: "Não mova **o celular.**",
           texto: "Movimentos bruscos deixam a imagem tremida e fora de foco.",
@@ -504,7 +509,7 @@ export const dicas = {
         {
           tipo: "correto",
           icone: "-",
-          imagens: [{ src: "/media/dica-6-1.jpg", alt: "Mãos cortando pepino, sem rostos, documentos ou telas na imagem" }],
+          imagens: [{ src: "/media/dica-6-1.jpg", srcMobile: "/media/dica-m-6-1.jpg", alt: "Mãos cortando pepino, sem rostos, documentos ou telas na imagem" }],
           rotulos: [],
           titulo: "Evite filmar apenas\n**partes sensíveis.**",
           texto: "Mantenha o foco na atividade e nas suas mãos, sem mostrar rostos, documentos ou telas.",
@@ -512,7 +517,7 @@ export const dicas = {
         {
           tipo: "incorreto",
           icone: "-",
-          imagens: [{ src: "/media/dica-6-2.jpg", alt: "Sala com criança e televisão ao fundo, com ícones de proibido para rosto, documento, tela e celular" }],
+          imagens: [{ src: "/media/dica-6-2.jpg", srcMobile: "/media/dica-m-6-2.jpg", alt: "Sala com criança e televisão ao fundo, com ícones de proibido para rosto, documento, tela e celular" }],
           rotulos: [],
           titulo: "Não exponha\n**informações pessoais.**",
           texto: "Evite filmar rostos (principalmente de crianças), documentos, dados confidenciais, televisões ou outras telas.",
@@ -531,7 +536,7 @@ export const dicas = {
         {
           tipo: "incorreto",
           icone: "",
-          imagens: [{ src: "/media/dica-7-1.jpg", alt: "Lavando louça na mesma pia — segunda" }, { src: "/media/dica-7-2.jpg", alt: "Lavando louça na mesma pia — terça" }, { src: "/media/dica-7-3.jpg", alt: "Lavando louça na mesma pia — quarta" }, { src: "/media/dica-7-4.jpg", alt: "Lavando louça na mesma pia — quinta" }, { src: "/media/dica-7-5.jpg", alt: "Lavando louça na mesma pia — sexta" }],
+          imagens: [{ src: "/media/dica-7-1.jpg", srcMobile: "/media/dica-m-7-1.jpg", alt: "Lavando louça na mesma pia — segunda" }, { src: "/media/dica-7-2.jpg", srcMobile: "/media/dica-m-7-2.jpg", alt: "Lavando louça na mesma pia — terça" }, { src: "/media/dica-7-3.jpg", srcMobile: "/media/dica-m-7-3.jpg", alt: "Lavando louça na mesma pia — quarta" }, { src: "/media/dica-7-4.jpg", srcMobile: "/media/dica-m-7-4.jpg", alt: "Lavando louça na mesma pia — quinta" }, { src: "/media/dica-7-5.jpg", srcMobile: "/media/dica-m-7-5.jpg", alt: "Lavando louça na mesma pia — sexta" }],
           rotulos: ["SEG", "TER", "QUA", "QUI", "SEX"],
           titulo: "Mesma tarefa, mesmo lugar, mesmo jeito = **repetição.**",
           texto: "",
@@ -539,7 +544,7 @@ export const dicas = {
         {
           tipo: "correto",
           icone: "",
-          imagens: [{ src: "/media/dica-7-6.jpg", alt: "Arrumando a cama — segunda" }, { src: "/media/dica-7-7.jpg", alt: "Regando plantas — terça" }, { src: "/media/dica-7-8.jpg", alt: "Passando pano no chão — quarta" }, { src: "/media/dica-7-9.jpg", alt: "Limpando a mesa — quinta" }, { src: "/media/dica-7-10.jpg", alt: "Dando banho no cachorro — sexta" }],
+          imagens: [{ src: "/media/dica-7-6.jpg", srcMobile: "/media/dica-m-7-6.jpg", alt: "Arrumando a cama — segunda" }, { src: "/media/dica-7-7.jpg", srcMobile: "/media/dica-m-7-7.jpg", alt: "Regando plantas — terça" }, { src: "/media/dica-7-8.jpg", srcMobile: "/media/dica-m-7-8.jpg", alt: "Passando pano no chão — quarta" }, { src: "/media/dica-7-9.jpg", srcMobile: "/media/dica-m-7-9.jpg", alt: "Limpando a mesa — quinta" }, { src: "/media/dica-7-10.jpg", srcMobile: "/media/dica-m-7-10.jpg", alt: "Dando banho no cachorro — sexta" }],
           rotulos: ["SEG", "TER", "QUA", "QUI", "SEX"],
           titulo: "Alterne **atividades**, **ambientes** e formas de **execução.**",
           texto: "",
@@ -558,7 +563,7 @@ export const dicas = {
         {
           tipo: "correto",
           icone: "lightbulb",
-          imagens: [{ src: "/media/dica-8-1.jpg", alt: "Banho em cachorro em ambiente bem iluminado" }],
+          imagens: [{ src: "/media/dica-8-1.jpg", srcMobile: "/media/dica-m-8-1.jpg", alt: "Banho em cachorro em ambiente bem iluminado" }],
           rotulos: [],
           titulo: "Faça **assim.**",
           texto: "Grave em locais ++bem iluminados,++ de preferência durante o dia. Assim, o vídeo fica claro, nítido e com boa qualidade.",
@@ -566,7 +571,7 @@ export const dicas = {
         {
           tipo: "incorreto",
           icone: "lightbulb",
-          imagens: [{ src: "/media/dica-8-2.jpg", alt: "A mesma cena em ambiente escuro, com pouca luz" }],
+          imagens: [{ src: "/media/dica-8-2.jpg", srcMobile: "/media/dica-m-8-2.jpg", alt: "A mesma cena em ambiente escuro, com pouca luz" }],
           rotulos: [],
           titulo: "Evite **assim.**",
           texto: "Evite ambientes !!escuros, sombras e pouca luz.!! Isso pode comprometer a qualidade do vídeo e levar à rejeição.",

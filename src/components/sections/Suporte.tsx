@@ -57,12 +57,12 @@ export function Suporte({ c }: { c: SiteContent }) {
             <OptionCard href={links.url_compra_online} icon="cart" pendingKey="url_compra_online" {...suporte.online} />
           </div>
 
-          <div className="card mt-3 flex items-center gap-4 px-4 py-3">
+          <div className="card mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 sm:flex-nowrap">
             <Icon name="alertCircle" className="size-9 shrink-0 text-alert" strokeWidth={2.2} />
-            <span className="h-9 w-px bg-white/20" />
+            <span className="hidden h-9 w-px bg-white/20 sm:block" />
             <span className="rounded-full bg-alert px-3 py-0.5 text-sm font-bold text-white">{suporte.dica.rotulo}</span>
-            <span className="h-9 w-px bg-white/20" />
-            <p className="card-text text-white/90">
+            <span className="hidden h-9 w-px bg-white/20 sm:block" />
+            <p className="card-text text-white/90 max-sm:basis-full">
               <RichText text={suporte.dica.texto} />
             </p>
           </div>

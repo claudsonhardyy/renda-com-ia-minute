@@ -51,7 +51,7 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
   const many = items.length > 1;
 
   return (
-    <div className="grid items-center gap-8 lg:grid-cols-[1.3fr_auto_0.95fr] lg:gap-7">
+    <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[1.3fr_auto_0.95fr] lg:gap-7">
       {intro}
 
       <div
@@ -67,7 +67,7 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
             <CarouselArrow direction="prev" label="Imagem anterior do aplicativo" onClick={prev} disabled={!many} />
           </div>
           {/* Celular no formato 887×1774 (1:2), do maior tamanho que cabe na página; a tela aparece inteira */}
-          <PhoneFrame ratio="887/1774" className="h-[min(calc(100dvh-6.5rem),900px,150vw)]">
+          <PhoneFrame ratio="887/1774" className="h-[min(calc(100dvh-6.5rem),900px,150vw)] max-lg:h-[min(64svh,540px,128vw)]">
             <div className="@container flex h-full flex-col">
               <StatusBar />
               {pending ? (

@@ -57,6 +57,29 @@ Em produção esses avisos não aparecem.
   1440×790, 1536×730 e 1920×960**.
 - Menu fixo no topo com a página atual destacada; no celular, o menu vira um botão "Menu".
 
+## Versão para celulares (ramo `mobile`)
+
+Desenvolvida a partir da versão final web (`v1.0-web`). **Tudo o que muda no celular usa regras
+que só valem abaixo de 1024 px de largura** (prefixos `max-lg:`/`max-sm:` do Tailwind), então a
+versão web continua idêntica. Mesmo conteúdo, mesmas imagens, vídeos, ícones e textos.
+
+| Página | No celular |
+|--------|-----------|
+| Menu | Botão **Menu** abre as 9 páginas em duas colunas; **Fechar** recolhe. |
+| Início | Ordem: título → texto → **celular com o vídeo** → botões *Ver passo a passo* e *Pausar/Assistir* (logo abaixo do vídeo que controlam) → colagem de fotos. Celular com até 62% da altura da tela. |
+| Cadastro | Passos em coluna; celular menor (até 66% da altura), centralizado. A seta tracejada aparece só no computador. |
+| App MINUTE | Coluna única sem passar da borda; celular 1:2 com até 64% da altura; setas dos dois lados do celular, bolinhas e texto do passo logo abaixo. |
+| Suporte | Faixa "Dica": ícone e selo em cima, texto embaixo. |
+| Gravação | Cada foto vem seguida do seu texto (foto 1 → texto 1 → foto 2 → texto 2). As fotos usam a **versão de celular** (`dica-m-N-K.jpg`, recortadas das imagens 1536×1024 da pasta original do Drive), com proporção natural, sem esticar. Título da dica ao lado do número. |
+| Compatibilidade | Fotos dos aparelhos menores. |
+| Propósito | Imagem do robô sem espaço vazio em volta. |
+
+Imagens com versão de celular usam o campo opcional `srcMobile` (ver `Media` em
+`src/content/site.ts`): telas com menos de 1024 px recebem essa imagem; ao trocar a foto pelo
+painel, a versão de celular antiga é descartada e a nova foto passa a valer em todas as telas.
+
+Conferido em 390×844 sem rolagem lateral; a versão web foi reconferida nos 7 tamanhos acima.
+
 ## Identidade visual
 
 | Token | Cor | Uso |

@@ -76,7 +76,7 @@ export function Cadastro({ c }: { c: SiteContent }) {
           </p>
         </div>
 
-        <PhoneFrame ratio="284/606" className="mx-auto h-[min(calc(100dvh-7.4rem),800px)]">
+        <PhoneFrame ratio="284/606" className="mx-auto h-[min(calc(100dvh-7.4rem),800px)] max-lg:h-[min(66svh,560px)]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={cadastro.cadastro_phone_image.src}
