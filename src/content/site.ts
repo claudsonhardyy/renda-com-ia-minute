@@ -512,7 +512,7 @@ export const dicas = {
         },
       ],
       textoGeral: { icone: "", texto: "" },
-      nota: { tipo: "alerta", texto: "Sua privacidade e a de outras pessoas são muito importantes. Grave apenas o que for necessário para a tarefa." },
+      nota: { tipo: "alerta", texto: "Sua privacidade e a de outras pessoas são muito importantes." },
     },
     {
       tituloBranco: "Varie as",
