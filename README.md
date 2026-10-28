@@ -6,8 +6,10 @@ de gravação, celulares compatíveis, propósito do projeto e contato para dúv
 
 Inclui um **painel `/admin`** para editar links, textos, imagens e vídeos sem mexer no código.
 
-> **Versão final web** — layout aprovado pelo cliente para computador/notebook. A versão para
-> celulares é desenvolvida no ramo `mobile`, a partir deste ponto.
+> **Versão final web + mobile** — tag `v2.0-mobile`, ramo `mobile`. Layout aprovado para
+> computador/notebook (igual à tag `v1.0-web`) e para celulares. A descrição completa, página por
+> página, e como retomar exatamente deste ponto estão em
+> [`docs/VERSAO-FINAL-MOBILE.md`](docs/VERSAO-FINAL-MOBILE.md).
 
 ---
 
@@ -16,13 +18,15 @@ Inclui um **painel `/admin`** para editar links, textos, imagens e vídeos sem m
 1. [Tecnologia](#tecnologia)
 2. [Rodar localmente](#rodar-localmente)
 3. [Regras de layout (web)](#regras-de-layout-web)
-4. [Identidade visual](#identidade-visual)
-5. [Páginas do site](#páginas-do-site)
-6. [Painel de edição (/admin)](#painel-de-edição-admin)
-7. [Estrutura do código](#estrutura-do-código)
-8. [Mídias](#mídias)
-9. [Banco de dados (Supabase)](#banco-de-dados-supabase)
-10. [Pendências do cliente](#pendências-do-cliente)
+4. [Versão para celulares](#versão-para-celulares-ramo-mobile)
+5. [Identidade visual](#identidade-visual)
+6. [Páginas do site](#páginas-do-site)
+7. [Painel de edição (/admin)](#painel-de-edição-admin)
+8. [Estrutura do código](#estrutura-do-código)
+9. [Mídias](#mídias)
+10. [Banco de dados (Supabase)](#banco-de-dados-supabase)
+11. [Ferramentas de conferência](#ferramentas-de-conferência)
+12. [Pendências do cliente](#pendências-do-cliente)
 
 ---
 
@@ -60,25 +64,34 @@ Em produção esses avisos não aparecem.
 ## Versão para celulares (ramo `mobile`)
 
 Desenvolvida a partir da versão final web (`v1.0-web`). **Tudo o que muda no celular usa regras
-que só valem abaixo de 1024 px de largura** (prefixos `max-lg:`/`max-sm:` do Tailwind), então a
-versão web continua idêntica. Mesmo conteúdo, mesmas imagens, vídeos, ícones e textos.
+que só valem abaixo de 1024 px de largura** (prefixos `max-lg:`/`max-sm:` e `lg:hidden` do
+Tailwind), então a versão web continua idêntica. Mesmo conteúdo, mesmas imagens, vídeos, ícones e
+textos.
+
+**Uma página por tela também no celular:** as alturas usam `svh` (altura visível do celular, já
+descontando as barras do navegador), por exemplo `max-lg:h-[calc(100svh-4rem-2rem)]` = tela menos
+o menu do topo (4rem) e o respiro da seção (2rem). No celular a rolagem "gruda" nas páginas com
+`scroll-snap-type: y proximity` (no computador, `mandatory`).
 
 | Página | No celular |
 |--------|-----------|
 | Menu | Botão **Menu** abre as 9 páginas em duas colunas; **Fechar** recolhe. |
-| Início | Ordem: título → texto → **celular com o vídeo** → botões *Ver passo a passo* e *Pausar/Assistir* (logo abaixo do vídeo que controlam) → colagem de fotos. Celular com até 62% da altura da tela. |
-| Cadastro | Passos em coluna; celular menor (até 66% da altura), centralizado. A seta tracejada aparece só no computador. |
-| App MINUTE | Coluna única sem passar da borda; celular 1:2 com até 64% da altura; setas dos dois lados do celular, bolinhas e texto do passo logo abaixo. |
-| Suporte | Faixa "Dica": ícone e selo em cima, texto embaixo. |
-| Gravação | Cada foto vem seguida do seu texto (foto 1 → texto 1 → foto 2 → texto 2). As fotos usam a **versão de celular** (`dica-m-N-K.jpg`, recortadas das imagens 1536×1024 da pasta original do Drive), com proporção natural, sem esticar. Título da dica ao lado do número. |
-| Compatibilidade | Fotos dos aparelhos menores. |
-| Propósito | Imagem do robô sem espaço vazio em volta. |
+| Início | Título → texto → **celular com o vídeo** (com a colagem dos 4 profissionais atrás, esfumada) → botão *Ver passo a passo*. Barra de vídeo mínima dentro da tela: play/pausa, avanço e som. |
+| Como funciona | Os 4 passos e o quadro da MINUTE (compacto) numa tela só. |
+| App MINUTE | Duas telas: (1) apresentação + aviso "Logo abaixo: tutorial de cadastro na MINUTE"; (2) tutorial com a dica "‹ Deslize ou toque nas setas para ver os passos ›", celular com setas pulsando, bolinhas + "Passo X de 7" logo abaixo e a descrição do passo. |
+| Cadastro, Pagamentos, Suporte | Adaptados no commit `4a85f5a` (coluna única, celular menor, faixa "Dica" empilhada); ainda ocupam mais de uma tela. |
+| Gravação | Uma foto por vez (15 telas no total, mesma ordem), com o texto dela; a dica 7 (semana) mostra as 5 fotos lado a lado. Bolinhas = uma por dica. |
+| Compatibilidade | Os dois aparelhos lado a lado em cartões menores; aviso do Hub discreto. |
+| Propósito | Robô grande ao fundo, no alto à direita, olhando para a esquerda; textos embaixo com sombra suave; 3 ícones lado a lado. |
+| Dúvidas | Cartão enxuto; um único botão com o e-mail e o "Copiar" dentro. |
 
 Imagens com versão de celular usam o campo opcional `srcMobile` (ver `Media` em
 `src/content/site.ts`): telas com menos de 1024 px recebem essa imagem; ao trocar a foto pelo
 painel, a versão de celular antiga é descartada e a nova foto passa a valer em todas as telas.
 
-Conferido em 390×844 sem rolagem lateral; a versão web foi reconferida nos 7 tamanhos acima.
+Conferido sem rolagem lateral em **390×844** e **360×780** (Início, Como funciona, App MINUTE,
+Gravação, Compatibilidade, Propósito e Dúvidas cabem numa tela cada) e em **375×667**; a versão
+web foi reconferida nos tamanhos acima.
 
 ## Identidade visual
 
@@ -168,7 +181,8 @@ src/
     Icon.tsx              ícones desenhados em SVG (sem dependências)
   lib/                    leitura do conteúdo publicado e clientes do Supabase
 supabase/migrations/      tabelas, regras de acesso e bucket de mídias
-docs/                     guia do cliente, referências visuais e análise
+docs/                     guia do cliente, referências visuais, análise e VERSAO-FINAL-MOBILE.md
+tools/                    emulador de celular e scripts que medem se cada página cabe na tela
 ```
 
 ## Mídias
@@ -179,7 +193,10 @@ Todas em [`public/media/`](public/media/), em alta resolução:
 - `hero-colagem.jpg`, `hero-tela-tarefas.jpg` — colagem do Início e imagem reserva do celular.
 - `cadastro-tela-hub.jpg` — tela de cadastro da Hub com o código RENDACOMIA.
 - `app-passo-1.jpg` … `app-passo-7.jpg` — telas do carrossel do app (resolução original).
+- `hero-m-1.jpg` … `hero-m-4.jpg` — recortes da colagem (cozinheira, barbeiro, cabeleireira,
+  pedreiro) que ficam atrás do celular do Início no mobile.
 - `dica-N-K.jpg` — fotos das 8 dicas de gravação (N = dica, K = foto).
+- `dica-m-N-K.jpg` — versão de celular das fotos das dicas (campo `srcMobile`).
 - `suporte-produto-45.jpg`, `suporte-sequencia.jpg` — suporte de cabeça.
 - `celular-iphone-hd.png`, `celular-android-hd.png` — aparelhos compatíveis.
 - `proposito-robo.jpg` — imagem do Propósito.
@@ -197,6 +214,21 @@ Projeto `renda-com-ia-minute` (região São Paulo), em conta própria "Renda com
    ```
 
 Sem as variáveis de ambiente, o site funciona com o conteúdo padrão.
+
+> Na data da versão final (28/10/2026) o conteúdo publicado no banco está **vazio**: o site
+> mostra exatamente o conteúdo padrão de `src/content/site.ts`. Ou seja, o código deste commit
+> reproduz o site por inteiro.
+
+## Ferramentas de conferência
+
+Na pasta [`tools/`](tools/) (precisam do Google Chrome instalado e do Node 22+):
+
+| Arquivo | Uso |
+|---------|-----|
+| `emulador.html` | Moldura de celular com botões 390×844, 360×780 e 375×667, mostrando o site de `http://localhost:3001`. Sirva a pasta com `python -m http.server 3002` e abra `http://localhost:3002/emulador.html`. |
+| `measure.mjs` | `node tools/measure.mjs http://localhost:3001 - 1366x657 1920x960` — altura de cada página no computador (deve ser igual à da janela). |
+| `mobile.mjs` | `node tools/mobile.mjs http://localhost:3001 <pasta> 390x844` — altura de cada página no celular e capturas de tela. |
+| `slides.mjs` | `node tools/slides.mjs http://localhost:3001 390x844` — confere as 15 telas das Dicas e os 7 passos do tutorial no celular. |
 
 ## Pendências do cliente
 

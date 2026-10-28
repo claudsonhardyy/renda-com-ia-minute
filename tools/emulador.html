@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emulador mobile</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #111; font-family: system-ui, sans-serif; color: #ccc; }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; overflow: hidden; }
+  .bar { font-size: 13px; display: flex; gap: 8px; align-items: center; }
+  .bar button { background: #222; color: #ddd; border: 1px solid #444; border-radius: 6px; padding: 4px 10px; cursor: pointer; font-size: 12px; }
+  .bar button.on { background: #A6F774; color: #06251B; border-color: #A6F774; font-weight: 700; }
+  .wrap { transform-origin: top center; }
+  .phone { position: relative; background: #000; border-radius: 54px; padding: 14px; box-shadow: 0 0 0 2px #333, 0 20px 60px rgba(0,0,0,.6); }
+  iframe { display: block; border: 0; border-radius: 40px; background: #06251B; }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <span>Modelo:</span>
+    <button data-w="390" data-h="844" class="on">iPhone 14 (390×844)</button>
+    <button data-w="360" data-h="780">Android (360×780)</button>
+    <button data-w="375" data-h="667">iPhone SE (375×667)</button>
+  </div>
+  <div class="wrap" id="wrap">
+    <div class="phone"><iframe id="tela" src="http://localhost:3001/" width="390" height="844"></iframe></div>
+  </div>
+<script>
+  const wrap = document.getElementById("wrap"), tela = document.getElementById("tela");
+  function ajustar() {
+    const h = +tela.height + 28, w = +tela.width + 28;
+    const s = Math.min(1, (innerHeight - 60) / h, (innerWidth - 20) / w);
+    wrap.style.transform = "scale(" + s + ")";
+    wrap.style.height = h * s + "px";
+  }
+  document.querySelectorAll(".bar button").forEach(b => b.onclick = () => {
+    document.querySelectorAll(".bar button").forEach(x => x.classList.remove("on"));
+    b.classList.add("on"); tela.width = b.dataset.w; tela.height = b.dataset.h; ajustar();
+  });
+  addEventListener("resize", ajustar); ajustar();
+</script>
+</body>
+</html>
