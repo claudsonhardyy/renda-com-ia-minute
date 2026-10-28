@@ -21,13 +21,13 @@ export function Duvidas({ c }: { c: SiteContent }) {
 
   return (
     <Section id="duvidas">
-      <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+      <div className="grid items-center gap-10 max-lg:grid-cols-[minmax(0,1fr)] max-lg:gap-[3svh] lg:grid-cols-[1.1fr_1fr] lg:gap-16">
         <div>
           <Tag icon="message">{duvidas.selo}</Tag>
           <Heading white={duvidas.tituloBranco} green={duvidas.tituloVerde} />
-          <p className="page-sub mt-4 max-w-lg">{duvidas.texto}</p>
+          <p className="page-sub mt-4 max-w-lg max-lg:mt-2">{duvidas.texto}</p>
 
-          <div className="mt-[4vh]">
+          <div className="mt-[4vh] max-lg:mt-[2.5svh]">
             {valido ? (
               <EmailButton email={email} assunto={duvidas.assunto} className={botaoCopiar} />
             ) : (
@@ -43,22 +43,22 @@ export function Duvidas({ c }: { c: SiteContent }) {
 
         <div className="card relative overflow-hidden p-0">
           <div className="pointer-events-none absolute -top-16 -right-16 size-48 rounded-full bg-lime/10 blur-3xl" />
-          <h3 className="card-title border-b border-white/10 px-6 py-4 text-lime">{duvidas.cartaoTitulo}</h3>
-          <ul className="divide-y divide-white/10 px-6">
+          <h3 className="card-title border-b border-white/10 px-6 py-4 text-lime max-lg:px-4 max-lg:py-2.5">{duvidas.cartaoTitulo}</h3>
+          <ul className="divide-y divide-white/10 px-6 max-lg:px-4">
             {duvidas.passos.map((passo) => (
-              <li key={passo.titulo} className="flex items-center gap-4 py-[2.2vh]">
-                <span className="icon-box size-11 shrink-0">
-                  <Icon name={passo.icone} className="size-5" />
+              <li key={passo.titulo} className="flex items-center gap-4 py-[2.2vh] max-lg:gap-3 max-lg:py-2">
+                <span className="icon-box size-11 shrink-0 max-lg:size-8">
+                  <Icon name={passo.icone} className="size-5 max-lg:size-4" />
                 </span>
                 <div>
                   <p className="card-title">{passo.titulo}</p>
-                  <p className="card-text mt-0.5">{passo.texto}</p>
+                  <p className="card-text mt-0.5 max-lg:hidden">{passo.texto}</p>
                 </div>
               </li>
             ))}
           </ul>
-          <p className="flex items-center gap-3 bg-lime px-6 py-3.5 font-bold text-lime-ink">
-            <Icon name="clock" className="size-6 shrink-0" strokeWidth={2.2} />
+          <p className="flex items-center gap-3 bg-lime px-6 py-3.5 font-bold text-lime-ink max-lg:gap-2 max-lg:px-4 max-lg:py-2 max-lg:text-sm">
+            <Icon name="clock" className="size-6 shrink-0 max-lg:size-5" strokeWidth={2.2} />
             {duvidas.prazo}
           </p>
         </div>

@@ -228,3 +228,41 @@ body {
     transform: none;
   }
 }
+
+/* Barra de posição do vídeo do Início (celular): trilho fino, parte assistida em verde */
+.video-seek {
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+.video-seek::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, var(--color-lime) var(--p, 0%), rgb(255 255 255 / 0.35) var(--p, 0%));
+}
+.video-seek::-moz-range-track {
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, var(--color-lime) var(--p, 0%), rgb(255 255 255 / 0.35) var(--p, 0%));
+}
+.video-seek::-webkit-slider-thumb {
+  appearance: none;
+  width: 11px;
+  height: 11px;
+  margin-top: -4px;
+  border-radius: 9999px;
+  background: var(--color-lime);
+}
+.video-seek::-moz-range-thumb {
+  width: 11px;
+  height: 11px;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--color-lime);
+}
+
+/* Setas dos carrosséis no celular: pulsam para mostrar que dá para passar */
+@keyframes pulso-seta {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.14); }
+}

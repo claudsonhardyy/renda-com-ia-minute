@@ -10,11 +10,11 @@ export function Dicas({ c }: { c: SiteContent }) {
       {/* No computador a página tem a altura exata da tela: título em cima e a dica ocupa o resto */}
       <div className="flex flex-col lg:h-[calc(100dvh-4rem-2vh)]">
         {/* Título | barrinha vertical verde do tamanho do subtítulo (2 linhas), centralizados */}
-        <div className="mt-[1.8vh] mb-[2.6vh] flex shrink-0 flex-col items-center justify-center gap-x-9 gap-y-3 md:flex-row">
-          <h2 className="page-title shrink-0">
+        <div className="mt-[1.8vh] mb-[2.6vh] max-lg:mt-0 max-lg:mb-[1.8svh] flex shrink-0 flex-col items-center justify-center gap-x-9 gap-y-3 md:flex-row">
+          <h2 className="page-title shrink-0 max-lg:!text-[clamp(1.6rem,4.4svh,1.9rem)]">
             {dicas.tituloBranco} <span className="text-lime">{dicas.tituloVerde}</span>
           </h2>
-          <p className="max-w-[33rem] text-center text-[clamp(0.85rem,2.3vh,1.02rem)] leading-relaxed text-balance text-white/80 md:border-l-[3px] md:border-lime md:py-0.5 md:pl-7 md:text-left">
+          <p className="max-w-[33rem] text-center text-[clamp(0.85rem,2.3vh,1.02rem)] leading-relaxed max-lg:text-[clamp(0.78rem,2svh,0.88rem)] max-lg:leading-snug text-balance text-white/80 md:border-l-[3px] md:border-lime md:py-0.5 md:pl-7 md:text-left">
             {dicas.texto}
           </p>
         </div>

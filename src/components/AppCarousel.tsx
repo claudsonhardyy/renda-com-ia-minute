@@ -54,6 +54,16 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
     <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-8 lg:grid-cols-[1.3fr_auto_0.95fr] lg:gap-7">
       {intro}
 
+      {/* No celular, celular + explicação do passo formam uma "página" própria, do tamanho da tela */}
+      <div
+        id="app-minute-tutorial"
+        className="flex scroll-mt-16 snap-start flex-col gap-[1.5svh] max-lg:h-[calc(100svh-4rem)] max-lg:justify-center max-lg:py-[1.5svh] lg:contents"
+      >
+      <p className="flex items-center justify-center gap-1.5 text-xs text-white/70 lg:hidden">
+        <Icon name="chevronLeft" className="size-3.5 text-lime" strokeWidth={3} />
+        Deslize ou toque nas setas para ver os passos
+        <Icon name="chevronRight" className="size-3.5 text-lime" strokeWidth={3} />
+      </p>
       <div
         role="region"
         aria-roledescription="carrossel"
@@ -67,7 +77,7 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
             <CarouselArrow direction="prev" label="Imagem anterior do aplicativo" onClick={prev} disabled={!many} />
           </div>
           {/* Celular no formato 887×1774 (1:2), do maior tamanho que cabe na página; a tela aparece inteira */}
-          <PhoneFrame ratio="887/1774" className="h-[min(calc(100dvh-6.5rem),900px,150vw)] max-lg:h-[min(64svh,540px,128vw)]">
+          <PhoneFrame ratio="887/1774" className="h-[min(calc(100dvh-6.5rem),900px,150vw)] max-lg:h-[min(calc(100svh-19rem),600px,calc((100vw-2rem-96px)*2))]">
             <div className="@container flex h-full flex-col">
               <StatusBar />
               {pending ? (
@@ -84,12 +94,18 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
           </div>
         </div>
         {/* Bolinhas de passo: a verde acesa anda até o passo atual */}
-        <StepDots count={items.length} index={index} onSelect={goTo} itemLabel="o passo" />
+        {/* No celular o "Passo X de Y" fica ao lado das bolinhas, centralizado logo abaixo do celular */}
+        <div className="flex items-center justify-center gap-3">
+          <StepDots count={items.length} index={index} onSelect={goTo} itemLabel="o passo" />
+          <span className="rounded-lg border border-lime/60 bg-lime/10 px-2 py-0.5 text-xs font-semibold whitespace-nowrap text-lime lg:hidden">
+            Passo {index + 1} de {items.length}
+          </span>
+        </div>
       </div>
 
       {/* Texto sincronizado com a imagem atual do celular */}
-      <div className="lg:border-l lg:border-white/15 lg:pl-8" aria-live="polite">
-        <span className="inline-block rounded-lg border border-lime/60 bg-lime/10 px-3 py-1 text-sm font-semibold text-lime">
+      <div className="shrink-0 lg:border-l lg:border-white/15 lg:pl-8" aria-live="polite">
+        <span className="inline-block rounded-lg border border-lime/60 bg-lime/10 px-3 py-1 text-sm font-semibold text-lime max-lg:hidden">
           Passo {index + 1} de {items.length}
         </span>
         <div key={index} className="animate-[fade_250ms_ease-out]">
@@ -99,19 +115,20 @@ export function AppCarousel({ items: all, intro }: { items: AppCarouselItem[]; i
             </p>
           ) : (
             <>
-              <h3 className="page-title mt-3 !text-[clamp(1.6rem,min(4.6vh,2.6vw),2.6rem)]">{item.titulo}</h3>
-              <p className="page-sub mt-3 max-w-sm">{item.texto}</p>
+              <h3 className="page-title mt-3 !text-[clamp(1.6rem,min(4.6vh,2.6vw),2.6rem)] max-lg:mt-0 max-lg:!text-[clamp(1.15rem,3svh,1.5rem)]">{item.titulo}</h3>
+              <p className="page-sub mt-3 max-w-sm max-lg:mt-1 max-lg:max-w-none max-lg:!text-[clamp(0.8rem,1.9svh,0.95rem)] max-lg:!leading-snug">{item.texto}</p>
               {item.destaque && (
-                <div className="card mt-[2.5vh] flex items-center gap-4 p-4">
-                  <span className="icon-box size-12 shrink-0">
+                <div className="card mt-[2.5vh] flex items-center gap-4 p-4 max-lg:mt-[1svh] max-lg:gap-3 max-lg:p-2.5">
+                  <span className="icon-box size-12 shrink-0 max-lg:size-9">
                     <Icon name="video" />
                   </span>
-                  <p className="card-text text-white/90">{item.destaque}</p>
+                  <p className="card-text text-white/90 max-lg:!text-xs">{item.destaque}</p>
                 </div>
               )}
             </>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

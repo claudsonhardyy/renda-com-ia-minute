@@ -27,6 +27,8 @@ export function HeroPlaylist({ videos, fallback }: { videos: Media[]; fallback: 
   const lista = videos.filter((v) => v.src);
   const [i, setI] = useState(0);
   const [mudo, setMudo] = useState(true);
+  const [tempo, setTempo] = useState(0);
+  const [duracao, setDuracao] = useState(0);
   const atual = lista[i % Math.max(lista.length, 1)];
 
   // Ao trocar de vídeo, continua tocando se estava tocando
@@ -56,12 +58,53 @@ export function HeroPlaylist({ videos, fallback }: { videos: Media[]; fallback: 
         onPlay={() => ctx.setPlaying(true)}
         onPause={() => ctx.setPlaying(false)}
         onEnded={() => setI((n) => (n + 1) % lista.length)}
+        onLoadedMetadata={(e) => {
+          setDuracao(e.currentTarget.duration || 0);
+          setTempo(0);
+        }}
+        onTimeUpdate={(e) => setTempo(e.currentTarget.currentTime)}
       />
+      {/* Celular/tablet: barra mínima na base do vídeo — tocar/pausar, avançar/voltar arrastando e som */}
+      <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-gradient-to-t from-black/75 to-transparent px-2.5 pt-5 pb-2 lg:hidden">
+        <button
+          type="button"
+          onClick={ctx.toggle}
+          aria-label={ctx.playing ? "Pausar vídeo" : "Assistir ao vídeo"}
+          className="grid size-7 shrink-0 place-items-center rounded-full text-white"
+        >
+          <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden="true">
+            {ctx.playing ? <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /> : <path d="M8 5.5v13l11-6.5z" />}
+          </svg>
+        </button>
+        <input
+          type="range"
+          min={0}
+          max={duracao || 1}
+          step={0.1}
+          value={Math.min(tempo, duracao || 1)}
+          onChange={(e) => {
+            const v = ctx.video.current;
+            if (v) v.currentTime = Number(e.target.value);
+            setTempo(Number(e.target.value));
+          }}
+          aria-label="Posição do vídeo"
+          className="video-seek h-5 min-w-0 flex-1"
+          style={{ ["--p" as string]: `${duracao ? (tempo / duracao) * 100 : 0}%` }}
+        />
+        <button
+          type="button"
+          onClick={() => setMudo((m) => !m)}
+          aria-label={mudo ? "Ligar o som do vídeo" : "Desligar o som do vídeo"}
+          className="grid size-7 shrink-0 place-items-center rounded-full text-white"
+        >
+          <Icon name={mudo ? "volumeOff" : "volume"} className="size-4" />
+        </button>
+      </div>
       <button
         type="button"
         onClick={() => setMudo((m) => !m)}
         aria-label={mudo ? "Ligar o som do vídeo" : "Desligar o som do vídeo"}
-        className="absolute right-2.5 bottom-2.5 grid size-9 place-items-center rounded-full bg-black/65 text-lime ring-1 ring-lime/50 transition hover:bg-black/85"
+        className="absolute right-2.5 bottom-2.5 grid size-9 max-lg:hidden place-items-center rounded-full bg-black/65 text-lime ring-1 ring-lime/50 transition hover:bg-black/85"
       >
         <Icon name={mudo ? "volumeOff" : "volume"} className="size-5" />
       </button>
