@@ -29,11 +29,16 @@ export function HeroPlaylist({ videos, fallback }: { videos: Media[]; fallback: 
   const [mudo, setMudo] = useState(true);
   const [tempo, setTempo] = useState(0);
   const [duracao, setDuracao] = useState(0);
+  // true enquanto a pessoa arrasta a barra: o vídeo não "puxa" a barra de volta
+  const arrastando = useRef(false);
   const atual = lista[i % Math.max(lista.length, 1)];
 
-  // Ao trocar de vídeo, continua tocando se estava tocando
+  // Ao trocar de vídeo, continua tocando se estava tocando. Também lê a duração aqui: com
+  // autoPlay o vídeo costuma carregar antes de a página ficar interativa, e aí o evento
+  // onLoadedMetadata já passou — sem a duração, a barra ficava presa no primeiro segundo.
   useEffect(() => {
     const v = ctx?.video.current;
+    if (v && v.readyState >= 1 && Number.isFinite(v.duration)) setDuracao(v.duration);
     if (v && ctx?.playing) void v.play().catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i]);
@@ -62,7 +67,15 @@ export function HeroPlaylist({ videos, fallback }: { videos: Media[]; fallback: 
           setDuracao(e.currentTarget.duration || 0);
           setTempo(0);
         }}
-        onTimeUpdate={(e) => setTempo(e.currentTarget.currentTime)}
+        onDurationChange={(e) => {
+          const d = e.currentTarget.duration;
+          if (Number.isFinite(d)) setDuracao(d);
+        }}
+        onTimeUpdate={(e) => {
+          const v = e.currentTarget;
+          if (!duracao && Number.isFinite(v.duration)) setDuracao(v.duration);
+          if (!arrastando.current) setTempo(v.currentTime);
+        }}
       />
       {/* Celular/tablet: barra mínima na base do vídeo — tocar/pausar, avançar/voltar arrastando e som */}
       <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-gradient-to-t from-black/75 to-transparent px-2.5 pt-5 pb-2 lg:hidden">
@@ -82,10 +95,20 @@ export function HeroPlaylist({ videos, fallback }: { videos: Media[]; fallback: 
           max={duracao || 1}
           step={0.1}
           value={Math.min(tempo, duracao || 1)}
+          onPointerDown={() => {
+            arrastando.current = true;
+          }}
+          onPointerUp={() => {
+            arrastando.current = false;
+          }}
+          onPointerCancel={() => {
+            arrastando.current = false;
+          }}
           onChange={(e) => {
+            const t = Number(e.target.value);
             const v = ctx.video.current;
-            if (v) v.currentTime = Number(e.target.value);
-            setTempo(Number(e.target.value));
+            if (v) v.currentTime = t;
+            setTempo(t);
           }}
           aria-label="Posição do vídeo"
           className="video-seek h-5 min-w-0 flex-1"
