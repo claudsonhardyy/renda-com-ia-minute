@@ -1,5 +1,4 @@
 import { createHash } from "node:crypto";
-import { headers } from "next/headers";
 
 // ---------------------------------------------------------------------------------------------
 // Registro de segurança. Vai para os logs do servidor (na hospedagem: "Logs" do projeto).
@@ -16,6 +15,8 @@ export function hashCurto(valor: string) {
 }
 
 export async function ipDaRequisicao() {
+  // Importado aqui dentro para que as funções puras deste arquivo possam ser testadas fora do Next.
+  const { headers } = await import("next/headers");
   const h = await headers();
   const fwd = h.get("x-forwarded-for")?.split(",")[0]?.trim();
   return fwd || h.get("x-real-ip") || "desconhecido";
