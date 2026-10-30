@@ -2,6 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 import { createClient } from "./supabase/server";
 import { supabaseConfigured } from "./supabase/env";
+import { hashCurto, ipDaRequisicao, mascararEmail, registrar } from "./security";
 
 // Garante que quem está no painel é um admin (e-mail na tabela public.admins).
 // O banco repete essa checagem via RLS em toda leitura/escrita.
@@ -12,7 +13,10 @@ export async function requireAdmin() {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) redirect("/admin/login");
-  if (!(await isAdmin(supabase))) redirect("/admin/login?erro=sem-permissao");
+  if (!(await isAdmin(supabase))) {
+    registrar("painel_acesso_negado", { ip: hashCurto(await ipDaRequisicao()), email: mascararEmail(user.email ?? "") });
+    redirect("/admin/login?erro=sem-permissao");
+  }
   return { supabase, user };
 }
 

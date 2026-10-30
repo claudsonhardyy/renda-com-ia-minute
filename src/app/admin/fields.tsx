@@ -5,6 +5,7 @@ import { Icon } from "@/components/Icon";
 import type { Media } from "@/content/site";
 import { MEDIA_BUCKET } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/client";
+import { autorizarEnvioMidia } from "./actions";
 import { getAt, join } from "./paths";
 import type { Field } from "./schema";
 
@@ -143,13 +144,13 @@ function MediaEditor({
     setErro("");
     setUploading(true);
     try {
+      // O servidor confere a permissão e devolve uma autorização de uso único para este arquivo.
+      const auth = await autorizarEnvioMidia({ nome: file.name, tipo: file.type, tamanho: file.size });
+      if (!auth.ok) throw new Error(auth.message);
       const supabase = createClient();
-      const ext = file.name.split(".").pop()?.toLowerCase() ?? "bin";
-      const safe = file.name.replace(/\.[^.]+$/, "").normalize("NFD").replace(/[^\w-]+/g, "-").slice(0, 40);
-      const objectPath = `uploads/${Date.now()}-${safe}.${ext}`;
-      const { error } = await supabase.storage.from(MEDIA_BUCKET).upload(objectPath, file, { contentType: file.type });
+      const { error } = await supabase.storage.from(MEDIA_BUCKET).uploadToSignedUrl(auth.path, auth.token, file, { contentType: file.type });
       if (error) throw error;
-      const { data } = supabase.storage.from(MEDIA_BUCKET).getPublicUrl(objectPath);
+      const { data } = supabase.storage.from(MEDIA_BUCKET).getPublicUrl(auth.path);
       onChange({ ...media, src: data.publicUrl, type: file.type.startsWith("video/") ? "video" : "image" });
     } catch (e) {
       setErro(`Falha no envio: ${e instanceof Error ? e.message : String(e)}`);
