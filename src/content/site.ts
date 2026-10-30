@@ -63,10 +63,10 @@ export type TipItem = {
 };
 
 export const links: Links = {
-  url_hub_cadastro: "",
-  url_hub_pedido_suporte: "",
-  url_compra_online: "",
-  url_hub_celulares: "https://app.hub.xyz",
+  url_hub_cadastro: "https://app.hub.xyz/r/RENDER",
+  url_hub_pedido_suporte: "https://app.hub.xyz/how-it-works",
+  url_compra_online: "https://br.shp.ee/yURDpsu6",
+  url_hub_celulares: "https://app.hub.xyz/how-it-works",
   url_compra_shopee: "",
   url_compra_amazon: "",
   url_compra_mercado_livre: "",
@@ -176,7 +176,7 @@ export const cadastro = {
     titulo: "Na tela de cadastro, localize “Código de indicação”",
     texto: "Insira o código da organização no campo indicado.",
     campoRotulo: "Código de indicação",
-    campoValor: "[RENDACOMIA]",
+    campoValor: "[RENDER]",
     alerta:
       "Use exatamente este código para o cadastro ficar correto. Entrou por outro link? Digite-o neste campo.",
   },
