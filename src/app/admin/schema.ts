@@ -51,6 +51,9 @@ export const groups: Group[] = [
       t("guia.nome", "Nome do guia (no topo do site)"),
       t("guia.selo", "Selo abaixo do nome"),
       ta("guia.rodape", "Texto do rodapé (aviso de guia independente)"),
+      ta("guia.dadosHub", "Rodapé: quem trata os vídeos e o cadastro (Hub)"),
+      t("guia.privacidadeTitulo", "Rodapé: nome do link de privacidade"),
+      ta("guia.privacidadeTexto", "Aviso de privacidade (abre ao tocar no link)"),
     ],
   },
   {

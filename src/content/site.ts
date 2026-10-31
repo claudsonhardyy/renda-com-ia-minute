@@ -97,6 +97,12 @@ export const guia = {
   selo: "Guia independente",
   rodape:
     "Guia independente sobre a Hub e o aplicativo MINUTE. Este site não é o site oficial da Hub nem do MINUTE.",
+  // Quem trata os dados das gravações (LGPD: deixar claro o papel da Hub).
+  dadosHub: "Este guia não recebe seus vídeos nem seus dados de cadastro: eles são tratados pela Hub.",
+  // Aviso de privacidade (LGPD art. 6º, VI e art. 9º). Abre ao tocar em "Privacidade" no rodapé.
+  privacidadeTitulo: "Privacidade",
+  privacidadeTexto:
+    "Este guia é mantido por Guia Renda com IA, que responde pelos dados tratados aqui. O site não usa cookies, formulários nem ferramentas de rastreamento. Se você nos enviar uma dúvida por e-mail, usamos seu nome, endereço de e-mail, a mensagem e os prints apenas para responder. Não vendemos nem repassamos esses dados. Os e-mails ficam guardados por até 12 meses e depois são apagados. O provedor de e-mail e a hospedagem do site podem armazenar dados fora do Brasil. Você pode pedir acesso, correção ou exclusão dos seus dados pelo e-mail duvidasrendacomia@gmail.com. Cadastro, gravações e pagamentos são tratados pela Hub, conforme a política de privacidade dela.",
 };
 
 export const hero = {

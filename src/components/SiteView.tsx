@@ -31,7 +31,13 @@ export function SiteView({ c, showPending }: { c: SiteContent; showPending: bool
         <Duvidas c={c} />
       </main>
       <footer className="snap-end border-t border-white/10 px-4 py-6 text-center text-sm text-white/55">
-        <strong className="text-white/80">{c.guia.nome}</strong> · {c.guia.rodape}
+        <strong className="text-white/80">{c.guia.nome}</strong> · {c.guia.rodape} {c.guia.dadosHub}
+        <details className="mt-2">
+          <summary className="inline-block cursor-pointer list-none underline underline-offset-2 hover:text-white/80">
+            {c.guia.privacidadeTitulo}
+          </summary>
+          <p className="mx-auto mt-2 max-w-2xl text-left text-xs leading-relaxed">{c.guia.privacidadeTexto}</p>
+        </details>
       </footer>
     </PendingProvider>
   );
