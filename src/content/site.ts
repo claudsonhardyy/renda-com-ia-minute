@@ -66,7 +66,7 @@ export type TipItem = {
 export const links: Links = {
   url_hub_cadastro: "https://app.hub.xyz/r/RENDER",
   url_hub_pedido_suporte: "https://app.hub.xyz/how-it-works",
-  url_compra_online: "https://br.shp.ee/yURDpsu6",
+  url_compra_online: "https://s.shopee.com.br/6q1uttV5Bg?share_channel_code=1",
   url_hub_celulares: "https://app.hub.xyz/how-it-works",
   url_compra_shopee: "",
   url_compra_amazon: "",
