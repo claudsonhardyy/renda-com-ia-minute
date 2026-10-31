@@ -1,0 +1,11 @@
+{
+  // Site Renda com IA (Guia Hub + MINUTE) na Cloudflare Workers.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "renda-com-ia",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  // Registro de cada acesso no painel da Cloudflare (Workers > Logs): mostra o tempo de CPU por visita.
+  "observability": { "enabled": true }
+}
