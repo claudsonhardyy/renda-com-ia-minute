@@ -4,15 +4,16 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState } f
 import type { Media } from "@/content/site";
 import { Icon } from "./Icon";
 
-// Vídeos da tela do celular do Início: tocam sozinhos ao abrir a página (sem som, como os
-// navegadores exigem), um atrás do outro (1 → 2 → 1…). O botão ao lado do título pausa e
-// retoma o mesmo vídeo; na tela há um botãozinho para ligar o som.
+// Vídeos da tela do celular do Início: começam PARADOS, mostrando a capa, e só são baixados
+// quando a pessoa aperta play (botão ao lado do título, botão da barra ou toque no próprio
+// vídeo). Assim quem só quer ler não gasta os dados do celular com o vídeo. Depois do play,
+// tocam um atrás do outro (1 → 2 → 1…) com som; há um botão para desligar o som.
 type Ctx = { playing: boolean; toggle: () => void; video: React.RefObject<HTMLVideoElement | null>; setPlaying: (p: boolean) => void };
 const HeroVideoCtx = createContext<Ctx | null>(null);
 
 export function HeroVideoProvider({ children }: { children: React.ReactNode }) {
   const video = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(true);
+  const [playing, setPlaying] = useState(false);
   const toggle = useCallback(() => {
     const v = video.current;
     if (!v) return;
@@ -26,16 +27,21 @@ export function HeroPlaylist({ videos, fallback }: { videos: Media[]; fallback: 
   const ctx = useContext(HeroVideoCtx);
   const lista = videos.filter((v) => v.src);
   const [i, setI] = useState(0);
-  const [mudo, setMudo] = useState(true);
+  // O play sempre vem de um clique da pessoa, então o vídeo pode começar com som.
+  const [mudo, setMudo] = useState(false);
   const [tempo, setTempo] = useState(0);
   const [duracao, setDuracao] = useState(0);
   // true enquanto a pessoa arrasta a barra: o vídeo não "puxa" a barra de volta
   const arrastando = useRef(false);
   const atual = lista[i % Math.max(lista.length, 1)];
+  // A capa só vale para o vídeo dela (ex.: hero-video-1.mp4 → hero-video-1-capa.jpg). Se um vídeo
+  // novo for enviado pelo painel, a capa antiga não aparece sobre ele.
+  const capa =
+    atual?.poster && atual.poster.startsWith(atual.src.replace(/\.[a-z0-9]+$/i, "")) ? atual.poster : undefined;
 
-  // Ao trocar de vídeo, continua tocando se estava tocando. Também lê a duração aqui: com
-  // autoPlay o vídeo costuma carregar antes de a página ficar interativa, e aí o evento
-  // onLoadedMetadata já passou — sem a duração, a barra ficava presa no primeiro segundo.
+  // Ao trocar de vídeo, continua tocando se estava tocando. Também lê a duração aqui, caso o
+  // evento onLoadedMetadata tenha acontecido antes de a página ficar interativa (sem a
+  // duração, a barra ficaria presa no primeiro segundo).
   useEffect(() => {
     const v = ctx?.video.current;
     if (v && v.readyState >= 1 && Number.isFinite(v.duration)) setDuracao(v.duration);
@@ -55,11 +61,12 @@ export function HeroPlaylist({ videos, fallback }: { videos: Media[]; fallback: 
         key={atual.src}
         src={atual.src}
         aria-label={atual.alt}
+        poster={capa}
         className="h-full w-full object-cover"
-        autoPlay
         muted={mudo}
         playsInline
-        preload="auto"
+        preload="none"
+        onClick={ctx.toggle}
         onPlay={() => ctx.setPlaying(true)}
         onPause={() => ctx.setPlaying(false)}
         onEnded={() => setI((n) => (n + 1) % lista.length)}
