@@ -57,7 +57,7 @@ test("links e código de indicação definidos pelo dono", async () => {
   const html = await (await get("/")).text();
   assert.ok(html.includes("https://app.hub.xyz/r/RENDER"), "cadastro na Hub");
   assert.ok(html.includes("https://app.hub.xyz/how-it-works"), "suporte e compatibilidade");
-  assert.ok(html.includes("https://br.shp.ee/yURDpsu6"), "compra online");
+  assert.ok(html.includes("https://s.shopee.com.br/6q1uttV5Bg?share_channel_code=1"), "compra online");
   assert.ok(html.includes("[RENDER]"), "código de indicação");
   assert.ok(!html.includes("RENDACOMIA"), "código antigo não aparece");
 });
