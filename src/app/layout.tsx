@@ -18,8 +18,16 @@ export const metadata: Metadata = {
   title: titulo,
   description: descricao,
   ...(siteUrl ? { metadataBase: new URL(siteUrl), alternates: { canonical: "/" } } : {}),
-  openGraph: { type: "website", locale: "pt_BR", title: titulo, description: descricao, siteName: "Guia Hub + MINUTE" },
-  twitter: { card: "summary", title: titulo, description: descricao },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    title: titulo,
+    description: descricao,
+    siteName: "Guia Hub + MINUTE",
+    ...(siteUrl ? { url: "/" } : {}),
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Guia Hub + MINUTE — Transforme seu celular em uma ferramenta de renda extra" }],
+  },
+  twitter: { card: "summary_large_image", title: titulo, description: descricao, images: ["/og.jpg"] },
   robots: { index: true, follow: true },
   formatDetection: { telephone: false, email: false, address: false },
 };
