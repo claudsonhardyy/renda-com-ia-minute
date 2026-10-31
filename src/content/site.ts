@@ -27,6 +27,7 @@ export type Media = {
   alt: string;
   type?: "image" | "video";
   srcMobile?: string; // versão para celular (opcional), usada em telas menores que 1024 px
+  poster?: string; // vídeos: imagem mostrada antes de a pessoa apertar play (opcional)
 };
 
 export type AppCarouselItem = {
@@ -109,8 +110,8 @@ export const hero = {
   botaoVideo: { pausar: "Pausar vídeo", assistir: "Assistir ao vídeo" },
   // Vídeos da tela do celular (pasta “Vídeo página inicial” do Drive), tocados na ordem 1 → 2
   videos: [
-    { src: "/media/hero-video-1.mp4", alt: "Vídeo 1 do guia Hub + MINUTE", type: "video" },
-    { src: "/media/hero-video-2.mp4", alt: "Vídeo 2 do guia Hub + MINUTE", type: "video" },
+    { src: "/media/hero-video-1.mp4", alt: "Vídeo 1 do guia Hub + MINUTE", type: "video", poster: "/media/hero-video-1-capa.jpg" },
+    { src: "/media/hero-video-2.mp4", alt: "Vídeo 2 do guia Hub + MINUTE", type: "video", poster: "/media/hero-video-2-capa.jpg" },
   ] as Media[],
   // Imagem mostrada na tela do celular se não houver vídeo
   hero_video_or_image: {
