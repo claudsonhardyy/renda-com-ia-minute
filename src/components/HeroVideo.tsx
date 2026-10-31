@@ -38,6 +38,12 @@ export function HeroPlaylist({ videos, fallback }: { videos: Media[]; fallback: 
   // novo for enviado pelo painel, a capa antiga não aparece sobre ele.
   const capa =
     atual?.poster && atual.poster.startsWith(atual.src.replace(/\.[a-z0-9]+$/i, "")) ? atual.poster : undefined;
+  // iPhone/iPad (Safari) só toca MP4 se o servidor entregar o vídeo "em pedaços" (Range/206), e a
+  // hospedagem gratuita da Cloudflare entrega o arquivo inteiro. Para os vídeos padrão do site há
+  // uma versão HLS (public/media/hls/…: o mesmo vídeo, sem recompressão, dividido em partes), que o
+  // Safari toca nativamente. Os outros navegadores continuam usando o MP4. Vídeos enviados pelo
+  // painel não têm HLS e seguem só com o MP4.
+  const hls = /^\/media\/(hero-video-[12])\.mp4$/.exec(atual?.src ?? "")?.[1];
 
   // Ao trocar de vídeo, continua tocando se estava tocando. Também lê a duração aqui, caso o
   // evento onLoadedMetadata tenha acontecido antes de a página ficar interativa (sem a
@@ -59,7 +65,7 @@ export function HeroPlaylist({ videos, fallback }: { videos: Media[]; fallback: 
       <video
         ref={ctx.video}
         key={atual.src}
-        src={atual.src}
+        src={hls ? undefined : atual.src}
         aria-label={atual.alt}
         poster={capa}
         className="h-full w-full object-cover"
@@ -83,7 +89,10 @@ export function HeroPlaylist({ videos, fallback }: { videos: Media[]; fallback: 
           if (!duracao && Number.isFinite(v.duration)) setDuracao(v.duration);
           if (!arrastando.current) setTempo(v.currentTime);
         }}
-      />
+      >
+        {hls && <source src={`/media/hls/${hls}/index.m3u8`} type="application/vnd.apple.mpegurl" />}
+        {hls && <source src={atual.src} type="video/mp4" />}
+      </video>
       {/* Celular/tablet: barra mínima na base do vídeo — tocar/pausar, avançar/voltar arrastando e som */}
       <div className="absolute inset-x-0 bottom-0 flex items-center gap-2 bg-gradient-to-t from-black/75 to-transparent px-2.5 pt-5 pb-2 lg:hidden">
         <button
