@@ -52,6 +52,12 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   // Não anunciar a tecnologia do servidor (cabeçalho X-Powered-By).
   poweredByHeader: false,
+  experimental: {
+    // O estilo do site vai dentro da própria página, em vez de num arquivo .css à parte. Assim o
+    // celular nunca mostra a página "crua" (sem estilo) se esse arquivo demorar ou falhar no
+    // primeiro acesso — como acontecia ao abrir pelo QR code no iPhone. A aparência é a mesma.
+    inlineCss: true,
+  },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },
